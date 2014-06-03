@@ -1,0 +1,159 @@
+body {
+  margin: 0px;
+  background-color: #BBBBBB;
+  font-family: "Proxima Nova Regular","Helvetica Neue",Calibri,"Droid Sans",Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  line-height: 250%;
+  color: #333;
+}
+
+div.outer_box {
+  min-height: 400px;
+  padding: 50px;
+  margin: 0px auto;
+  border: solid #999999 1px;
+  background-color: #FFFFFF;
+}
+
+img.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+h1.title_name {
+  text-align: center;
+}
+
+div.title_spacer {
+  min-height: 20px;
+}
+
+h3.author_name {
+  text-align: center;
+}
+
+p.paragraph_box {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+span.equation_inner {
+  margin: 0px;
+  padding: 0px;
+}
+
+div.equation_box {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+div.section_box {
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+
+h2.section_title {
+  text-align: center;
+}
+
+div.subsection_box {
+  margin-top: 25px;
+  margin-bottom: 40px;
+}
+
+h3.subsection_title {
+  text-align: center;
+}
+
+sup.footnote_mark {
+  color: blue;
+  cursor: pointer;
+}
+
+div.figure_box {
+  background-color: #FFFFFF;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #AAA;
+}
+
+h3.figure_title {
+  text-align: center;
+}
+
+p.figure_caption {
+  margin: 15px;
+}
+
+span.ref_text {
+  color: blue;
+  cursor: pointer;
+}
+
+span.cite_text {
+  color: blue;
+}
+
+span.cite_text a:link {text-decoration:none;}
+span.cite_text a:visited {text-decoration:none;}
+span.cite_text a:hover {text-decoration:none;}
+span.cite_text a:active {text-decoration:none;}
+
+div.footnote_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: #EEE;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+}
+
+div.sec_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: #EEE;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+}
+
+div.eqn_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: #EEE;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+}
+
+div.fig_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: white;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+  -webkit-transform-origin: top left;
+}
+
+div.cite_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: #EEE;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+}

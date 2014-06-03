@@ -1,0 +1,61 @@
+<html>
+
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/ellsworth.js"></script>
+<script type="text/javascript">
+set_macros({
+            fr: ['\\frac{#1}{#2}',2],
+            pr: ['\\left(#1\\right)',1],
+            br: ['\\left[#1\\right]',1],
+            cb: ['\\left\\{#1\\right\\}',1],
+            pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
+            pder: ['\\frac{\\partial #1}{\\partial #2}',2],
+            widebar: ['\\bar{#1}',1]
+           });
+set_environs({
+  fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}']
+});
+set_biblio("sequential_biblio.json");
+</script>
+<script type="text/javascript" src="js/detect.js"></script>
+<script type="text/javascript">includes();</script>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,700,600,300' rel='stylesheet' type='text/css'>
+<title>This is Only a Test</title>
+</head>
+
+<body>
+
+<title>Test Article Prime</title>
+<author affiliation="Penn">Douglas Hanley</author>
+
+<section title="Introduction" label="intro">
+<text>Free text 1</text>
+<equation label="test_eqn_1">x + y = 5</equation>
+<subsection title="Mechansim">
+<text>Free text 2, see <ref label="test_eqn_1"></ref> and <ref label="test_fig"></ref> for info.</text>
+<figure title="Check Out This Clear Trend" caption="This shows some stuff." label="test_fig">
+<imager source="image/image_test.png"></imager>
+</figure>
+<equation label="test_eqn_2">4z + 3 = 22</equation>
+<text>Free text 3, according to <cite label="hopenhayn2006rewarding"></cite> this is valid.</text>
+<fact label="fact_1">All your base are belong to us.</fact>
+<text>See <ref label="test_fig"></ref> and additionally <ref label="test_eqn_2"></ref> for more details. This is in line with <ref label="fact_1"></ref>.</text>
+</subsection>
+</section>
+
+<section title="Results">
+<text>Free text 1, see <ref label="intro"></ref></text>
+<equation label="test_eqn_3">x + y = 5</equation>
+<text>Free text 2, see <ref label="test_eqn_3"></ref> and <ref label="test_fig_2"></ref> for info.</text>
+<figure title="Check Out This Clear Trend" caption="This shows some stuff." label="test_fig_2">
+<imager source="image/image_test.png"></imager>
+</figure>
+<equation label="test_eqn_4">4z + 3 = 22</equation>
+<text>Free text 3, according to <cite label="hopenhayn2006rewarding"></cite> this is valid.</text>
+<text>See <ref label="test_fig_2"></ref> and additionally <ref label="test_eqn_4"></ref> for more details.</text>
+</section>
+
+</body>
+
+</html>

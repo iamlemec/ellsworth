@@ -1,0 +1,402 @@
+{
+  "atkeson2010innovation": {
+    "publisher": "JSTOR",
+    "author": "Atkeson, Andrew and Burstein, Ariel Tom{'a}s",
+    "journal": "Journal of Political Economy",
+    "title": "Innovation, Firm Dynamics, and International Trade",
+    "number": "3",
+    "volume": "118",
+    "year": "2010",
+    "type": "article",
+    "pages": "433--484"
+  },
+  "nelder1965simplex": {
+    "publisher": "Br Computer Soc",
+    "author": "Nelder, John A and Mead, Roger",
+    "journal": "The computer journal",
+    "title": "A Simplex Method For Function Minimization",
+    "number": "4",
+    "volume": "7",
+    "year": "1965",
+    "type": "article",
+    "pages": "308--313"
+  },
+  "grossman1991quality": {
+    "publisher": "Oxford University Press",
+    "author": "Grossman, Gene M and Helpman, Elhanan",
+    "journal": "Review of Economic Studies",
+    "title": "Quality Ladders in the Theory of Growth",
+    "number": "1",
+    "volume": "58",
+    "year": "1991",
+    "type": "article",
+    "pages": "43--61"
+  },
+  "hopenhayn2006rewarding": {
+    "publisher": "JSTOR",
+    "author": "Hopenhayn, Hugo and Llobet, Gerard and Mitchell, Matthew",
+    "journal": "Journal of Political Economy",
+    "title": "Rewarding Sequential Innovators: Prizes, Patents, and Buyouts",
+    "number": "6",
+    "volume": "114",
+    "year": "2006",
+    "type": "article",
+    "pages": "1041--1068"
+  },
+  "powell1970hybrid": {
+    "volume": "7",
+    "author": "Powell, Michael JD",
+    "year": "1970",
+    "journal": "Numerical Methods for Nonlinear Algebraic Equations",
+    "title": "A Hybrid Method For Nonlinear Equations",
+    "type": "article",
+    "pages": "87--114"
+  },
+  "mansfield1984r": {
+    "publisher": "University of Chicago Press",
+    "author": "Mansfield, Edwin",
+    "year": "1984",
+    "booktitle": "R & D, Patents, and Productivity",
+    "title": "R&D and Innovation: Some Empirical Findings",
+    "type": "incollection",
+    "pages": "127--154"
+  },
+  "akcigit2010growth": {
+    "author": "Ufuk Akcigit and William R. Kerr",
+    "series": "Working Paper Series",
+    "title": "Growth Through Heterogeneous Innovations",
+    "number": "16443",
+    "month": "November",
+    "year": "2010",
+    "type": "Working Paper",
+    "institution": "NBER"
+  },
+  "figueroa2013patent": {
+    "author": "Nicolas Figueroa and Carlos J. Serrano",
+    "series": "Working Paper Series",
+    "title": "Patent Trading Flows of Small and Large Firms",
+    "number": "18982",
+    "month": "April",
+    "year": "2013",
+    "type": "Working Paper",
+    "institution": "NBER"
+  },
+  "serrano2010dynamics": {
+    "publisher": "Wiley Online Library",
+    "author": "Serrano, Carlos J",
+    "journal": "RAND Journal of Economics",
+    "title": "The Dynamics of the Transfer and Renewal of Patents",
+    "number": "4",
+    "volume": "41",
+    "year": "2010",
+    "type": "article",
+    "pages": "686--708"
+  },
+  "phillips2013mergers": {
+    "publisher": "Soc Financial Studies",
+    "author": "Phillips, Gordon M and Zhdanov, Alexei",
+    "journal": "Review of Financial Studies",
+    "title": "R&D and the Incentives from Merger and Acquisition Activity",
+    "number": "1",
+    "volume": "26",
+    "year": "2013",
+    "type": "article",
+    "pages": "34--78"
+  },
+  "bessen2009sequential": {
+    "publisher": "Wiley Online Library",
+    "author": "Bessen, James and Maskin, Eric",
+    "journal": "RAND Journal of Economics",
+    "title": "Sequential Innovation, Patents, and Imitation",
+    "number": "4",
+    "volume": "40",
+    "year": "2009",
+    "type": "article",
+    "pages": "611--635"
+  },
+  "scherer1965firm": {
+    "publisher": "JSTOR",
+    "author": "Scherer, Frederic M",
+    "journal": "American Economic Review",
+    "title": "Firm Size, Market Structure, Opportunity, and the Output of Patented Inventions",
+    "number": "5",
+    "volume": "55",
+    "year": "1965",
+    "type": "article",
+    "pages": "1097--1125"
+  },
+  "akcigit2013transfers": {
+    "title": "Buy, Keep or Sell: Economic Growth and the Market for Ideas",
+    "year": "2013",
+    "type": "article",
+    "author": "Akcigit, Ufuk and Celik, Murat A and Greenwood, Jeremy"
+  },
+  "arrow1962economic": {
+    "publisher": "NBER",
+    "author": "Arrow, Kenneth",
+    "year": "1962",
+    "booktitle": "The Rate and Direction of Inventive Activity: Economic and Social Factors",
+    "title": "Economic Welfare and the Allocation of Resources for Invention",
+    "type": "incollection",
+    "pages": "609--626"
+  },
+  "bessen2008patent": {
+    "publisher": "Princeton University Press",
+    "year": "2008",
+    "type": "book",
+    "title": "Patent Failure: How Judges, Bureaucrats, and Lawyers Put Innovators at Risk",
+    "author": "Bessen, James and Meurer, Michael James"
+  },
+  "dykeman2004recording": {
+    "volume": "18",
+    "author": "Dykeman, David and Kopko, Daniel",
+    "year": "2004",
+    "journal": "Intellectual Property Today, August",
+    "title": "Recording Patent License Agreements in the USPTO",
+    "type": "article",
+    "pages": "19"
+  },
+  "pakes1984rate": {
+    "publisher": "University of Chicago Press",
+    "author": "Pakes, Ariel and Schankerman, Mark",
+    "year": "1984",
+    "booktitle": "R & D, Patents, and Productivity",
+    "title": "The Rate of Obsolescence of Patents, Research Gestation Lags, and the Private Rate of Return to Research Resources",
+    "type": "incollection",
+    "pages": "73--88"
+  },
+  "kortum1997research": {
+    "publisher": "Econometric Society",
+    "author": "Kortum, Samuel",
+    "journal": "Econometrica",
+    "title": "Research, Patenting, and Technological Change",
+    "number": "6",
+    "volume": "65",
+    "year": "1997",
+    "type": "article",
+    "pages": "1389--1420"
+  },
+  "boldrin2008against": {
+    "publisher": "Cambridge University Press",
+    "year": "2008",
+    "type": "book",
+    "title": "Against Intellectual Monopoly",
+    "author": "Boldrin, Michele and Levine, David K"
+  },
+  "klette2004innovating": {
+    "author": "Klette, Tor Jakob and Kortum, Samuel",
+    "journal": "Journal of Political Economy",
+    "title": "Innovating Firms and Aggregate Innovation",
+    "number": "5",
+    "volume": "112",
+    "year": "2004",
+    "type": "article",
+    "pages": "986"
+  },
+  "hall2001nber": {
+    "title": "The NBER Patent Citation Data File: Lessons, Insights and Methodological Tools",
+    "year": "2001",
+    "type": "techreport",
+    "institution": "NBER",
+    "author": "Hall, Bronwyn H and Jaffe, Adam B and Trajtenberg, Manuel"
+  },
+  "laitner2013derivative": {
+    "publisher": "Blackwell Publishing Inc",
+    "author": "Laitner, John and Stolyarov, Dmitriy",
+    "journal": "International Economic Review",
+    "title": "Derivative Ideas and the Value of Intangible Assets",
+    "number": "1",
+    "volume": "54",
+    "year": "2013",
+    "type": "article ",
+    "pages": "59--95"
+  },
+  "pakes1980patents": {
+    "publisher": "Elsevier",
+    "author": "Pakes, Ariel and Griliches, Zvi",
+    "journal": "Economics Letters",
+    "title": "Patents and R&D at the Firm Level: A First Report",
+    "number": "4",
+    "volume": "5",
+    "year": "1980",
+    "type": "article",
+    "pages": "377--381"
+  },
+  "aghion2013we": {
+    "author": "Philippe Aghion and Ufuk Akcigit and Peter Howitt",
+    "series": "Working Paper Series",
+    "title": "What Do We Learn From Schumpeterian Growth Theory?",
+    "number": "18824",
+    "month": "February",
+    "year": "2013",
+    "type": "Working Paper",
+    "institution": "NBER"
+  },
+  "graham2013smart": {
+    "publisher": "American Economic Association",
+    "author": "Graham, Stuart and Vishnubhakat, Saurabh",
+    "journal": "Journal of Economic Perspectives",
+    "title": "Of Smart Phone Wars and Software Patents",
+    "number": "1",
+    "volume": "27",
+    "year": "2013",
+    "type": "article",
+    "pages": "67--85"
+  },
+  "aghion1992model": {
+    "author": "Aghion, Philippe and Howitt, Peter",
+    "journal": "Econometrica",
+    "title": "A Model of Growth Through Creative Destruction",
+    "number": "2",
+    "volume": "60",
+    "year": "1992",
+    "type": "article",
+    "pages": "323--351"
+  },
+  "foster2001aggregate": {
+    "publisher": "University of Chicago Press",
+    "author": "Foster, Lucia and Haltiwanger, John C and Krizan, Cornell John",
+    "year": "2001",
+    "booktitle": "New Developments in Productivity Analysis",
+    "title": "Aggregate Productivity Growth: Lessons From Microeconomic Evidence",
+    "type": "incollection",
+    "pages": "303--372"
+  },
+  "lentz2005productivity": {
+    "author": "Lentz, Rasmus and Mortensen, Dale T",
+    "journal": "International Economic Review",
+    "title": "Productivity Growth and Worker Reallocation",
+    "number": "3",
+    "volume": "46",
+    "year": "2005",
+    "type": "article",
+    "pages": "731--749"
+  },
+  "peters2011markups": {
+    "title": "Heterogeneous Mark-Ups and Endogenous Misallocation",
+    "year": "2011",
+    "type": "article",
+    "author": "Peters, Michael"
+  },
+  "davis1998job": {
+    "publisher": "The MIT Press",
+    "year": "1998",
+    "type": "book",
+    "title": "Job Creation and Destruction",
+    "author": "Davis, Steven J and Haltiwanger, John and Schuh, Scott"
+  },
+  "romer1990endogenous": {
+    "publisher": "University of Chicago Press",
+    "author": "Romer, Paul M",
+    "journal": "Journal of Political Economy",
+    "title": "Endogenous Technological Change",
+    "number": "5",
+    "volume": "98",
+    "year": "1990",
+    "type": "article",
+    "pages": "S71--102"
+  },
+  "bloom2009impact": {
+    "publisher": "Wiley Online Library",
+    "author": "Bloom, Nicholas",
+    "journal": "Econometrica",
+    "title": "The Impact of Uncertainty Shocks",
+    "number": "3",
+    "volume": "77",
+    "year": "2009",
+    "type": "article",
+    "pages": "623--685"
+  },
+  "lentz2008empirical": {
+    "publisher": "Wiley Online Library",
+    "author": "Lentz, Rasmus and Mortensen, Dale T",
+    "journal": "Econometrica",
+    "title": "An Empirical Model of Growth Through Product Innovation",
+    "number": "6",
+    "volume": "76",
+    "year": "2008",
+    "type": "article",
+    "pages": "1317--1373"
+  },
+  "green1995division": {
+    "publisher": "The RAND Corporation",
+    "author": "Green, Jerry R and Scotchmer, Suzanne",
+    "journal": "RAND Journal of Economics",
+    "title": "On the Division of Profit in Sequential Innovation",
+    "number": "1",
+    "volume": "26",
+    "year": "1995",
+    "type": "article",
+    "pages": "20--33"
+  },
+  "kortum1993equilibrium": {
+    "publisher": "JSTOR",
+    "author": "Kortum, Samuel",
+    "journal": "American Economic Review",
+    "title": "Equilibrium R&D and the Patent--R&D Ratio: US Evidence",
+    "number": "2",
+    "volume": "83",
+    "year": "1993",
+    "type": "article",
+    "pages": "450--457"
+  },
+  "acemoglu2013innovation": {
+    "author": "Daron Acemoglu and Ufuk Akcigit and Nicholas Bloom and William R. Kerr",
+    "series": "Working Paper Series",
+    "title": "Innovation, Reallocation and Growth",
+    "number": "18993",
+    "month": "April",
+    "year": "2013",
+    "type": "Working Paper",
+    "institution": "NBER"
+  },
+  "griliches1998patent": {
+    "publisher": "University of Chicago Press",
+    "author": "Griliches, Zvi",
+    "year": "1998",
+    "booktitle": "R&D and Productivity: The Econometric Evidence",
+    "title": "Patent Statistics as Economic Indicators: A Survey",
+    "type": "incollection",
+    "pages": "287--343"
+  },
+  "garcia1981pathways": {
+    "publisher": "Prentice-Hall, Englewood Cliffs, NJ",
+    "year": "1981",
+    "type": "misc",
+    "title": "Pathways to Solutions, Fixed Points, and Equilibria",
+    "author": "Zangwill, Willard I and Garcia, CB"
+  },
+  "schankerman1986estimates": {
+    "publisher": "JSTOR",
+    "author": "Schankerman, Mark and Pakes, Ariel",
+    "journal": "Economic Journal",
+    "title": "Estimates of the Value of Patent Rights in European Countries During the Post-1950 Period",
+    "number": "384",
+    "volume": "96",
+    "year": "1986",
+    "type": "article",
+    "pages": "1052--1076"
+  },
+  "pakes1986patents": {
+    "publisher": "Econometric Society",
+    "author": "Pakes, Ariel S",
+    "journal": "Econometrica",
+    "title": "Patents as Options: Some Estimates of the Value of Holding European Patent Stocks",
+    "number": "4",
+    "volume": "54",
+    "year": "1986",
+    "type": "article",
+    "pages": "755--84"
+  },
+  "luttmer2011mechanics": {
+    "publisher": "Oxford University Press",
+    "author": "Luttmer, Erzo GJ",
+    "journal": "Review of Economic Studies",
+    "title": "On the Mechanics of Firm Growth",
+    "number": "3",
+    "volume": "78",
+    "year": "2011",
+    "type": "article",
+    "pages": "1042--1068"
+  }
+}

@@ -1,0 +1,189 @@
+body {
+  margin: 20px;
+  /*background-color: #BBBBBB;*/
+  background-color: #eaeff2;
+  background-image: url(/ellsworth_html/image/header-background.png);
+  background-repeat: repeat;
+  font-family: "Open Sans",sans-serif;
+  color: #333;
+}
+
+div.outer_box {
+  min-height: 400px;
+  width: 650px;
+  padding: 30px;
+  margin: 0px auto;
+  border: solid #BBB 1px;
+  background-color: #FFF;
+}
+
+img.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+h1.title_name {
+  text-align: center;
+  font-weight: 600;
+}
+
+div.title_spacer {
+  min-height: 20px;
+}
+
+h3.author_name {
+  text-align: center;
+  font-weight: 600;
+}
+
+p.paragraph_box {
+  line-height: 160%;
+  margin-bottom: 20px;
+}
+
+div.equation_box {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: table;
+  width: 100%;
+}
+
+div.equation_inner {
+  display: table-cell;
+  width: 100%;
+}
+
+div.equation_number {
+  width: 5%;
+}
+
+div.section_box {
+  margin-top: 40px;
+  margin-bottom: 0px;
+}
+
+h2.section_title {
+  text-align: center;
+  font-weight: 400;
+}
+
+div.subsection_box {
+  margin-top: 40px;
+  margin-bottom: 0px;
+}
+
+h3.subsection_title {
+  text-align: center;
+  font-weight: 400;
+}
+
+sup.footnote_mark {
+  color: blue;
+  cursor: pointer;
+}
+
+div.figure_box {
+  background-color: #FFF;
+  border-style: solid;
+  border-width: 0px;
+  border-color: #CCC;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+h3.figure_title {
+  text-align: center;
+  font-weight: 600;
+}
+
+p.figure_caption {
+  margin: 15px;
+}
+
+span.ref_text {
+  color: blue;
+  cursor: pointer;
+}
+
+span.cite_text {
+  color: blue;
+  cursor: pointer;
+}
+
+span.cite_text a:link {text-decoration:none;}
+span.cite_text a:visited {text-decoration:none;}
+span.cite_text a:hover {text-decoration:none;}
+span.cite_text a:active {text-decoration:none;}
+
+div.footnote_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: #EEE;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+}
+
+div.sec_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: #EEE;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+}
+
+div.eqn_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: #EEE;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+}
+
+div.fig_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: white;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+  -webkit-transform-origin: top left;
+}
+
+div.cite_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: #EEE;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+}
+
+div.popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: #EEE;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+  font-weight: normal;
+}
