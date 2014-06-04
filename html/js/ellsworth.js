@@ -13,6 +13,11 @@ function set_environs(e) {
   environs = e;
 }
 
+var replacements;
+function set_replacements(r) {
+  replacements = r;
+}
+
 String.prototype.format_dict = function(dict) {
   return this.replace(/{(.+?)}/g, function(match,key) {
     return (typeof(dict[key])!='undefined') ? dict[key] : key;
@@ -87,7 +92,6 @@ jQuery(document).ready(function($) {
   outer_box = $("div.outer_box");
 
   // make title
-
   $("body title").each( function () {
     title = $(this);
     h1text = $("<h1>",{html:title.html(),class:"title_name"});
@@ -166,7 +170,7 @@ jQuery(document).ready(function($) {
 
   // image is taken for whatever reason
   $("imager").replaceWith(function () {
-    return $("<img>",{src:$(this).attr("source"),class:"centered"});
+    return $("<img>",{src:$(this).attr("source"),class:"centered slim"});
   });
 
   $("figure").replaceWith(function () {
@@ -185,6 +189,32 @@ jQuery(document).ready(function($) {
     }
     return div;
   });
+
+  $("enumerate").replaceWith(function () {
+    var enumer = $(this);
+    var div = $("<div>",{class:"enumerate_box",n_items:0});
+    div.append(enumer.children());
+    return div;
+  });
+
+  $("div.enumerate_box>item").replaceWith(function () {
+    var item = $(this);
+    parent = item.parent("div.enumerate_box");
+    item_num = Number(parent.attr("n_items"))+1;
+    parent.attr("n_items",item_num);
+    var div = $("<div>",{class:"item_box",html:item_num+". "+item.html()});
+    return div;
+  });
+
+  // simple replacements - these go first so table environments will work
+  for (rep in replacements) {
+    $(rep).replaceWith(function () {
+      elem = $(this);
+      tag = replacements[rep];
+      div = $("<"+tag+">",{html:elem.html()});
+      return div;
+    })
+  }
 
   // do replacements for custom environments
   n_environs = {};
@@ -228,19 +258,25 @@ jQuery(document).ready(function($) {
       } else {
         found = false;
         for (env in environs) {
-          rule = environs[env]
-          reference = rule[1];
-          tip = rule[2];
-          if ((div=$("div."+env+"_box[label="+label+"]")).length) {
-            attrib = get_attributes(div);
-            attrib['html'] = div.html();
-            span.html(reference.format_dict(attrib));
-            if (tip.length) {
-              var popup = $("<div>",{class:"popup "+env+"_popup",html:tip.format_dict(attrib)});
-              attach_popup(span,popup);
+          rule = environs[env];
+          if (rule.length > 1) {
+            reference = rule[1];
+            if (rule.length > 2) {
+              tip = rule[2];
+            } else {
+              tip = '';
             }
-            found = true;
-            break;
+            if ((div=$("div."+env+"_box[label="+label+"]")).length) {
+              attrib = get_attributes(div);
+              attrib['html'] = div.html();
+              span.html(reference.format_dict(attrib));
+              if (tip.length) {
+                var popup = $("<div>",{class:"popup "+env+"_popup",html:tip.format_dict(attrib)});
+                attach_popup(span,popup);
+              }
+              found = true;
+              break;
+            }
           }
         }
         if (!found) {

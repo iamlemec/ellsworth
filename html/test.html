@@ -3,24 +3,28 @@
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="js/ellsworth.js"></script>
+<script type="text/javascript" src="js/detect.js"></script>
+<script type="text/javascript">includes();</script>
 <script type="text/javascript">
 set_macros({
-            fr: ['\\frac{#1}{#2}',2],
-            pr: ['\\left(#1\\right)',1],
-            br: ['\\left[#1\\right]',1],
-            cb: ['\\left\\{#1\\right\\}',1],
-            pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
-            pder: ['\\frac{\\partial #1}{\\partial #2}',2],
-            widebar: ['\\bar{#1}',1]
-           });
+  fr: ['\\frac{#1}{#2}',2],
+  pr: ['\\left(#1\\right)',1],
+  br: ['\\left[#1\\right]',1],
+  cb: ['\\left\\{#1\\right\\}',1],
+  pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
+  pder: ['\\frac{\\partial #1}{\\partial #2}',2],
+  widebar: ['\\bar{#1}',1]
+});
 set_environs({
-  fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}']
+  fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
+  proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
+  proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}'],
+  table: ['<div class="table_box"><h3 class="table_title">Table {number}: {title}</h3><table class="dataframe">{content}</table></div>','Table {number}','{html}']
 });
 set_biblio("sequential_biblio.json");
 </script>
-<script type="text/javascript" src="js/detect.js"></script>
-<script type="text/javascript">includes();</script>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,700,600,300' rel='stylesheet' type='text/css'>
+<link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,700,600,300'>
+<link type='text/css' rel='stylesheet' href='css/environ.css'>
 <title>This is Only a Test</title>
 </head>
 
@@ -41,6 +45,23 @@ set_biblio("sequential_biblio.json");
 <text>Free text 3, according to <cite label="hopenhayn2006rewarding"></cite> this is valid.</text>
 <fact label="fact_1">All your base are belong to us.</fact>
 <text>See <ref label="test_fig"></ref> and additionally <ref label="test_eqn_2"></ref> for more details. This is in line with <ref label="fact_1"></ref>.</text>
+<table title="Useless Statistics" label="useless_stats">
+<thead>
+<tr><td>Column 1</td><td>Column 2</td></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>2</td></tr>
+<tr><td>3</td><td>4</td></tr>
+</tbody>
+</table>
+<text>Yepppp</text>
+<enumerate>
+<item>Remove non-corporate entities</item>
+<item>Drop corporate name identifiers and common English words</item>
+<item>Group and standardizing suspected acronyms</item>
+<item>Construct a similarity score basic on token and positional information for each pair of names</item>
+<item>Group names by a given cutoff similarity score</item>
+</enumerate>
 </subsection>
 </section>
 
@@ -53,7 +74,7 @@ set_biblio("sequential_biblio.json");
 </figure>
 <equation label="test_eqn_4">4z + 3 = 22</equation>
 <text>Free text 3, according to <cite label="hopenhayn2006rewarding"></cite> this is valid.</text>
-<text>See <ref label="test_fig_2"></ref> and additionally <ref label="test_eqn_4"></ref> for more details.</text>
+<text>See <ref label="test_fig_2"></ref> and additionally <ref label="test_eqn_4"></ref> for more details. Confer with <ref label="useless_stats"></ref></text>
 </section>
 
 </body>

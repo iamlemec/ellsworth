@@ -15,3 +15,7 @@ div.proof_box {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+div.table_popup {
+  background-color: white;
+}

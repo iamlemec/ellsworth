@@ -1,6 +1,5 @@
 body {
   margin: 20px;
-  /*background-color: #BBBBBB;*/
   background-color: #eaeff2;
   background-image: url(/ellsworth_html/image/header-background.png);
   background-repeat: repeat;
@@ -25,6 +24,11 @@ img.centered {
   margin-bottom: 20px;
 }
 
+img.slim {
+  width: 540px;
+  height: auto;
+}
+
 h1.title_name {
   text-align: center;
   font-weight: 600;
@@ -41,7 +45,7 @@ h3.author_name {
 
 p.paragraph_box {
   line-height: 160%;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 div.equation_box {
@@ -57,7 +61,8 @@ div.equation_inner {
 }
 
 div.equation_number {
-  width: 5%;
+  display: table-cell;
+  width: 10%;
 }
 
 div.section_box {
@@ -103,6 +108,47 @@ h3.figure_title {
 
 p.figure_caption {
   margin: 15px;
+}
+
+div.table_box {
+  background-color: #FFF;
+  border-style: solid;
+  border-width: 0px;
+  border-color: #CCC;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+h3.table_title {
+  text-align: center;
+  font-weight: 600;
+}
+
+table.dataframe {
+  min-width: 300px;
+  margin-left:auto;
+  margin-right:auto;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+table.dataframe td {
+  padding: 5px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+table.dataframe thead td {
+  border: 1px solid black;
+  font-weight: 600;
+}
+
+div.item_box {
+  padding-left: 20px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 span.ref_text {
