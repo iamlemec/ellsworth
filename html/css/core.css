@@ -1,19 +1,12 @@
 body {
-  margin: 20px;
-  background-color: #eaeff2;
-  background-image: url(/ellsworth_html/image/header-background.png);
-  background-repeat: repeat;
   font-family: "Open Sans",sans-serif;
   color: #333;
 }
 
 div.outer_box {
-  min-height: 400px;
   width: 650px;
-  padding: 30px;
+  padding: 50px;
   margin: 0px auto;
-  border: solid #BBB 1px;
-  background-color: #FFF;
 }
 
 img.centered {
@@ -49,20 +42,21 @@ p.paragraph_box {
 }
 
 div.equation_box {
+  display: table;
   margin-top: 20px;
   margin-bottom: 20px;
-  display: table;
   width: 100%;
 }
 
 div.equation_inner {
-  display: table-cell;
-  width: 100%;
+ display: table-cell;
 }
 
 div.equation_number {
   display: table-cell;
-  width: 10%;
+  vertical-align: middle;
+  width: 20px;
+  color: red;
 }
 
 div.section_box {
@@ -91,10 +85,6 @@ sup.footnote_mark {
 }
 
 div.figure_box {
-  background-color: #FFF;
-  border-style: solid;
-  border-width: 0px;
-  border-color: #CCC;
   margin-top: 30px;
   margin-bottom: 30px;
   margin-left: 15px;
@@ -111,10 +101,6 @@ p.figure_caption {
 }
 
 div.table_box {
-  background-color: #FFF;
-  border-style: solid;
-  border-width: 0px;
-  border-color: #CCC;
   margin-top: 30px;
   margin-bottom: 30px;
   margin-left: 15px;
@@ -128,8 +114,8 @@ h3.table_title {
 
 table.dataframe {
   min-width: 300px;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
   border-collapse: collapse;
   border: 1px solid black;
 }
@@ -160,11 +146,6 @@ span.cite_text {
   color: blue;
   cursor: pointer;
 }
-
-span.cite_text a:link {text-decoration:none;}
-span.cite_text a:visited {text-decoration:none;}
-span.cite_text a:hover {text-decoration:none;}
-span.cite_text a:active {text-decoration:none;}
 
 div.footnote_popup {
   display: none;

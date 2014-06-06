@@ -18,10 +18,10 @@ function detectMobile()
 function getCSS()
 {
   if (detectMobile()) {
-    mathjax_scale = 200;
+    mathjax_scale = 100;
     return "css/mobile.css";
   } else {
-    mathjax_scale = 80;
+    mathjax_scale = 86;
     return "css/core.css";
   }
 }

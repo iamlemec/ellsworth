@@ -162,8 +162,10 @@ jQuery(document).ready(function($) {
     if (eqn.attr("label")) {
       div.eqn_num = n_equations++;
       equations[eqn.attr("label")] = div;
-      var num_div = $("<div>",{class:"equation_number",html:"("+div.eqn_num+")"});
-      div_box.append(num_div);
+      var opp_div = $("<div>",{class:"equation_number"});
+      div.before(opp_div);
+      var num_div = $("<div>",{class:"equation_number",html:div.eqn_num});
+      div.after(num_div);
     }
     return div_box;
   });
@@ -288,10 +290,28 @@ jQuery(document).ready(function($) {
   });
 
   // MathJax configure
+  // $.getScript(MathJaxURL, function() {
+  //   MathJax.Hub.Config({
+  //     config: ["MMLorHTML.js"],
+  //     jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML"],
+  //     "HTML-CSS": {
+  //       scale: mathjax_scale
+  //     },
+  //     tex2jax: {
+  //       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+  //       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+  //     },
+  //     extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js"],
+  //     TeX: {
+  //       extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+  //       Macros: macros
+  //     }
+  //   });
+  // });
+
   $.getScript(MathJaxURL, function() {
     MathJax.Hub.Config({
-      config: ["MMLorHTML.js"],
-      jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML"],
+      jax: ["input/TeX","output/HTML-CSS"],
       "HTML-CSS": {
         scale: mathjax_scale
       },
@@ -299,7 +319,7 @@ jQuery(document).ready(function($) {
         inlineMath: [ ['$','$'], ["\\(","\\)"] ],
         displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       },
-      extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js"],
+      extensions: ["tex2jax.js"],
       TeX: {
         extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
         Macros: macros
