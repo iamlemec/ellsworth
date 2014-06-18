@@ -2,26 +2,25 @@
 
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="js/detect.js"></script>
-<script type="text/javascript">includes();</script>
-<script type="text/javascript" src="js/ellsworth.js"></script>
+<script type="text/javascript" src="/js/ellsworth.js"></script>
 <script type="text/javascript">
-set_macros({
-  fr: ['\\frac{#1}{#2}',2],
-  pr: ['\\left(#1\\right)',1],
-  br: ['\\left[#1\\right]',1],
-  cb: ['\\left\\{#1\\right\\}',1],
-  pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
-  pder: ['\\frac{\\partial #1}{\\partial #2}',2],
-  widebar: ['\\bar{#1}',1]
+EllsworthConfig({
+  macros: {
+    fr: ['\\frac{#1}{#2}',2],
+    pr: ['\\left(#1\\right)',1],
+    br: ['\\left[#1\\right]',1],
+    cb: ['\\left\\{#1\\right\\}',1],
+    pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
+    pder: ['\\frac{\\partial #1}{\\partial #2}',2],
+    widebar: ['\\bar{#1}',1]
+  },
+  environs: {
+    fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
+    proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
+    proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
+  },
+  biblio: "sequential_biblio.json"
 });
-set_environs({
-  fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
-  proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
-  proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}'],
-  table: ['<div class="table_box"><h3 class="table_title">Table {number}: {title}</h3><table class="dataframe">{content}</table></div>','Table {number}','{html}']
-});
-set_biblio("sequential_biblio.json");
 </script>
 <link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,700,600,300'>
 <link type='text/css' rel='stylesheet' href='css/environ.css'>
@@ -31,8 +30,11 @@ set_biblio("sequential_biblio.json");
 
 <body>
 
+<header>
 <title>Innovation, Technological Interdependence, and Economic Growth</title>
 <author affiliation="Penn">Douglas Hanley</author>
+<abstract>There is substantial heterogeneity across industries in the level of interdependence between new and old technologies. I propose a measure of this interdependence&mdash;an <i>index of sequentiality</i> in innovation&mdash;which is the transfer rate of patents in a particular industry. I find that highly sequential industries have higher profitability, higher variance of firm growth, lower exit rates, and lower rates of patent expiry. To better understand these trends, I construct a model of firm dynamics where the productivity of firms evolves endogenously through innovations. New innovators either replace existing technologies or must purchase the rights to existing technologies from incumbents in order to produce, depending on the level of sequentiality in the industry. Estimating the model using data on US firms and recent data on US patent transfers, I can account for a large fraction of the cross-industry trends described above. Because innovation results in larger monopoly distortions in more sequential industries, there is an overinvestment of research inputs into these industries. This misallocation, which amounts to $2.5\%$ in consumption equivalent terms, can be partially remedied using a patent policy featuring weaker protection in more sequential industries, producing welfare gains of $1.7\%$.</abstract>
+</header>
 
 <section title="Introduction">
 
@@ -78,7 +80,7 @@ set_biblio("sequential_biblio.json");
 
 <text>To enrich the data on patent grants, I also use data on the payment of patent maintenance fees. Firms must pay fees to the US patent office after $4$, $8$, and $12$ years from the time of granting. If these fees are not paid, the patent expires permanently. If a patent is maintained through the initial $12$ year period, it remains valid until $20$ years from its filing date.<footnote>Traditionally, the maximum patent length was $17$ years from the grant date. The $1994$ Uruguay Round Agreements Act changed this to the above criterion. See <cite label="graham2013smart"></cite> for a review of the relevant statutes.</footnote> This data thus gives discretized information on the active lifespan of a patent. In total, $35\%$ of patents expire after $8$ years, while $48\%$ make it to the natural expiry date. Using the data on patent expiration gives us fairly direct information on the rate of patent obsolescence and hence a window into the level of product market competition faced by firms. Using this in conjunction with the data on patent transfers helps us understand the importance of sequential innovation and its impact on firm dynamics and the incentives to innovate.</text>
 
-<text>To register a patent reassignment with the USPTO, a firm must pay a one-time $\$40$ flat fee. The bulk of the cost is likely to be found in simply filling out the paperwork. Firms already incur legal fees to arrange the contracts for the transfer deals, so going the extra step to register with the patent office is probably not a huge effort. Patent maintenance fees are slightly higher but still not large compared to the common estimates of patent value in the literature. Some studies, such as <cite label="pakes1986patents"></cite>, <cite label="pakes1984rate"></cite>, and <cite label="bessen2008patent"></cite>, have used patent renewal patterns to estimate the distribution of patent valuations. A survey by <cite label="griliches1998patent"></cite> reports that various studies found a highly skewed distribution of patent valuations, with mean valuation estimates in the hundreds of thousands of current US dollars, and an obsolescence rate of between $10\%$ and $20\%$ per year.  The fees required for renewal at $4$, $8$, and $12$ years are $\$1600$, $\$3600$, and $\$7200$, respectively. These fees are cut in half for small entities (less than $500$ employees), and halved again for ``micro entities'' (targeted towards individual inventors). This self-reported size information provides useful data on the actual size of particular patenting firms. <cite label="figueroa2013patent"></cite> utilize this to study the relationship between firm size and patent transferring activity.</text>
+<text>To register a patent reassignment with the USPTO, a firm must pay a one-time $\$40$ flat fee. The bulk of the cost is likely to be found in simply filling out the paperwork. Firms already incur legal fees to arrange the contracts for the transfer deals, so going the extra step to register with the patent office is probably not a huge effort. Patent maintenance fees are slightly higher but still not large compared to the common estimates of patent value in the literature. Some studies, such as <cite label="pakes1986patents"></cite>, <cite label="pakes1984rate"></cite>, and <cite label="bessen2008patent"></cite>, have used patent renewal patterns to estimate the distribution of patent valuations. A survey by <cite label="griliches1998patent"></cite> reports that various studies found a highly skewed distribution of patent valuations, with mean valuation estimates in the hundreds of thousands of current US dollars, and an obsolescence rate of between $10\%$ and $20\%$ per year.  The fees required for renewal at $4$, $8$, and $12$ years are $\$1600$, $\$3600$, and $\$7200$, respectively. These fees are cut in half for small entities (less than $500$ employees), and halved again for "micro entities" (targeted towards individual inventors). This self-reported size information provides useful data on the actual size of particular patenting firms. <cite label="figueroa2013patent"></cite> utilize this to study the relationship between firm size and patent transferring activity.</text>
 
 <text>An important consideration is the possibility that firms license the patents of other firms rather than buying them outright. Firms are required to register patent sales or transfers in order to retain patent rights for a particular technology. However, there is no such requirement for patent licensing, which is regulated by state law in the US.<footnote>See <cite label="dykeman2004recording"></cite> for an overview of the relevant statutes and case law.</footnote> Approximately $1\%$ of patent transfer entries list licensing as the documented activity, though this cannot be guaranteed to be a complete record. Looking across industries, there is no systematic variation in this fraction of reported licensing activity.</text>
 
@@ -93,7 +95,7 @@ set_biblio("sequential_biblio.json");
 <fact label="fact_transfer_expiry">There is a negative correlation between patent transfer rates and patent expiry rates across industries.</fact>
 
 <figure title="Transfer--Expiry Relationship" caption="Relationship between patent transfer and expiry. Red line: WLS regression $\beta = -0.33$. Correlation is $\rho=-0.34$." label="transfer_expiry">
-<imager source="image/transfer_expiry.svg"></imager>
+<media source="image/transfer_expiry.svg"></media>
 </figure>
 
 <text>The transfer rate is the fraction of patents granted in the data window that are transferred in their lifetime, while the expiry rate is the fraction of patents granted in the data window that are not renewed after the first eight-year window and hence expire. The extent of the negative relationship is portrayed in <ref label="transfer_expiry"></ref>. This trend highlights a central feature of the model proposed herein, namely that industries with innovation that is more sequential in nature will see higher transfer rates due to higher levels of technological interdependence and lower levels of creative destruction for the same reason.</text>
@@ -101,7 +103,7 @@ set_biblio("sequential_biblio.json");
 <fact label="fact_transfer_profit">There is a positive correlation between patent transfer rates and firm profitability across industries.</fact>
 
 <figure title="Transfer--Profitability Relationship" caption="Relationship between patent transfer and median profitability. Red line: WLS regression $\beta = 3.85$. Correlation is $\rho=0.40$." label="transfer_profit">
-<imager source="image/transfer_profit.svg"></imager>
+<media source="image/transfer_profit.svg"></media>
 </figure>
 
 <text>Here I calculate the firm-level profitability as the ratio of revenue to the cost of goods sold, as given in the Compustat data. This excludes operating costs and allows us to look purely at variable cost relationships, which are a primary variable of interest in quality ladder models. I then look at the median value within each industry. Intuitively speaking, we would expect that industries with high transfer rates see more aggregation of monopoly power and less reduction through creative destruction (from <ref label="fact_transfer_expiry"></ref>). This then leads to higher markups over cost being charged and higher profitability. This trend is portrayed in <ref label="transfer_profit"></ref>. Looking at the relationship between log return on sales and transfer rate yields a similar trend, though with more noise on account of sales being in the denominator.</text>
@@ -109,7 +111,7 @@ set_biblio("sequential_biblio.json");
 <fact label="fact_transfer_growthstd">The variance of firm growth rates is positively correlated with patent transfer rates across industries.</fact>
 
 <figure title="Transfer--Growth Volatility Relationship" caption="Relationship between patent transfer rate and growth volatility. Red line: WLS regression $\beta = 0.21$. Correlation is $\rho=0.19$.">
-<imager source="image/transfer_growthstd.svg"></imager>
+<media source="image/transfer_growthstd.svg"></media>
 </figure>
 
 <text>Here the variance of firm growth is calculated using a number of common firm size statistics, including patent stock, employment level, and earnings. Regardless of the metric used, industries with higher transfer rates display higher variance in firm growth rates. One mechanism that could generate this trend is that patent transfers allow higher quality firms to grow faster at the expense of lower quality firms. Furthermore, because of lower levels of creative destruction present in industries with higher transfer rates, larger firms are also more able to protect their market share, thus widening the gap further between the performance of high and low quality firms. The fact that this gap is larger in industries with higher transfer rates leads to a higher variance of firm growth in these industries. In order to account for this potentially being driven by level differences, due to certain sectors growing or shrinking in the aggregate, I look at the variance of log growth rates within industry. Using this measure, changes in industry size will come out as a common additive factor for each firm and thus will not affect the computed variance.</text>
@@ -117,7 +119,7 @@ set_biblio("sequential_biblio.json");
 <fact label="fact_transfer_extied"> There is a negative correlation between firm exit rates and patent transfer rates across industries.</fact>
 
 <figure title="Transfer--Exit Rate Relationship" caption="Relationship between patent transfer rate and five-year exit rate. Red line: WLS regression $\beta = -0.26$. Correlation is $\rho=-0.16$.">
-<imager source="image/transfer_exited.svg"></imager>
+<media source="image/transfer_exited.svg"></media>
 </figure>
 
 <text>In line with <ref label="fact_transfer_expiry"></ref>, interpreting lower expiry rates as indicating lower rates of creative destruction, one would also expect lower exit rates in industries with high transfer rates. This is indeed born out in the data, where exiting from the sample of patenting firms is taken to occur when a firm no longer displays any patenting activity.</text>
@@ -125,7 +127,7 @@ set_biblio("sequential_biblio.json");
 <fact label="fact_transfer_young"> Patent transfers are directed primarily toward young and small firms. Firms aged less than $10$ years account for only $14\%$ of the patent stock, while receiving approximately $57\%$ of patent transfers.</fact>
 
 <figure title="Age/Size Cumulative Fractions" caption="Cumulative fractions of patenting activity by firm age and size (patent stock).">
-<imager source="image/age_size_cumfrac.svg"></imager>
+<media source="image/age_size_cumfrac.svg"></media>
 </figure>
 
 <text>Small and young firms account for a disproportionate share of patent transfer receipts relative to their size. The size distribution of firms is highly skewed. Therefore small and young firms will invariably constitute a relatively small fraction of the patent stock. The analogous numbers to those presented in the fact above for firms below the $80^{\text{th}}$ size percentile are that they account for $11\%$ of the patent stock and $36\%$ of patent receipts. This figure is still disproportionate in terms of firm size but not nearly as much as that for firm age. Looking at patent filings and patent transfer origination, we see similar but less extreme trends. Young firms account for $30\%$ of filings and $33\%$ of originations. The analogous figures for small firms are $19\%$ of filings and $29\%$ of originations.</text>
@@ -143,7 +145,7 @@ set_biblio("sequential_biblio.json");
 <fact label="fact_transfer_citation"> The internal citation rate is uncorrelated with transfer rates, while the external citation rate is highly correlated with transfer rates across industries.</fact>
 
 <figure title="Transfer--External Citation Relationship" caption="Relationship between patent transfer and external citations. Red line: WLS regression $\beta = 44.1$. Correlation is $\rho=0.49$." label="figure_transfer_extcite">
-<imager source="image/transfer_extcite.svg"></imager>
+<media source="image/transfer_extcite.svg"></media>
 </figure>
 
 <text>The data on citations show that the average number of citations per patent is higher in more sequential fields. Breaking these citations down into those that cite within firm and those that cite other firms, we see that internal citations are not related to industry sequentiality, while external citations are strongly related. This is consistent with the notion that technological dependency is the primary determinant of whether a new innovator must purchase the rights to existing ideas in the field. I use two measures of internal/external citations classification in this instance, both of which display the same trends across industries. First, I simply look at the aggregate number of internal and external citations per patent by industry. Second, I follow <cite label="akcigit2010growth"></cite> in classifying a patent as internally oriented if more than $50\%$ of its citations are self-directed. Regardless of the measure used, I observe the trends noted above, as portrayed in <ref label="figure_transfer_extcite"></ref>.</text>
@@ -610,7 +612,7 @@ In practice, one can deal in the limit where $M\rightarrow\infty$, using a conti
 <text>With these estimates in hand, we can evaluate the ability of the model to match the cross-industry and firm-level trends outlined in the data section. <ref label="figure_crossind_predictions"></ref> documents the model's qualitative success in reproducing four of the the major cross-industry trends seen in the data. In each pane, the variable of interest is plotted at the industry level against the sequentiality for that industry, which is simply the fraction of patents that are transferred in their lifetime. This measure is used so as to most closely match the facts presented in the data section and varies monotonically with the underlying theoretical sequentiality parameter $\alpha$. The median profitability, firm growth, and exit rate figures are the result of simulations and so have noise associated with each point, but the magnitude of this noise is not enough to obscure the evident trends.</text>
 
 <figure title="Cross-Industry Predictions" label="figure_crossind_predictions">
-<imager source="image/crossind_predictions.svg"></imager>
+<media source="image/crossind_predictions.svg"></media>
 </figure>
 
 <text>To get an idea of the quantitative match of the model with regards to these trends, the average level of each variable over all industries in the data and in simulations is given in <ref label="table_industry_means"></ref>. The expiry rate and firm growth volatility are both matched well, while the profitability and exit rate figures are both not matched entirely. The profitability figure, though targeted at the economy-wide level, is grouped by industry and can thus be different due to aggregation effects. The exit rate may reflect asymmetries between entry and exit that are not present in the model, which features only entry of and exit by one-product firms. In the data, though entering firms are generally quite small, large firms may exit or cease to exist due to mergers. The framework used here implicitly categorizes innovations in to internal, sequential, and independent types. By targeting patent transfers and internal citation rates, the close alignment of the data here further supports the notion that sequential innovation is reflected in patent transfers, while independent innovation is reflected in patent expiry.</text>
@@ -630,7 +632,7 @@ In practice, one can deal in the limit where $M\rightarrow\infty$, using a conti
 <text>Having analyzed the levels of each of the four variables of interest here, I now study the variation across industries. To assess the amount of variation across industries in the various quantities, I perform a weighted least squares regression on sequentiality (the rate of patent transfer) and look at the predicted effect of moving between the mean plus or minus one standard deviation, as normalized by the mean value for that particular quantity. Comparing the values given by this metric for both the data and the simulated model, I can assess the predictive power of the model. It is important to note that though the variation in sequentiality was targeted, variation in the other quantities has not been, meaning these implications come purely from the model structure. Using this metric, the model can account for approximately $65\%$ of the variation in profitability (return on sales), $26\%$ of the variation in firm growth volatility (employment), and $40\%$ of the variation in exit rates. Meanwhile, the level of variation in expiry rates is overpredicted by the model. In <ref label="figure_crossind_variation"></ref>, I plot the proportional variation for each quantity. Both the data and model generated numbers are normalized by their respective mean values, as is the regression line for the data.</text>
 
 <figure title="Cross-Industry Variation" label="figure_crossind_variation">
-<imager source="image/crossind_variation.svg"></imager>
+<media source="image/crossind_variation.svg"></media>
 </figure>
 
 <text><ref label="figure_crossind_eqvars"></ref> depicts a number of equilibrium variables of interest as they vary with industry sequentiality. Of particular interest in this framework is the effect of industry sequentiality on the incentives to innovate and the resulting innovation rates. The effect on external innovation is <i>ex ante</i> ambiguous due to the existence of two opposing forces on the expected product line valuation. The results of the estimate indicate a negative effect of sequentiality on the the rate of external innovation, with the effect being larger for high type firms. To understand this result, consider the time profile of returns delivered by an innovation. In non-sequential industries, the payoff is large early on but is cut off relatively soon due to creative destruction. Meanwhile, in highly sequential industries, the initial payoff is smaller, but there are ongoing payouts from future sequential innovations. Even if the total payout is similar in these two cases, a firm only captures a fraction of this surplus through bargaining, thus back-loaded incentives in highly sequential industries result in lower innovation rates.</text>
@@ -638,7 +640,7 @@ In practice, one can deal in the limit where $M\rightarrow\infty$, using a conti
 <text>As expected theoretically, internal innovation rates rise with sequentiality due to the reduced threat of creative destruction in more sequential industries. The n-shaped dependence of the average firm type on sequentiality is somewhat unexpected. One would anticipate that high type firms would face the largest drops in product loss rates moving to more sequential industries, which is indeed the case. However, this effect is eventually overwhelmed by the disproportionate drop in high type external innovation rates. Finally, the level of monopoly distortion ($\Delta$) on a per-industry basis is shown. As would be expected, this rises with sequentiality, as a result of the agglomeration of larger patent portfolios by firms.</text>
 
 <figure title="Cross-Industry Equilibrium Variables" label="figure_crossind_eqvars">
-<imager source="image/crossind_eqvars.svg"></imager>
+<media source="image/crossind_eqvars.svg"></media>
 </figure>
 
 <text>Now consider the aggregate trends in the economy. The following table summarizes the growth contributions of entrants, external innovation, and internal innovation.</text>
@@ -658,7 +660,7 @@ In practice, one can deal in the limit where $M\rightarrow\infty$, using a conti
 <text>As noted previously, introducing firm types into such a model naturally allows us to consider the potential effects of sequentiality on reallocation. Entering firms start out with a particular fraction of high-type firms ($\zeta = 58\%$). Over time the surviving firms decay at rate $\nu = 13\%$. High type firms have a higher survival probability, so the distribution over type by firm age exceeds the simple case of exponential decay. The transfer direction parameter dictates that when firms of like type transfer patents, the innovator becomes the eventual owner in $73\%$ of cases. Using the respective shares high type and low type products, this implies that overall a high type innovator assumes final ownership in $96\%$ of cases, while the same number for low types is $61\%$, and the overall number is $76\%$.</text>
 
 <figure title="Equilibrium Distributions" label="figure_distributions">
-<imager source="image/markup_translag_dists.svg"></imager>
+<media source="image/markup_translag_dists.svg"></media>
 </figure>
 
 <text>Looking at <ref label="figure_distributions"></ref>, we can see that the match between the predicted and observed lag from patenting filing and time of first transfer is quite good. It should be noted, though, that the model delivers an exponential form for this function by construction, and relative mass at zero is indeed targeted for the purposes of estimating the direction of transfer parameter ($q$). As for the profitability distribution, the match between data and model is less exact. The median profit is targeted as a moment, however, the model generated clearly shows excess mass near zero. This could arise from compositional issues. Firm level profitability data is available only for Compustat firms, which are larger than the average firm, and hence the observed data could be "overaggregated", leading to greater weight in the middle of the distribution and less at the very bottom.</text>
@@ -668,7 +670,7 @@ In practice, one can deal in the limit where $M\rightarrow\infty$, using a conti
 <text>To better understand the means through which sequentiality affects the incentives for innovation, in this section I consider various modification to the estimated model. First, I investigate the effects of varying the bargaining power parameter, which was previously set to the symmetric value of $1/2$. Because payoffs are back-loaded in more sequential industries and hence only partially delivered to the incumbent through the bargaining process, this parameter will be an important determinant of the incentives for external innovation.</text>
 
 <figure title="Bargaining Process Alternatives" label="figure_bargaining_experiment">
-<imager source="image/bargaining_experiment.svg"></imager>
+<media source="image/bargaining_experiment.svg"></media>
 </figure>
 
 <text>In <ref label="figure_bargaining_experiment"></ref>, the baseline case, as well as the two extremes of giving all the bargaining power to the innovator ($p=0$) and to the incumbent ($p=1$), are plotted. Here we see that though the rate of internal innovation is largely invariant to the bargaining parameter, the decrease in external innovation with sequentiality is larger the more bargaining power is vested with the incumbent. The intuition here is that when none of the incentives are transferred intertemporally through bargaining, as is the case when the innovator has all the bargaining power, the backloading of payoffs that comes with increased sequentiality does not interact with the bargaining distortions, thus the profile is relatively flat.</text>
@@ -686,7 +688,7 @@ In practice, one can deal in the limit where $M\rightarrow\infty$, using a conti
 <text>As discussed previously, I consider both a constrained social planner, who can make innovation decisions but is still subject to patent policy and the resulting monopoly distortions, and an unconstrained planner who can make both innovation and production decisions at will. The constrained optimum yields innovations rates by type on a per-industry basis, while the unconstrained optimum will feature uniform innovation rates across industry. Note that the constrained planner is still also subject to firm type dynamics as in the decentralized case, while the unconstrained planner can reassign product lines to different firms at will but is still subject to exogenous heterogeneity in entrant types. In the constrained setting, the share of labor allocated to research rises from $8.6\%$ to $15.3\%$, while the aggregate growth rate rises to $4.6\%$.</text>
 
 <figure title="Social Optimum Innovation Rates" label="figure_socopt_innov">
-<imager source="image/socopt_innovation.svg"></imager>
+<media source="image/socopt_innovation.svg"></media>
 </figure>
 
 <text>In <ref label="figure_socopt_innov"></ref>, both the internal and external innovation rates are plotted for the equilibrium and the constrained and unconstrained planner. Because monopoly distortions arising from innovation are much more severe in sequential industries, the planner reduces innovation of both types in these industries. As a result the level of monopoly distortion in the economy goes down by $0.50$ percentage points. The net welfare gains from moving to the constrained planner's allocation are $2.5\%$. The aggregate growth and labor decompositions are show in the table below</text>
@@ -728,7 +730,7 @@ In practice, one can deal in the limit where $M\rightarrow\infty$, using a conti
 <text>Motivated by these considerations, I study both policies that are constant across industries and those that vary linearly with industry sequentiality. In terms of implementation, though sequentiality cannot be directly observed, one can infer its value for each industry using the equilibrium relationship between sequentiality and the probability of patent transfer (or any other observable that varies monotonically with sequentiality).</text>
 
 <figure title="Optimal Linear Patent Policy" label="figure_opt_lin_pat">
-<imager source="image/optimal_linear_patent.svg"></imager>
+<media source="image/optimal_linear_patent.svg"></media>
 </figure>
 
 <text>The optimal constant policy calls for a patent expiry rate of $8.6\%$ annually, implying a mean patent length of $11.6$ years. This causes the growth rate to fall to $2.94\%$. However, since the fraction of production labor rises to $93.4\%$ and monopoly distortions fall to $6.0\%$, there is a net welfare increase of $0.9\%$. The optimal linear patent length decreases sharply with sequentiality. For industries with extremely low sequentiality, the policy calls for an infinite patent. The patent policy eventually reaches a minimal mean length of $6$ years in the most sequential industries. The full path of the patent expiry rate is depicted in <ref label="figure_opt_lin_pat"></ref>. It is interesting to note that the optimal patent length in the median industry (sequentiality $17\%$) is about $18$ years, almost exactly what current law prescribes. The resulting growth rate is $3.25\%$ and the share of production labor is $91.9\%$, which are quite similar to the equilibrium values. However, the monopoly distortions fall noticeably, having been curbed in the most offending industries, to $6.7\%$, resulting in a net welfare increase of $1.7\%$.</text>
@@ -750,6 +752,8 @@ In practice, one can deal in the limit where $M\rightarrow\infty$, using a conti
 <text>Though this paper takes a very detailed approach to modeling patenting dynamics and the incentives to innovate, this setting is undoubtedly extremely complex, featuring a large quantity of heterogeneity both at the firm and industry level. There are many potential avenues of research that remain to explored. For instance, the notion of sequentiality may be related to patent breadth, meaning there are patent policy levers in addition to length that could be explored in this context. Additionally, not all innovation is necessarily protected with patenting. Incorporating an endogenous decision to patent (as opposed to using secrecy, for instance) could have interesting implications, though observability is naturally an issue.</text>
 
 </section>
+
+<bibliography></bibliography>
 
 <section title="Appendix" label="appendix">
 

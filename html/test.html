@@ -6,22 +6,23 @@
 <script type="text/javascript" src="js/detect.js"></script>
 <script type="text/javascript">includes();</script>
 <script type="text/javascript">
-set_macros({
-  fr: ['\\frac{#1}{#2}',2],
-  pr: ['\\left(#1\\right)',1],
-  br: ['\\left[#1\\right]',1],
-  cb: ['\\left\\{#1\\right\\}',1],
-  pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
-  pder: ['\\frac{\\partial #1}{\\partial #2}',2],
-  widebar: ['\\bar{#1}',1]
+EllsworthConfig({
+  macros: {
+    fr: ['\\frac{#1}{#2}',2],
+    pr: ['\\left(#1\\right)',1],
+    br: ['\\left[#1\\right]',1],
+    cb: ['\\left\\{#1\\right\\}',1],
+    pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
+    pder: ['\\frac{\\partial #1}{\\partial #2}',2],
+    widebar: ['\\bar{#1}',1]
+  },
+  environs: {
+    fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
+    proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
+    proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
+  },
+  biblio: "sequential_biblio.json"
 });
-set_environs({
-  fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
-  proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
-  proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}'],
-  table: ['<div class="table_box"><h3 class="table_title">Table {number}: {title}</h3><table class="dataframe">{content}</table></div>','Table {number}','{html}']
-});
-set_biblio("sequential_biblio.json");
 </script>
 <link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,700,600,300'>
 <link type='text/css' rel='stylesheet' href='css/environ.css'>

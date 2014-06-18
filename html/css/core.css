@@ -9,17 +9,8 @@ div.outer_box {
   margin: 0px auto;
 }
 
-img.centered {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-img.slim {
-  width: 540px;
-  height: auto;
+div.header_box {
+  margin-bottom: 100px;
 }
 
 h1.title_name {
@@ -34,6 +25,19 @@ div.title_spacer {
 h3.author_name {
   text-align: center;
   font-weight: 600;
+}
+
+div.abstract_box {
+  margin-top: 50px;
+}
+
+h4.abstract_head {
+  text-align: center;
+}
+
+p.abstract_body {
+  line-height: 160%;
+  text-align: justify;
 }
 
 p.paragraph_box {
@@ -60,7 +64,7 @@ div.equation_number {
 }
 
 div.section_box {
-  margin-top: 40px;
+  margin-top: 60px;
   margin-bottom: 0px;
 }
 
@@ -84,11 +88,20 @@ sup.footnote_mark {
   cursor: pointer;
 }
 
+img.media {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 85%;
+}
+
 div.figure_box {
   margin-top: 30px;
   margin-bottom: 30px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h3.figure_title {
@@ -103,8 +116,8 @@ p.figure_caption {
 div.table_box {
   margin-top: 30px;
   margin-bottom: 30px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h3.table_title {
@@ -113,7 +126,7 @@ h3.table_title {
 }
 
 table.dataframe {
-  min-width: 300px;
+  display: block;
   margin-left: auto;
   margin-right: auto;
   border-collapse: collapse;
@@ -213,4 +226,18 @@ div.popup {
   z-index: 2;
   padding: 4px;
   font-weight: normal;
+}
+
+div.bibliography_box {
+  margin-top: 60px;
+  margin-bottom: 0px;
+}
+
+h2.bibliography_head {
+  text-align: center;
+  font-weight: 400;
+ }
+
+div.bibliography_item {
+  margin-top: 20px;
 }

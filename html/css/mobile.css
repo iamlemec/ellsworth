@@ -96,11 +96,20 @@ sup.footnote_mark {
   cursor: pointer;
 }
 
+img.media {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 85%;
+}
+
 div.figure_box {
   margin-top: 30px;
   margin-bottom: 30px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h3.figure_title {
@@ -115,8 +124,8 @@ p.figure_caption {
 div.table_box {
   margin-top: 30px;
   margin-bottom: 30px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h3.table_title {
@@ -125,11 +134,12 @@ h3.table_title {
 }
 
 table.dataframe {
-  /*min-width: 300px;*/
+  display: block;
   margin-left: auto;
   margin-right: auto;
   border-collapse: collapse;
   border: 1px solid black;
+  width: 75%;
 }
 
 table.dataframe td {
@@ -225,4 +235,18 @@ div.popup {
   z-index: 2;
   padding: 4px;
   font-weight: normal;
+}
+
+div.bibliography_box {
+  margin-top: 60px;
+  margin-bottom: 0px;
+}
+
+h2.bibliography_head {
+  text-align: center;
+  font-weight: 400;
+ }
+
+div.bibliography_item {
+  margin-top: 20px;
 }

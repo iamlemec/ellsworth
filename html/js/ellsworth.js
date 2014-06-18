@@ -1,28 +1,52 @@
-var macros = {};
-function set_macros(m) {
-  macros = m;
+// include proper css file, desktop or mobile
+var uagent = navigator.userAgent.toLowerCase();
+var deviceMobile = "(android|iphone|ipod|ipad)";
+if (uagent.search(deviceMobile) > -1) {
+  mathjax_scale = 100;
+  mobile = true;
+  cssFile = "css/mobile.css";
+} else {
+  mathjax_scale = 86;
+  mobile = false;
+  cssFile = "css/core.css";
 }
+var cssLine = "<link href=\"" + cssFile + "\" type=\"text/css\" rel=\"stylesheet\"/>";
+document.write(cssLine);
 
-var biblio;
-function set_biblio(b) {
-  biblio = b;
-}
-
-var environs;
-function set_environs(e) {
-  environs = e;
-}
-
-var replacements;
-function set_replacements(r) {
-  replacements = r;
-}
-
+// Things that should rightfully already exist
 String.prototype.format_dict = function(dict) {
   return this.replace(/{(.+?)}/g, function(match,key) {
     return (typeof(dict[key])!='undefined') ? dict[key] : key;
   });
 };
+
+extend = function(obj1,obj2) {
+  for (k in obj2) {
+    obj1[k] = obj2[k];
+  }
+};
+
+// Library configuration
+var ec = {
+  macros: {},
+  replacements: {},
+  environs: {},
+  biblio: ""
+};
+
+function EllsworthConfig(c) {
+  for (v in c) {
+    if (v=="macros") {
+      extend(ec["macros"],c["macros"]);
+    } else if (v=="replacements") {
+      extend(ec["replacements"],c["replacements"]);
+    } else if (v=="environs") {
+      extend(ec["environs"],c["environs"]);
+    } else {
+      ec[v] = c[v];
+    }
+  }
+}
 
 jQuery(document).ready(function($) {
   var MathJaxURL = "http://cdn.mathjax.org/mathjax/latest/MathJax.js";
@@ -71,51 +95,48 @@ jQuery(document).ready(function($) {
     });
   }
 
-  // track refable objects (figures, equations, sections, etc)
-  var n_figures = 1;
-  var figures = {};
-
-  var n_equations = 1;
-  var equations = {};
-
-  var n_footnotes = 1;
-  var footnotes = {};
-
-  var n_sections = 1;
-  var sections = {};
-
-  var n_subsections = [];
-  var subsections = {};
-
   // create outer box
   $("body").append($("<div>",{class:"outer_box"}).append($("body>")));
   outer_box = $("div.outer_box");
 
   // make title
-  $("body title").each( function () {
-    title = $(this);
-    h1text = $("<h1>",{html:title.html(),class:"title_name"});
-    outer_box.prepend(h1text);
-    spacer = $("<div>",{class:"title_spacer"});
-    spacer.insertAfter(h1text);
-    title.remove();
+  $("header").replaceWith(function () {
+    header = $(this);
+    div = $("<div>",{class:"header_box"}).append(header.children());
+    return div;
   });
 
-  $("author").each( function () {
+  $("body title").replaceWith(function () {
+    title = $(this);
+    h1text = $("<h1>",{html:title.html(),class:"title_name"});
+    return h1text;
+  });
+
+  $("author").replaceWith(function () {
     author = $(this);
     auth_text = author.html();
     if (author.attr("affiliation")) {
       auth_text += " ("+author.attr("affiliation")+")";
     }
     h3text = $("<h3>",{html:auth_text,class:"author_name"});
-    h3text.insertAfter($("h1.title_name"));
-    author.remove();
+    return h3text;
+  });
+
+  $("abstract").replaceWith(function () {
+    abstract = $(this);
+    div = $("<div>",{class:"abstract_box"});
+    abstract_head = $("<h4>",{html:"Abstract",class:"abstract_head"});
+    abstract_body = $("<p>",{html:abstract.html(),class:"abstract_body"});
+    div.append(abstract_head);
+    div.append(abstract_body);
+    return div;
   });
 
   // do replacements
+  var n_sections = 0;
   $("section").replaceWith(function () {
     var sec = $(this);
-    var div = $("<div>",{class:"section_box",sec_num:n_sections++,sec_title:sec.attr("title"),label:sec.attr("label"),n_subsections:0});
+    var div = $("<div>",{class:"section_box",sec_num:++n_sections,sec_title:sec.attr("title"),label:sec.attr("label"),n_subsections:0});
     div.append($("<h2>",{html:div.attr("sec_num")+" &nbsp; "+div.attr("sec_title"),class:"section_title"}));
     div.append(sec.children());
     return div;
@@ -141,53 +162,71 @@ jQuery(document).ready(function($) {
     return p;
   });
 
+  var n_footnotes = 0;
   $("footnote").replaceWith(function () {
     var foot = $(this);
-    var sup = $("<sup>",{class:"footnote_mark"});
-    sup.foot_num = n_footnotes++;
-    sup.html(sup.foot_num);
-    if (foot.attr("label")) {
-      footnotes[foot.attr("label")] = sup;
-    }
-    var popup = $("<div>",{class:"footnote_popup",html:foot.html()});
+    var foot_num = ++n_footnotes;
+    var foot_text = foot.html();
+    var sup = $("<sup>",{class:"footnote_mark",foot_num:foot_num,html:foot_num,label:foot.attr("label"),foot_text:foot_text});
+    var popup = $("<div>",{class:"footnote_popup",html:foot_text});
     attach_popup(sup,popup);
     return sup;
   });
 
+  var n_equations = 0;
   $("equation").replaceWith(function () {
     var eqn = $(this);
     var div_box = $("<div>",{class:"equation_box"});
     var div = $("<div>",{class:"equation_inner",html:"$$"+$(this).html()+"$$"});
     div_box.append(div);
     if (eqn.attr("label")) {
-      div.eqn_num = n_equations++;
-      equations[eqn.attr("label")] = div;
+      var eqn_num = ++n_equations;
+      div.attr("label",eqn.attr("label"));
+      div.attr("eqn_num",eqn_num);
       var opp_div = $("<div>",{class:"equation_number"});
       div.before(opp_div);
-      var num_div = $("<div>",{class:"equation_number",html:div.eqn_num});
+      var num_div = $("<div>",{class:"equation_number",html:eqn_num});
       div.after(num_div);
     }
     return div_box;
   });
 
   // image is taken for whatever reason
-  $("imager").replaceWith(function () {
-    return $("<img>",{src:$(this).attr("source"),class:"centered slim"});
+  $("media").replaceWith(function () {
+    return $("<img>",{src:$(this).attr("source"),class:"media"});
   });
 
+  var n_figures = 0;
   $("figure").replaceWith(function () {
     var fig = $(this);
-    var div = $("<div>",{class:"figure_box"});
-    div.fig_num = n_figures++;
+    var fig_num = ++n_figures;
+    var div = $("<div>",{class:"figure_box",fig_num:fig_num,label:fig.attr("label")});
     if (fig.attr("title")) {
-      div.append($("<h3>",{html:"Figure "+div.fig_num+": "+fig.attr("title"),class:"figure_title"}));
+      div.append($("<h3>",{html:"Figure "+fig_num+": "+fig.attr("title"),class:"figure_title"}));
     }
     div.append(fig.children());
     if (fig.attr("caption")) {
       div.append($("<p>",{html:fig.attr("caption"),class:"figure_caption"}));
     }
-    if (fig.attr("label")) {
-      figures[fig.attr("label")] = div;
+    return div;
+  });
+
+  var n_tables = 0;
+  $("table").replaceWith(function () {
+    var tab = $(this);
+    var tab_num = ++n_tables;
+    var div = $("<div>",{class:"table_box",fig_num:tab_num,label:tab.attr("label")});
+    if (tab.attr("title")) {
+      div.append($("<h3>",{html:"Table "+tab_num+": "+tab.attr("title"),class:"table_title"}));
+    }
+    var datf = $("<table>",{class:"dataframe"});
+    datf.append(tab.children());
+    div.append(datf);
+    if (mobile) {
+      var viewport_width = Math.max(document.documentElement.clientWidth,window.innerWidth||0);
+      var div_width = div.width();
+      div.css("-webkit-transform-origin","top left");
+      div.css("-webkit-transform","scale("+viewport_width/div_width+")");
     }
     return div;
   });
@@ -209,22 +248,23 @@ jQuery(document).ready(function($) {
   });
 
   // simple replacements - these go first so table environments will work
-  for (rep in replacements) {
+  for (rep in ec["replacements"]) {
     $(rep).replaceWith(function () {
       elem = $(this);
-      tag = replacements[rep];
+      tag = ec["replacements"][rep];
       div = $("<"+tag+">",{html:elem.html()});
       return div;
     })
   }
 
-  // do replacements for custom environments
-  n_environs = {};
-  for (env in environs) {
+  // implement custom environments
+  var n_environs;
+  for (env in ec["environs"]) {
     n_environs = 0;
     $(env).replaceWith(function () {
       elem = $(this);
-      content = environs[env][0];
+      rule = ec["environs"][env];
+      content = rule[0];
       orig_html = elem.html();
       elem.attr("number",++n_environs);
       elem.attr("content",orig_html);
@@ -239,14 +279,12 @@ jQuery(document).ready(function($) {
     var span = $("<span>",{class:"ref_text"});
     if (ref.attr("label")) {
       var label = ref.attr("label");
-      if (figures.hasOwnProperty(label)) {
-        fig = figures[label];
-        span.html("Figure "+fig.fig_num);
+      if ((fig=$("div.figure_box[label="+label+"]")).length) {
+        span.html("Figure "+fig.attr("fig_num"));
         var popup = $("<div>",{class:"fig_popup",html:fig.html()});
         attach_popup(span,popup,0.5);
-      } else if (equations.hasOwnProperty(label)) {
-        eqn = equations[label];
-        span.html("Equation "+eqn.eqn_num);
+      } else if ((eqn=$("div.equation_inner[label="+label+"]")).length) {
+        span.html("Equation "+eqn.attr("eqn_num"));
         var popup = $("<div>",{class:"eqn_popup",html:eqn.html()});
         attach_popup(span,popup);
       } else if ((sec=$("div.section_box[label="+label+"]")).length) {
@@ -259,8 +297,8 @@ jQuery(document).ready(function($) {
         attach_popup(span,popup);
       } else {
         found = false;
-        for (env in environs) {
-          rule = environs[env];
+        for (env in ec["environs"]) {
+          rule = ec["environs"][env];
           if (rule.length > 1) {
             reference = rule[1];
             if (rule.length > 2) {
@@ -289,31 +327,16 @@ jQuery(document).ready(function($) {
     return span;
   });
 
-  // MathJax configure
-  // $.getScript(MathJaxURL, function() {
-  //   MathJax.Hub.Config({
-  //     config: ["MMLorHTML.js"],
-  //     jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML"],
-  //     "HTML-CSS": {
-  //       scale: mathjax_scale
-  //     },
-  //     tex2jax: {
-  //       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-  //       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-  //     },
-  //     extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js"],
-  //     TeX: {
-  //       extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
-  //       Macros: macros
-  //     }
-  //   });
-  // });
-
   $.getScript(MathJaxURL, function() {
     MathJax.Hub.Config({
       jax: ["input/TeX","output/HTML-CSS"],
       "HTML-CSS": {
-        scale: mathjax_scale
+        scale: mathjax_scale,
+        linebreaks: { automatic: true, width: "100%" }
+      },
+      SVG: {
+        scale: mathjax_scale,
+        linebreaks: { automatic: true, width: "100%" }
       },
       tex2jax: {
         inlineMath: [ ['$','$'], ["\\(","\\)"] ],
@@ -322,35 +345,76 @@ jQuery(document).ready(function($) {
       extensions: ["tex2jax.js"],
       TeX: {
         extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
-        Macros: macros
+        Macros: ec["macros"]
       }
     });
   });
 
-  if (biblio) {
-    $.getJSON(biblio,function(sources) {
+  if (ec["biblio"]) {
+    $.getJSON(ec["biblio"],function(sources) {
       for (label in sources) {
-        source = sources[label];
-        auths = source["author"].split(" and ");
-        lasts = [];
-        for (i in auths) {
-          auth = auths[i];
-          toks = auth.split(",");
+        // collect author names
+        var source = sources[label];
+        var names = source["author"].split(" and ");
+        var authors = [];
+        for (i in names) {
+          var name = names[i];
+          var toks = name.split(",",2);
           if (toks.length == 1) {
-            lasts.push(auth.split(" ").pop());
+            authors.push(name.split(" ",2).reverse());
           } else{
-            lasts.push(toks[0]);
+            authors.push(toks);
           }
         }
-        if (lasts.length == 1) {
-          full = lasts[0];
-        } else if (lasts.length == 2) {
-          full = lasts[0]+" and "+lasts[1];
-        } else {
-          lasts.push("and "+lasts.pop());
-          full = lasts.join(", ");
+        source["authors"] = authors;
+
+        // for in text citations
+        var cite_form;
+        cite_form = "";
+        for (i in authors) {
+          auth = authors[i];
+          if (i==0) {
+            cite_form += auth[0];
+          } else if (i==authors.length-1) {
+            if (authors.length>2) { // && YOURE_NOT_A_HUGE_DBAG
+              cite_form += ",";
+            }
+            cite_form += " and "+auth[0];
+          } else {
+            cite_form += ", "+auth[0];
+          }
         }
-        source["cite_form"] = full+" ("+source["year"]+")";
+        cite_form += " ("+source["year"]+")";
+        source["cite_form"] = cite_form;
+
+        // for references in bibliography
+        bib_form = "";
+        for (i in authors) {
+          auth = authors[i];
+          if (i==0) {
+            bib_form += auth[0]+", "+auth[1];
+          } else if (i==authors.length-1) {
+            if (authors.length>2) { // && YOURE_NOT_A_HUGE_DBAG
+              bib_form += ",";
+            }
+            bib_form += " and "+auth[1]+" "+auth[0];
+          } else {
+            bib_form += ", "+auth[1]+" "+auth[0];
+          }
+        }
+        bib_form += ". ";
+        bib_form += source["year"]+". ";
+        bib_form += "\""+source["title"]+".\" ";
+        if ("journal" in source) {
+          bib_form += "<i>"+source["journal"]+"</i>. ";
+        }
+        if (("volume" in source)&&("number" in source)&&("pages" in source)) {
+          bib_form += source["volume"]+" ("+source["number"]+"): "+source["pages"]+".";
+        }
+        source["bib_form"] = bib_form;
+
+        // track if we should put it in bibliography
+        source["used"] = false;
       }
 
       // dereferences citations
@@ -361,6 +425,7 @@ jQuery(document).ready(function($) {
           var label = cite.attr("label");
           if (sources.hasOwnProperty(label)) {
             src = sources[label];
+            src["used"] = true;
             //link_url = "http://scholar.google.com/scholar?q="+encodeURIComponent(src["title"]);
             //var link = $("<a>",{href:link_url,html:src["cite_form"]})
             span.html(src["cite_form"]);
@@ -375,6 +440,26 @@ jQuery(document).ready(function($) {
           }
         }
         return span;
+      });
+
+      // write bibliography if needed
+      $("bibliography").replaceWith(function () {
+        var bib = $("<div>",{class:"bibliography_box"});
+        var bib_head = $("<h2>",{class:"bibliography_head",html:"Bibliography"});
+        bib.append(bib_head);
+        var ref_list = [];
+        for (label in sources) {
+          var source = sources[label];
+          if (source["used"]) {
+            ref_list.push(source["bib_form"]);
+          }
+        }
+        ref_list.sort();
+        for (i in ref_list) {
+          var ref = ref_list[i];
+          bib.append($("<div>",{html:ref,class:"bibliography_item"}));
+        }
+        return bib;
       });
     });
   } else {
