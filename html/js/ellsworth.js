@@ -1,3 +1,5 @@
+var MathJaxURL = "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+
 // include proper css file, desktop or mobile
 var uagent = navigator.userAgent.toLowerCase();
 var deviceMobile = "(android|iphone|ipod|ipad)";
@@ -49,8 +51,6 @@ function EllsworthConfig(c) {
 }
 
 jQuery(document).ready(function($) {
-  var MathJaxURL = "http://cdn.mathjax.org/mathjax/latest/MathJax.js";
-
   get_offset = function(event,scale) {
     if (!scale) { scale = 1.0; }
 
@@ -99,20 +99,14 @@ jQuery(document).ready(function($) {
   $("body").append($("<div>",{class:"outer_box"}).append($("body>")));
   outer_box = $("div.outer_box");
 
-  // make title
-  $("header").replaceWith(function () {
-    header = $(this);
-    div = $("<div>",{class:"header_box"}).append(header.children());
-    return div;
-  });
-
-  $("body title").replaceWith(function () {
+  // make header - title, author, abstract
+  $("header title").replaceWith(function () {
     title = $(this);
     h1text = $("<h1>",{html:title.html(),class:"title_name"});
     return h1text;
   });
 
-  $("author").replaceWith(function () {
+  $("header author").replaceWith(function () {
     author = $(this);
     auth_text = author.html();
     if (author.attr("affiliation")) {
@@ -122,13 +116,19 @@ jQuery(document).ready(function($) {
     return h3text;
   });
 
-  $("abstract").replaceWith(function () {
+  $("header abstract").replaceWith(function () {
     abstract = $(this);
     div = $("<div>",{class:"abstract_box"});
     abstract_head = $("<h4>",{html:"Abstract",class:"abstract_head"});
     abstract_body = $("<p>",{html:abstract.html(),class:"abstract_body"});
     div.append(abstract_head);
     div.append(abstract_body);
+    return div;
+  });
+
+  $("header").replaceWith(function () {
+    header = $(this);
+    div = $("<div>",{class:"header_box"}).append(header.children());
     return div;
   });
 
@@ -177,7 +177,7 @@ jQuery(document).ready(function($) {
   $("equation").replaceWith(function () {
     var eqn = $(this);
     var div_box = $("<div>",{class:"equation_box"});
-    var div = $("<div>",{class:"equation_inner",html:"$$"+$(this).html()+"$$"});
+    var div = $("<div>",{class:"equation_inner",html:"\n\\begin{align*}"+$(this).html()+"\n\\end{align*}"});
     div_box.append(div);
     if (eqn.attr("label")) {
       var eqn_num = ++n_equations;
@@ -215,7 +215,7 @@ jQuery(document).ready(function($) {
   $("table").replaceWith(function () {
     var tab = $(this);
     var tab_num = ++n_tables;
-    var div = $("<div>",{class:"table_box",fig_num:tab_num,label:tab.attr("label")});
+    var div = $("<div>",{class:"table_box",tab_num:tab_num,label:tab.attr("label")});
     if (tab.attr("title")) {
       div.append($("<h3>",{html:"Table "+tab_num+": "+tab.attr("title"),class:"table_title"}));
     }
@@ -229,6 +229,16 @@ jQuery(document).ready(function($) {
       div.css("-webkit-transform","scale("+viewport_width/div_width+")");
     }
     return div;
+  });
+
+  $("table thead").each(function () {
+    var tbody = $(this);
+    tbody.addClass("df_thead");
+  });
+
+  $("table tbody").each(function () {
+    var tbody = $(this);
+    tbody.addClass("df_tbody");
   });
 
   $("enumerate").replaceWith(function () {
@@ -283,7 +293,11 @@ jQuery(document).ready(function($) {
         span.html("Figure "+fig.attr("fig_num"));
         var popup = $("<div>",{class:"fig_popup",html:fig.html()});
         attach_popup(span,popup,0.5);
-      } else if ((eqn=$("div.equation_inner[label="+label+"]")).length) {
+      } else if ((tab=$("div.table_box[label="+label+"]")).length) {
+        span.html("Table "+tab.attr("tab_num"));
+        var popup = $("<div>",{class:"tab_popup",html:tab.html()});
+        attach_popup(span,popup);
+      }else if ((eqn=$("div.equation_inner[label="+label+"]")).length) {
         span.html("Equation "+eqn.attr("eqn_num"));
         var popup = $("<div>",{class:"eqn_popup",html:eqn.html()});
         attach_popup(span,popup);
@@ -329,7 +343,8 @@ jQuery(document).ready(function($) {
 
   $.getScript(MathJaxURL, function() {
     MathJax.Hub.Config({
-      jax: ["input/TeX","output/HTML-CSS"],
+      config: ["MMLorHTML.js"],
+      jax: ["input/TeX"],
       "HTML-CSS": {
         scale: mathjax_scale,
         linebreaks: { automatic: true, width: "100%" }

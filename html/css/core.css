@@ -1,5 +1,5 @@
 body {
-  font-family: "Open Sans",sans-serif;
+  font-family: sans-serif;
   color: #333;
 }
 
@@ -37,7 +37,7 @@ h4.abstract_head {
 
 p.abstract_body {
   line-height: 160%;
-  text-align: justify;
+  /*text-align: justify;*/
 }
 
 p.paragraph_box {
@@ -126,21 +126,25 @@ h3.table_title {
 }
 
 table.dataframe {
-  display: block;
   margin-left: auto;
   margin-right: auto;
   border-collapse: collapse;
-  border: 1px solid black;
+}
+
+thead.df_thead {
+}
+
+tbody.df_tbody {
 }
 
 table.dataframe td {
   padding: 5px;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid #BBB;
 }
 
 table.dataframe thead td {
-  border: 1px solid black;
+  border: 1px solid #777;
   font-weight: 600;
 }
 
@@ -194,6 +198,18 @@ div.eqn_popup {
 }
 
 div.fig_popup {
+  display: none;
+  position: absolute;
+  color: black;
+  border:1px solid #888;
+  background-color: white;
+  opacity: 90%;
+  z-index: 2;
+  padding: 4px;
+  -webkit-transform-origin: top left;
+}
+
+div.tab_popup {
   display: none;
   position: absolute;
   color: black;
