@@ -1,3 +1,12 @@
+body {
+  font-family: "Open Sans";
+  /*font-family: "Lato";*/
+}
+
+p.paragraph_box {
+  /*text-align: justify;*/
+}
+
 div.fact_box {
   margin-top: 20px;
   margin-bottom: 20px;
