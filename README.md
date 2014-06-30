@@ -25,6 +25,6 @@ EllsworthConfig({
 
 Elements of `macros` are simple substitution rules. The first part is a string defining the rule, where as in latex, we use `#n` for the nth argument. The second part is simply the number of arguments. These are passed directly to MathJax.
 
-Elements of `environs` are akin to LaTeX environments. Here the first element is displayed at declaration, the second argument is displayed for in-document references, and the third is displayed when hovering over a reference (this is optional). There are two special variables defined: `number` which is the number assigned to that instance (think theorem number), and `content`, which is what was put inside that instance in the document (think theorem text). In addition, you may give arbitrary HTML attributes to environments and reference them by name in these declarations.
+Elements of `environs` are akin to LaTeX environments. Here the first argument is displayed at declaration, the second is displayed for in-document references, and the third is displayed when hovering over a reference (this is optional). There are two special variables defined: `number` which is the number assigned to that instance (think theorem number), and `content`, which is what was put inside that instance in the document (think theorem text). In addition, you may give arbitrary HTML attributes to environments and reference them by name in these declarations.
 
 The `biblio` option is simply for including a JSON formatted bibliography file.
