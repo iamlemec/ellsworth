@@ -3,7 +3,7 @@ ellsworth
 
 Ellsworth is a web framework for displaying academic articles. The aim is to retain the typesetting functionality of LaTex, by using the incredible MathJaX library, while replacing the formatting functions with web technology. The end result is increased ease of use for the both the producer and consumer of content, in addition to a greater ability to integrate with other elements of the web. The documents themselves are simple XML-like documents that are converted at view-time into valid HTML documents using Javascript. See `test.html` for a simple example document and `sequential.html` for a longer, more advanced one.
 
-The core of the library is in `ellsworth.js`. Styling in the form of CSS is in `core.css` and `mobile.css`. These two are intended to add some element of responsiveness to the UI, though using a more robust framework like `Bootstrap.js` may be a good idea in the future. The user is of course free to extend the document arbitrarily using addition Javascript and CSS. Additionally, there is an internal configuration system. Here's an example of what I use
+The core of the library is in `ellsworth.js`. Styling in the form of CSS is in `core.css` and `mobile.css`. These two are intended to add some element of responsiveness to the UI, though using a more robust framework like `Bootstrap.js` may be a good idea in the future. The user is of course free to extend the document arbitrarily using addition Javascript and CSS. Additionally, there is an internal configuration system. Here's an example of what I use:
 
 ```
 EllsworthConfig({
