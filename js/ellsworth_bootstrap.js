@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
   }
 
   // create outer box
-  $("body").append($("<div>",{class:"outer_box"}).append($("body>")));
+  $("body").append($("<div>",{class:"outer_box container",role:"main"}).append($("body>")));
   outer_box = $("div.outer_box");
 
   // make header - title, author, abstract
@@ -208,7 +208,7 @@ jQuery(document).ready(function($) {
   var n_equations = 0;
   $("equation").replaceWith(function () {
     var eqn = $(this);
-    var div_box = $("<div>",{class:"equation_box"});
+    var div_box = $("<div>",{class:"equation_box container-fluid"});
     var div = $("<div>",{class:"equation_inner",html:"\n\\begin{align*}"+$(this).html()+"\n\\end{align*}"});
     div_box.append(div);
     if (eqn.attr("label")) {
@@ -225,7 +225,7 @@ jQuery(document).ready(function($) {
 
   // image is taken for whatever reason
   $("media").replaceWith(function () {
-    return $("<img>",{src:$(this).attr("source"),class:"media"});
+    return $("<img>",{src:$(this).attr("source"),class:"media img-responsive"});
   });
 
   var n_figures = 0;

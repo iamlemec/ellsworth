@@ -1,30 +1,10 @@
 <html>
 
 <head>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="/js/ellsworth.js"></script>
-<script type="text/javascript">
-EllsworthConfig({
-  macros: {
-    fr: ['\\frac{#1}{#2}',2],
-    pr: ['\\left(#1\\right)',1],
-    br: ['\\left[#1\\right]',1],
-    cb: ['\\left\\{#1\\right\\}',1],
-    pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
-    pder: ['\\frac{\\partial #1}{\\partial #2}',2],
-    widebar: ['\\bar{#1}',1]
-  },
-  environs: {
-    fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
-    proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
-    proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
-  },
-  biblio: "sequential_biblio.json"
-});
-</script>
-<link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,700,600,300'>
-<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-<link type='text/css' rel='stylesheet' href='css/environ.css'>
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="/ellsworth/css/core_bootstrap.css">
+<link type="text/css" rel="stylesheet" href="/css/proxima-nova.css">
+<link type="text/css" rel="stylesheet" href="css/environ.css">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 <title>Innovation, Technological Interdependence, and Economic Growth</title>
 </head>
@@ -53,7 +33,7 @@ EllsworthConfig({
 
 <text>Broadly speaking, the sequentiality dimension introduced here fills a gap between two classes of models commonly studied in the endogenous growth literature. That is, most models either feature firms that face no threat of replacement from other innovators at the product line level, as in the expanding variety model of <cite label="romer1990endogenous"></cite>, or just the opposite, that firms innovate solely on other firms' product lines and can take over production at will upon a successful innovation, as in <cite label="aghion1992model"></cite>, <cite label="grossman1991quality"></cite>, or <cite label="klette2004innovating"></cite>. The model presented in this paper will act as a bridge between the two extremes presented above. In the extreme of full sequentiality, much of the gains from innovation will be internalized through repeated selling of patent rights down the quality ladder, though distortions from bargaining will complicate this process slightly. In contrast to the Romer model, however, this will come at the cost of a buildup of monopoly power. In the extreme of no sequentiality, we find ourselves with a standard model of creative destruction.</text>
 
-<text>The second contribution of this paper is to enrich our understanding of the data on patenting and innovation by firms. To study cross-industry differences in the sequentiality of innovation, I propose a method of classifying technology classes--an index of sequentiality--based upon the fraction of patents that are transferred in their lifetime. Looking back to the introductory examples, patents in the major pharmaceutical patent classes are transferred $15\%$ of the time, while the same figure for telecommunications is twice as large at $30\%$. Using this ordering, I document a variety of trends in both the patent data and in linked firm-level data. One would naturally expect the level of sequentiality in a particular industry to have an effect upon innovations dynamics in that industry. For instance, highly sequential industries should feature lower rates of patent obsolescence, as patents are more likely to be built upon and integrated into a larger portfolio rather than being replaced by a new type of technology. This buildup of larger patent portfolios should in turn cause profits to rise, as leading firms will have a larger technological lead over their nearest competitor.</text>
+<text>The second contribution of this paper is to enrich our understanding of the data on patenting and innovation by firms. To study cross-industry differences in the sequentiality of innovation, I propose a method of classifying technology classes&mdash;an index of sequentiality&mdash;based upon the fraction of patents that are transferred in their lifetime. Looking back to the introductory examples, patents in the major pharmaceutical patent classes are transferred $15\%$ of the time, while the same figure for telecommunications is twice as large at $30\%$. Using this ordering, I document a variety of trends in both the patent data and in linked firm-level data. One would naturally expect the level of sequentiality in a particular industry to have an effect upon innovations dynamics in that industry. For instance, highly sequential industries should feature lower rates of patent obsolescence, as patents are more likely to be built upon and integrated into a larger portfolio rather than being replaced by a new type of technology. This buildup of larger patent portfolios should in turn cause profits to rise, as leading firms will have a larger technological lead over their nearest competitor.</text>
 
 <text>In the data description section below, I document that these trends are in fact present in the data, and I enumerate other trends observed in the cross-industry data, namely that more sequential industries feature lower exit rates and higher variance in firm growth. The former is a natural implication of the reduction in the rate of creative destruction in more sequential industries. The latter effect arises from interaction with firm heterogeneity. Higher sequentiality and the concomitant patent transfers result in the agglomeration of more productive control into the hands of high quality firms. This magnifies the persistent growth differences between firms of differing quality, resulting in more volatile firm growth overall, particularly over longer time periods.</text>
 
@@ -63,7 +43,7 @@ EllsworthConfig({
 
 <text>The estimated model is able to match the targeted moments quite well. In addition, the model can match various non-targeted features of the data, including some of the major trends noted above. The resulting eight-year patent expiration rate over all industries is $39\%$, compared to $34\%$ in the data, while the standard deviation is $15\%$ compared to $13\%$ in the data. Thus the model captures the proportional variation in the data, while slightly overshooting the magnitude. Other cross-industry trends, such as the relationship between transfer rates and profitability, firm growth variance, and exit rate are qualitatively captured, and the model is able to quantitatively account for a large fraction of these tends.</text>
 
-<text>As predicted by theory, the level of internal innovation rises with sequentiality, with a $52\%$ increase moving from the least to most sequential industry. The level of external innovation, whose dependence on sequentiality was theoretically ambiguous, falls modestly along this dimension, largely due to bargaining distortions that limit the appropriability of back-loaded profit streams. To assess potential misallocation of production and research labor, both within and between industries, I consider a constrained social planner who can choose innovation rates but is still subject to monopoly distortions induced by patenting. I show theoretically that the larger the sequentiality in a particular industry, the more severe the monopoly distortions induced by an increase in innovation rates. Thus for either type of innovation, the planner optimally choses a profile that falls sharply with sequentiality--in the case of external innovation, much more so than in the equilibrium--so as to limit the monopoly distortions caused by the buildup of large, protected technological leads by firms. The equilibrium yields a consumption equivalent welfare $2.5\%$ lower than that of the constrained social planner.</text>
+<text>As predicted by theory, the level of internal innovation rises with sequentiality, with a $52\%$ increase moving from the least to most sequential industry. The level of external innovation, whose dependence on sequentiality was theoretically ambiguous, falls modestly along this dimension, largely due to bargaining distortions that limit the appropriability of back-loaded profit streams. To assess potential misallocation of production and research labor, both within and between industries, I consider a constrained social planner who can choose innovation rates but is still subject to monopoly distortions induced by patenting. I show theoretically that the larger the sequentiality in a particular industry, the more severe the monopoly distortions induced by an increase in innovation rates. Thus for either type of innovation, the planner optimally choses a profile that falls sharply with sequentiality&mdash;in the case of external innovation, much more so than in the equilibrium&mdash;so as to limit the monopoly distortions caused by the buildup of large, protected technological leads by firms. The equilibrium yields a consumption equivalent welfare $2.5\%$ lower than that of the constrained social planner.</text>
 
 <text>Finally, I investigate the implications of the model for patent policy. I consider both a uniform patent policy and one that depends upon the sequentiality of the industry in question. For the purposes of implementation, the sequentiality of a particular industry can be inferred using the monotonic relationship between sequentiality and the patent transfer rate in the equilibrium of the estimated model. The above discussion of the social planner's optimum leads one to suspect that the optimal patent policy would feature weaker protection in more sequential industries. Indeed, I find that for certain very low levels of sequentiality, an infinite patent is called for. The optimal patent length then decreases from infinity to a minimal value of $6$ years in the most sequential industry. This policy results in welfare gains of $1.7\%$ in consumption equivalent terms. For comparison, the optimal constant patent policy calls for a mean patent length of $12$ years and delivers welfare gains of only $0.9\%$.</text>
 
@@ -95,7 +75,7 @@ EllsworthConfig({
 
 <fact label="fact_transfer_expiry">There is a negative correlation between patent transfer rates and patent expiry rates across industries.</fact>
 
-<figure title="Transfer--Expiry Relationship" caption="Relationship between patent transfer and expiry. Red line: WLS regression $\beta = -0.33$. Correlation is $\rho=-0.34$." label="transfer_expiry">
+<figure title="Transfer&mdash;Expiry Relationship" caption="Relationship between patent transfer and expiry. Red line: WLS regression $\beta = -0.33$. Correlation is $\rho=-0.34$." label="transfer_expiry">
 <media source="image/transfer_expiry.svg"></media>
 </figure>
 
@@ -103,7 +83,7 @@ EllsworthConfig({
 
 <fact label="fact_transfer_profit">There is a positive correlation between patent transfer rates and firm profitability across industries.</fact>
 
-<figure title="Transfer--Profitability Relationship" caption="Relationship between patent transfer and median profitability. Red line: WLS regression $\beta = 3.85$. Correlation is $\rho=0.40$." label="transfer_profit">
+<figure title="Transfer&mdash;Profitability Relationship" caption="Relationship between patent transfer and median profitability. Red line: WLS regression $\beta = 3.85$. Correlation is $\rho=0.40$." label="transfer_profit">
 <media source="image/transfer_profit.svg"></media>
 </figure>
 
@@ -111,7 +91,7 @@ EllsworthConfig({
 
 <fact label="fact_transfer_growthstd">The variance of firm growth rates is positively correlated with patent transfer rates across industries.</fact>
 
-<figure title="Transfer--Growth Volatility Relationship" caption="Relationship between patent transfer rate and growth volatility. Red line: WLS regression $\beta = 0.21$. Correlation is $\rho=0.19$.">
+<figure title="Transfer&mdash;Growth Volatility Relationship" caption="Relationship between patent transfer rate and growth volatility. Red line: WLS regression $\beta = 0.21$. Correlation is $\rho=0.19$.">
 <media source="image/transfer_growthstd.svg"></media>
 </figure>
 
@@ -119,7 +99,7 @@ EllsworthConfig({
 
 <fact label="fact_transfer_extied"> There is a negative correlation between firm exit rates and patent transfer rates across industries.</fact>
 
-<figure title="Transfer--Exit Rate Relationship" caption="Relationship between patent transfer rate and five-year exit rate. Red line: WLS regression $\beta = -0.26$. Correlation is $\rho=-0.16$.">
+<figure title="Transfer&mdash;Exit Rate Relationship" caption="Relationship between patent transfer rate and five-year exit rate. Red line: WLS regression $\beta = -0.26$. Correlation is $\rho=-0.16$.">
 <media source="image/transfer_exited.svg"></media>
 </figure>
 
@@ -145,7 +125,7 @@ EllsworthConfig({
 
 <fact label="fact_transfer_citation"> The internal citation rate is uncorrelated with transfer rates, while the external citation rate is highly correlated with transfer rates across industries.</fact>
 
-<figure title="Transfer--External Citation Relationship" caption="Relationship between patent transfer and external citations. Red line: WLS regression $\beta = 44.1$. Correlation is $\rho=0.49$." label="figure_transfer_extcite">
+<figure title="Transfer&mdash;External Citation Relationship" caption="Relationship between patent transfer and external citations. Red line: WLS regression $\beta = 44.1$. Correlation is $\rho=0.49$." label="figure_transfer_extcite">
 <media source="image/transfer_extcite.svg"></media>
 </figure>
 
@@ -972,6 +952,32 @@ Varying $z$ and $z_0$ simultaneously would yield an expression equivalent to tha
 </subsection>
 
 </section>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/ellsworth/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script type="text/javascript" src="/ellsworth/js/ellsworth_bootstrap.js"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+EllsworthConfig({
+  macros: {
+    fr: ['\\frac{#1}{#2}',2],
+    pr: ['\\left(#1\\right)',1],
+    br: ['\\left[#1\\right]',1],
+    cb: ['\\left\\{#1\\right\\}',1],
+    pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
+    pder: ['\\frac{\\partial #1}{\\partial #2}',2],
+    widebar: ['\\bar{#1}',1]
+  },
+  environs: {
+    fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
+    proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
+    proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
+  },
+  biblio: "sequential_biblio.json"
+});
+</script>
 
 </body>
 

@@ -1,28 +1,9 @@
 <html>
 
 <head>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="js/ellsworth.js"></script>
-<script type="text/javascript">
-EllsworthConfig({
-  macros: {
-    fr: ['\\frac{#1}{#2}',2],
-    pr: ['\\left(#1\\right)',1],
-    br: ['\\left[#1\\right]',1],
-    cb: ['\\left\\{#1\\right\\}',1],
-    pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
-    pder: ['\\frac{\\partial #1}{\\partial #2}',2],
-    widebar: ['\\bar{#1}',1]
-  },
-  environs: {
-    fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
-    proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
-    proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
-  },
-  biblio: "sequential_biblio.json"
-});
-</script>
-<link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,700,600,300'>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link type='text/css' rel='stylesheet' href='/ellsworth/css/core_bootstrap.css'>
+<link type='text/css' rel='stylesheet' href='/css/proxima-nova.css'>
 <link type='text/css' rel='stylesheet' href='css/environ.css'>
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 <title>This is Only a Test</title>
@@ -30,8 +11,10 @@ EllsworthConfig({
 
 <body>
 
+<header>
 <title>Test Article Prime</title>
 <author affiliation="Penn">Douglas Hanley</author>
+</header>
 
 <section title="Introduction" label="intro">
 <text>Free text 1</text>
@@ -39,7 +22,7 @@ EllsworthConfig({
 <subsection title="Mechansim">
 <text>Free text 2, see <ref label="test_eqn_1"></ref> and <ref label="test_fig"></ref> for info.</text>
 <figure title="Check Out This Clear Trend" caption="This shows some stuff." label="test_fig">
-<imager source="image/image_test.png"></imager>
+<media source="image/transfer_expiry.svg"></media>
 </figure>
 <equation label="test_eqn_2">4z + 3 = 22</equation>
 <text>Free text 3, according to <cite label="hopenhayn2006rewarding"></cite> this is valid.</text>
@@ -68,17 +51,42 @@ EllsworthConfig({
 <section title="Results">
 <text>Free text 1, see <ref label="intro"></ref></text>
 <equation label="test_eqn_3">
-\dot{\mu}_+(\lambda) = (b+(1-\alpha)\tau)\br{F(\lambda)-\mu_+(\lambda)}-(\alpha\tau+z)\int_1^{\infty}\br{1-F(\lambda/\lambda^{\prime})}d\mu_+(\lambda^{\prime}) \\
-+ \pr{\fr{\dot{\mu}_+}{\mu_+}}\br{F(\lambda)-\mu_+(\lambda)}
+\dot{\mu}_+(\lambda) =& (b+(1-\alpha)\tau)\br{F(\lambda)-\mu_+(\lambda)}-(\alpha\tau+z)\int_1^{\infty}\br{1-F(\lambda/\lambda^{\prime})}d\mu_+(\lambda^{\prime}) \\
+&+ \pr{\fr{\dot{\mu}_+}{\mu_+}}\br{F(\lambda)-\mu_+(\lambda)}
 </equation>
 <text>Free text 2, see <ref label="test_eqn_3"></ref> and <ref label="test_fig_2"></ref> for info.</text>
 <figure title="Check Out This Clear Trend" caption="This shows some stuff." label="test_fig_2">
-<imager source="image/image_test.png"></imager>
+<media source="image/transfer_profit.svg"></media>
 </figure>
 <equation label="test_eqn_4">4z + 3 = 22</equation>
 <text>Free text 3, according to <cite label="hopenhayn2006rewarding"></cite> this is valid.</text>
 <text>See <ref label="test_fig_2"></ref> and additionally <ref label="test_eqn_4"></ref> for more details. Confer with <ref label="useless_stats"></ref></text>
 </section>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/ellsworth/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="/ellsworth/js/ellsworth_bootstrap.js"></script>
+<script type="text/javascript">
+EllsworthConfig({
+  macros: {
+    fr: ['\\frac{#1}{#2}',2],
+    pr: ['\\left(#1\\right)',1],
+    br: ['\\left[#1\\right]',1],
+    cb: ['\\left\\{#1\\right\\}',1],
+    pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
+    bfr: ['\\left[\\frac{#1}{#2}\\right]',2],
+    pder: ['\\frac{\\partial #1}{\\partial #2}',2]
+  },
+  environs: {
+    proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
+    proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
+  },
+  biblio: "sequential_biblio.json"
+});
+</script>
 
 </body>
 

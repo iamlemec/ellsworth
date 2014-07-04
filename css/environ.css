@@ -1,6 +1,7 @@
 body {
-  font-family: "Open Sans";
-  /*font-family: "Lato";*/
+  /*font-family: "Open Sans";*/
+  font-family: "proxima-nova";
+  font-size: 17px;
 }
 
 p.paragraph_box {
