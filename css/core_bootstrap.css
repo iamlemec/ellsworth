@@ -1,12 +1,14 @@
 body {
-  /*font-family: sans-serif;*/
+  font-family: sans-serif;
   color: #333;
 }
 
 div.outer_box {
-  max-width: 700px;
-  margin-top: 50px;
-  margin-bottom: 100px;
+  max-width: 650px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 50px;
+  padding-bottom: 75px;
 }
 
 div.header_box {
@@ -161,85 +163,58 @@ span.ref_text {
   cursor: pointer;
 }
 
-span.cite_text {
+a.ref_link {
   color: blue;
-  cursor: pointer;
+  text-decoration: none;
+}
+
+a.fig_link {
+}
+
+a.tab_link {
+}
+
+a.eqn_link {
+}
+
+a.sec_link {
+}
+
+a.subsec_link {
+}
+
+a.cite_link {
+  color: blue;
+  text-decoration: none;
 }
 
 div.footnote_popup {
-  display: none;
-  position: absolute;
-  color: black;
-  border:1px solid #888;
-  background-color: #EEE;
-  opacity: 90%;
-  z-index: 2;
-  padding: 4px;
 }
 
 div.sec_popup {
-  display: none;
-  position: absolute;
-  color: black;
-  border:1px solid #888;
-  background-color: #EEE;
-  opacity: 90%;
-  z-index: 2;
-  padding: 4px;
 }
 
 div.eqn_popup {
-  display: none;
-  position: absolute;
-  color: black;
-  border:1px solid #888;
-  background-color: #EEE;
-  opacity: 90%;
-  z-index: 2;
-  padding: 4px;
 }
 
 div.fig_popup {
-  display: none;
-  position: absolute;
-  color: black;
-  border:1px solid #888;
-  background-color: white;
-  opacity: 90%;
-  z-index: 2;
-  padding: 4px;
   -webkit-transform-origin: top left;
 }
 
 div.tab_popup {
-  display: none;
-  position: absolute;
-  color: black;
-  border:1px solid #888;
-  background-color: white;
-  opacity: 90%;
-  z-index: 2;
-  padding: 4px;
   -webkit-transform-origin: top left;
 }
 
 div.cite_popup {
-  display: none;
-  position: absolute;
-  color: black;
-  border:1px solid #888;
-  background-color: #EEE;
-  opacity: 90%;
-  z-index: 2;
-  padding: 4px;
+  background-color: #BBB;
 }
 
 div.popup {
   display: none;
   position: absolute;
   color: black;
-  border:1px solid #888;
-  background-color: #EEE;
+  border: 1px solid #888;
+  background-color: white;
   opacity: 90%;
   z-index: 2;
   padding: 4px;

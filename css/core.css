@@ -5,7 +5,7 @@ body {
 
 div.outer_box {
   width: 650px;
-  padding: 50px;
+  padding: zz50px;
   margin: 0px auto;
 }
 
@@ -159,16 +159,20 @@ span.ref_text {
   cursor: pointer;
 }
 
-span.cite_text {
+a.cite_link {
   color: blue;
   cursor: pointer;
+}
+
+a.cite_link:hover {
+  text-decoration: none;
 }
 
 div.footnote_popup {
   display: none;
   position: absolute;
   color: black;
-  border:1px solid #888;
+  border: 1px solid #888;
   background-color: #EEE;
   opacity: 90%;
   z-index: 2;
@@ -179,7 +183,7 @@ div.sec_popup {
   display: none;
   position: absolute;
   color: black;
-  border:1px solid #888;
+  border: 1px solid #888;
   background-color: #EEE;
   opacity: 90%;
   z-index: 2;
@@ -190,7 +194,7 @@ div.eqn_popup {
   display: none;
   position: absolute;
   color: black;
-  border:1px solid #888;
+  border: 1px solid #888;
   background-color: #EEE;
   opacity: 90%;
   z-index: 2;
@@ -201,7 +205,7 @@ div.fig_popup {
   display: none;
   position: absolute;
   color: black;
-  border:1px solid #888;
+  border: 1px solid #888;
   background-color: white;
   opacity: 90%;
   z-index: 2;
@@ -213,7 +217,7 @@ div.tab_popup {
   display: none;
   position: absolute;
   color: black;
-  border:1px solid #888;
+  border: 1px solid #888;
   background-color: white;
   opacity: 90%;
   z-index: 2;
@@ -225,18 +229,19 @@ div.cite_popup {
   display: none;
   position: absolute;
   color: black;
-  border:1px solid #888;
+  border: 1px solid #888;
   background-color: #EEE;
   opacity: 90%;
   z-index: 2;
   padding: 4px;
+  text-decoration: none;
 }
 
 div.popup {
   display: none;
   position: absolute;
   color: black;
-  border:1px solid #888;
+  border: 1px solid #888;
   background-color: #EEE;
   opacity: 90%;
   z-index: 2;
