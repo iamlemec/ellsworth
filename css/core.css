@@ -46,14 +46,14 @@ p.paragraph_box {
 }
 
 div.equation_box {
-  display: table;
+  /*display: table;*/
   margin-top: 20px;
   margin-bottom: 20px;
   width: 100%;
 }
 
 div.equation_inner {
- display: table-cell;
+ /*display: table-cell;*/
 }
 
 div.equation_number {

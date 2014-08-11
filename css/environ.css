@@ -1,11 +1,36 @@
 body {
-  /*font-family: "Open Sans";*/
   font-family: "proxima-nova";
   font-size: 17px;
 }
 
-p.paragraph_box {
-  /*text-align: justify;*/
+/* notebook theme */
+/*
+body {
+  background-color: #C8C8C8;
+}
+
+div.outer_box {
+  max-width: 700px;
+  box-shadow: 1px 1px 4px #AAA, 0 0 1em #AAA, 2px 2px 0.5em #AAA;
+  border-left: 1px solid #BBB;
+  border-right: 1px solid #BBB;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: white;
+  color: #333;
+}
+*/
+
+h4.abstract_head {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+p.abstract_body {
+  margin-top: 20px;
+  text-align: justify;
 }
 
 div.fact_box {
