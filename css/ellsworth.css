@@ -1,7 +1,6 @@
 body {
   font-family: sans-serif;
   font-size: 17px;
-  color: #333;
 }
 
 div.header_box {
@@ -43,14 +42,12 @@ p.paragraph_box {
 div.equation_box {
   margin-top: 20px;
   margin-bottom: 20px;
-  width: 100%;
 }
 
 div.equation_inner {
 }
 
 div.equation_number {
-  display: table-cell;
   vertical-align: middle;
   width: 20px;
   color: red;
@@ -106,13 +103,6 @@ h3.figure_title {
 
 p.figure_caption {
   margin: 15px;
-}
-
-div.table_box {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 h3.table_title {
@@ -179,37 +169,73 @@ a.cite_link {
   text-decoration: none;
 }
 
+div.popup_outer {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  opacity: 0.90;
+}
+
+div.popup {
+  font-size: 12px;
+  font-weight: normal;
+  text-align: center;
+  line-height: 150%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 4px;
+  border: 0px;
+  background-color: black;
+  color: white;
+  margin-bottom: 5px;
+  max-width: 300px;
+}
+
+div.popup_arrow {
+  border-bottom-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-width: 0px;
+  border-left-color: transparent;
+  border-left-style: solid;
+  border-left-width: 5px;
+  border-right-color: transparent;
+  border-right-style: solid;
+  border-right-width: 5px;
+  border-top-color: black;
+  border-top-style: solid;
+  border-top-width: 5px;
+  bottom: 0px;
+  height: 5px;
+  width: 10px;
+  position: absolute;
+}
+
 div.footnote_popup {
+}
+
+div.footnote_popup a {
+  color: #2ECCFA;
 }
 
 div.sec_popup {
 }
 
 div.eqn_popup {
+  font-size: 17px;
+  max-width: none;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 div.fig_popup {
-  -webkit-transform-origin: top left;
 }
 
 div.tab_popup {
-  -webkit-transform-origin: top left;
 }
 
 div.cite_popup {
-  background-color: #BBB;
-}
-
-div.popup {
-  display: none;
-  position: absolute;
-  color: black;
-  border: 1px solid #888;
-  background-color: white;
-  opacity: 90%;
-  z-index: 2;
-  padding: 4px;
-  font-weight: normal;
 }
 
 div.bibliography_box {
@@ -239,39 +265,67 @@ div.bibliography_item {
   }
 
   div.equation_box {
+    max-width: 100% !important;
+  }
+
+  div.equation_number {
+    float: right;
+  }
+
+  div.equation_inner {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     max-width: 100% !important;
   }
 
-  div.equation_inner {
+  div.table_box {
+    max-width: 100% !important;
+  }
+
+  div.table_inner {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     max-width: 100% !important;
   }
 }
 
 @media (min-width: 800px) {
-  div.outer_box {
-    max-width: 650px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding-top: 50px;
-    padding-bottom: 75px;
-  }
-
   body {
     background-color: #C8C8C8;
   }
 
   div.outer_box {
     max-width: 700px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-top: 50px;
+    padding-bottom: 75px;
+    padding-left: 50px;
+    padding-right: 50px;
     box-shadow: 1px 1px 4px #AAA, 0 0 1em #AAA, 2px 2px 0.5em #AAA;
     border-left: 1px solid #BBB;
     border-right: 1px solid #BBB;
-    padding-left: 50px;
-    padding-right: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    background-color: #F9F9F9;
+    background-color: white;
     color: #333;
+  }
+
+  div.equation_box {
+    display: table;
+    width: 100%;
+  }
+
+  div.equation_number {
+    display: table-cell;
+  }
+
+  div.equation_inner {
+    display: table-cell;
+  }
+
+  div.table_box {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

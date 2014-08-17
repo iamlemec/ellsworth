@@ -49,29 +49,22 @@ jQuery(document).ready(function($) {
   };
 
   // for a hover event and scale factor (of the realized object), generate appropriate css
-  get_offset = function(event,scale) {
-    if (!scale) { scale = 1.0; }
+  get_offset = function(parent,popup) {
+    elem_width = parent.outerWidth();
+    elem_height = parent.outerHeight();
+    offset_x = parent.offset().left;
+    offset_y = parent.offset().top;
 
-    offset_top = event.pageY;
-    offset_left = event.pageX;
+    pop_width = popup.outerWidth();
+    pop_height = popup.outerHeight();
 
-    if (event.clientY > window.innerHeight/2) {
-      v_shift = -20;
-      trans_y = -100*scale;
-    } else {
-      v_shift = 20;
-      trans_y = 0;
-    }
+    shift_x = 0.5*(elem_width-pop_width);
+    shift_y = -2 - pop_height;
 
-    if (event.clientX > window.innerWidth/2) {
-      trans_x = -100*scale;
-    } else {
-      trans_x = 0;
-    }
+    pos_x = offset_x + shift_x;
+    pos_y = offset_y + shift_y;
 
-    return {'top': (offset_top+v_shift)+'px',
-            'left': offset_left+'px',
-            '-webkit-transform': 'translate('+trans_x+'%,'+trans_y+'%) scale('+scale+')'};
+    return {x:pos_x,y:pos_y,width:pop_width,height:pop_height};
   };
 
   // get a dictionary of attributes for an element, this doesn't exist already?
@@ -83,15 +76,30 @@ jQuery(document).ready(function($) {
     return attributes;
   };
 
-  // attach a popup to parent using given scale factor (default 1.0)
-  attach_popup = function(parent,popup,scale) {
-    parent.append(popup);
+  // attach a popup to parent
+  attach_popup = function(parent,popup) {
+    var pop_out = $("<div>",{class:"popup_outer"});
+    pop_out.append(popup);
+    var arrow = $("<div>",{class:"popup_arrow"});
+    pop_out.append(arrow);
+    parent.append(pop_out);
+    pop_out.attr("shown","false");
     parent.hover(function(event) {
-      if (popup.css("display")=="none") {
-        popup.css(get_offset(event,scale)).show();
+      if (pop_out.attr("shown")=="false") {
+        pop_out.attr("shown","true");
+        var offset = get_offset(parent,pop_out);
+        pop_out.css("left",offset.x).css("top",offset.y);
+        arrow.css("left",0.5*offset.width-5);
+        pop_out.fadeIn(150);
       }
     }, function() {
-      popup.hide();
+      var tid = window.setTimeout(function() {
+        pop_out.fadeOut(150);
+        pop_out.attr("shown","false");
+      },150);
+      parent.mouseenter(function(event) {
+        window.clearTimeout(tid);
+      });
     });
   }
 
@@ -102,7 +110,9 @@ jQuery(document).ready(function($) {
   // make header - title, author, abstract
   $("header title").replaceWith(function () {
     title = $(this);
-    h1text = $("<h1>",{html:title.html(),class:"title_name"});
+    title_text = title.html();
+    $("head").append($("<title>",{html:title_text}));
+    h1text = $("<h1>",{html:title_text,class:"title_name"});
     return h1text;
   });
 
@@ -201,7 +211,7 @@ jQuery(document).ready(function($) {
     var foot = $(this);
     var foot_num = ++n_footnotes;
     var foot_text = foot.html();
-    var span = $("<span>")
+    var span = $("<span>",{html:"&#xfeff;"}); // ZWNBSPFTW!!!
     var sup = $("<sup>",{class:"footnote_mark",foot_num:foot_num,html:foot_num,label:foot.attr("label"),foot_text:foot_text});
     span.append(sup);
     var popup = $("<div>",{class:"popup footnote_popup",html:foot_text});
@@ -213,11 +223,15 @@ jQuery(document).ready(function($) {
   var n_equations = 0;
   $("equation").replaceWith(function () {
     var eqn = $(this);
-    var label = eqn.attr("label");
     var div_box = $("<div>",{class:"equation_box container-fluid"});
-    var div = $("<div>",{class:"equation_inner",html:"\n\\begin{align*}"+$(this).html()+"\n\\end{align*}"});
+    var div;
+    if (eqn.attr("mathml")) {
+      div = $("<div>",{class:"equation_inner",html:$(this).html()});
+    } else {
+      div = $("<div>",{class:"equation_inner",html:"\n\\begin{align*}"+$(this).html()+"\n\\end{align*}"});
+    }
     div_box.append(div);
-    if (label) {
+    if (label=eqn.attr("label")) {
       div_box.attr("id","equation_"+label);
       var eqn_num = ++n_equations;
       div_box.attr("eqn_num",eqn_num);
@@ -238,12 +252,14 @@ jQuery(document).ready(function($) {
   var n_figures = 0;
   $("figure").replaceWith(function () {
     var fig = $(this);
-    var label = fig.attr("label");
     var fig_num = ++n_figures;
     var div = $("<div>",{class:"figure_box",fig_num:fig_num});
-    if (label) { div.attr("id","figure_"+label); }
-    if (fig.attr("title")) {
-      div.append($("<h3>",{html:"Figure "+fig_num+": "+fig.attr("title"),class:"figure_title"}));
+    if (label=fig.attr("label")) {
+      div.attr("id","figure_"+label);
+    }
+    if (title=fig.attr("title")) {
+      div.attr("fig_title",title);
+      div.append($("<h3>",{html:"Figure "+fig_num+": "+title,class:"figure_title"}));
     }
     div.append(fig.children());
     if (fig.attr("caption")) {
@@ -256,16 +272,20 @@ jQuery(document).ready(function($) {
   var n_tables = 0;
   $("table").replaceWith(function () {
     var tab = $(this);
-    var label = tab.attr("label")
     var tab_num = ++n_tables;
     var div = $("<div>",{class:"table_box",tab_num:tab_num});
-    if (label) { div.attr("id","table_"+label); }
-    if (tab.attr("title")) {
+    if (label=tab.attr("label")) {
+      div.attr("id","table_"+label);
+    }
+    if (title=tab.attr("title")) {
+      div.attr("tab_title",title);
       div.append($("<h3>",{html:"Table "+tab_num+": "+tab.attr("title"),class:"table_title"}));
     }
+    var tab_in = $("<div>",{class:"table_inner"});
     var datf = $("<table>",{class:"dataframe"});
     datf.append(tab.children());
-    div.append(datf);
+    tab_in.append(datf);
+    div.append(tab_in);
     return div;
   });
 
@@ -303,14 +323,14 @@ jQuery(document).ready(function($) {
     if (label=ref.attr("label")) {
       if ((fig=$("div.figure_box[id=figure_"+label+"]")).length) {
         link = $("<a>",{class:"ref_link fig_link",href:"#figure_"+label,html:"Figure "+fig.attr("fig_num")});
+        popup = $("<div>",{html:fig.attr("fig_title"),class:"popup fig_popup"});
+        attach_popup(link,popup);
         span.append(link);
-        var popup = $("<div>",{class:"popup fig_popup",html:fig.html()});
-        attach_popup(span,popup,0.5);
       } else if ((tab=$("div.table_box[id=table_"+label+"]")).length) {
         link = $("<a>",{class:"ref_link tab_link",href:"#table_"+label,html:"Table "+tab.attr("tab_num")});
+        popup = $("<div>",{html:tab.attr("tab_title"),class:"popup tab_popup"});
+        attach_popup(link,popup);
         span.append(link);
-        var popup = $("<div>",{class:"popup tab_popup",html:tab.html()});
-        attach_popup(span,popup);
       } else if ((eqn=$("div.equation_box[id=equation_"+label+"]")).length) {
         link = $("<a>",{class:"ref_link eqn_link",href:"#equation_"+label,html:"Equation "+eqn.attr("eqn_num")});
         span.append(link);
@@ -318,14 +338,14 @@ jQuery(document).ready(function($) {
         attach_popup(span,popup);
       } else if ((sec=$("div.section_box[id=section_"+label+"]")).length) {
         link = $("<a>",{class:"ref_link sec_link",href:"#section_"+label,html:"Section "+sec.attr("sec_num")});
+        popup = $("<div>",{html:sec.attr("sec_title"),class:"popup sec_popup"});
+        attach_popup(link,popup);
         span.append(link);
-        var popup = $("<div>",{class:"popup sec_popup",html:sec.attr("sec_title")});
-        attach_popup(span,popup);
       } else if ((sec=$("div.subsection_box[id=subsec_"+label+"]")).length) {
         link = $("<a>",{class:"ref_link subsec_link",href:"#subsec_"+label,html:"Section "+sec.attr("sec_num")+'.'+sec.attr("subsec_num")});
+        popup = $("<div>",{html:sec.attr("sec_title"),class:"popup sec_popup"});
+        attach_popup(link,popup);
         span.append(link);
-        var popup = $("<div>",{class:"popup sec_popup",html:sec.attr("sec_title")});
-        attach_popup(span,popup);
       } else {
         // look for matches in the custom environments
         found = false;
@@ -336,7 +356,7 @@ jQuery(document).ready(function($) {
             if (rule.length > 2) {
               tip = rule[2];
             } else {
-              tip = '';
+              tip = "";
             }
             if ((div=$("div."+env+"_box[id="+env+"_"+label+"]")).length) {
               attrib = get_attributes(div);
@@ -451,7 +471,7 @@ jQuery(document).ready(function($) {
               pop_txt += " ("+src["journal"]+")";
             }
             popup = $("<div>",{html:pop_txt,class:"popup cite_popup"});
-            attach_popup(span,popup);
+            attach_popup(link,popup);
           } else {
             span.html("source:"+label).css({"color":"red"});
           }
