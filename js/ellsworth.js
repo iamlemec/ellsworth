@@ -10,7 +10,6 @@ var ec = {
   macros: {},
   replacements: {},
   environs: {},
-  biblio: ""
 };
 
 function EllsworthConfig(c) {
@@ -37,10 +36,12 @@ function EllsworthConfig(c) {
     }
   });
   MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+
+  EllsworthBoot();
 }
 
 // perform substitutions once document is ready
-jQuery(document).ready(function($) {
+function EllsworthBoot() {
   // perform string substitutions based on a dictionary, kind of a lame implementation of python format
   String.prototype.format_dict = function(dict) {
     return this.replace(/{(.+?)}/g, function(match,key) {
@@ -382,7 +383,7 @@ jQuery(document).ready(function($) {
   });
 
   // on biblio load - parse, in text cites, end list
-  if (ec["biblio"]) {
+  if ("biblio" in ec) {
     $.getJSON(ec["biblio"],function(sources) {
       // parse bibliography into usable structure - a real shit show
       for (label in sources) {
@@ -511,4 +512,4 @@ jQuery(document).ready(function($) {
       return span;
     });
   }
-});
+};
