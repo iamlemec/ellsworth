@@ -4,6 +4,12 @@ import sys
 import re
 from bs4 import BeautifulSoup, element
 
+preamble_inserts = ['\\linespread{1.4}',
+                   '\\setlength{\parindent}{0pt}',
+                   '\\setlength{\parskip}{10pt}']
+document_inserts = ['\\setlength{\\abovedisplayskip}{20pt}',
+                   '\\setlength{\\belowdisplayskip}{20pt}']
+
 class EllsworthParser:
   def __init__(self):
     self.clear()
@@ -13,6 +19,7 @@ class EllsworthParser:
     self.author = ''
     self.abstract = ''
     self.biblio = ''
+    self.use_href = False
 
   def parse_soup(self,soup):
     # init
@@ -28,7 +35,7 @@ class EllsworthParser:
         config = unicode(script.text)
     config = re.sub('([^\s]*):','"\\1":',config) # keys should be in quotes
     config = re.search('EllsworthConfig\((?P<config>(.|\n)*)\)',config).groupdict()['config'] # extract dict
-    conf = eval(config)
+    conf = eval(config) # i know, i know, no time now
 
     # latex macros
     macros = ''
@@ -38,7 +45,8 @@ class EllsworthParser:
     # latex environments
     environs = ''
     for env in conf['environs']:
-      environs += '\\newtheorem{' + env + '}{' + env.capitalize() + '}\n'
+      if env != 'proof':
+        environs += '\\newtheorem{' + env + '}{' + env.capitalize() + '}\n'
 
     # bibliography
     if 'biblio' in conf:
@@ -47,10 +55,12 @@ class EllsworthParser:
 
     # parse body
     body = self.parse_children(html.body)
+    if self.use_href: packages += ['hyperref']
 
     # make preamble info
     preamble = ''
     preamble += '\n'.join(['\\usepackage{'+pname+'}' for pname in packages]) + '\n\n'
+    preamble += '\n'.join(preamble_inserts) + '\n\n'
     preamble += macros + '\n' + environs + '\n'
     if len(self.title): preamble += '\\title{' + self.title + '}\n'
     if len(self.author): preamble += '\\author{' + self.author + '}\n'
@@ -58,6 +68,7 @@ class EllsworthParser:
     # generate whole document
     document = ''
     document += '\\documentclass{article}\n\n' + preamble + '\n\n' + '\\begin{document}\n\n'
+    document += '\n'.join(document_inserts) + '\n\n'
     if len(self.title): document += '\\maketitle'
     document += body + '\n\\end{document}\n'
     document = re.sub('\n[\n]+','\n\n',document)
@@ -130,6 +141,13 @@ class EllsworthParser:
         return '\\begin{enumerate}' + self.parse_children(soup) + '\\end{enumerate}'
       elif name == 'item':
         return '\\item ' + self.parse_children(soup)
+      elif name == 'b':
+        return '\\textbf{' + self.parse_children(soup) + '}'
+      elif name == 'i':
+        return '\\textit{' + self.parse_children(soup) + '}'
+      elif name == 'a':
+        self.use_href = True
+        return '\\href{' + soup['href'] + '}{' + self.parse_children(soup) + '}'
       else:
         if 'label' in soup.attrs:
           env = name
@@ -141,13 +159,16 @@ class EllsworthParser:
         # return '% UNRECOGNIZED: ' + unicode(soup)
 
 fname_in = sys.argv[1]
-fname_out = sys.argv[2]
+fname_out = sys.argv[2] if len(sys.argv) > 2 else None
 
 fid_in = open(fname_in)
 soup_in = BeautifulSoup(fid_in)
 parser = EllsworthParser()
 latex_out = parser.parse_soup(soup_in)
 
-fid_out = open(fname_out,'w+')
-fid_out.write(latex_out)
-fid_out.close()
+if fname_out:
+  fid_out = open(fname_out,'w+')
+  fid_out.write(latex_out)
+  fid_out.close()
+else:
+  print latex_out
