@@ -99,7 +99,7 @@ div.figure_box {
 
 h3.figure_title {
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 p.figure_caption {
@@ -108,7 +108,7 @@ p.figure_caption {
 
 h3.table_title {
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 table.dataframe {

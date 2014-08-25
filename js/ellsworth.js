@@ -113,7 +113,7 @@ function EllsworthBoot() {
     title = $(this);
     title_text = title.html();
     $("head").append($("<title>",{html:title_text}));
-    h1text = $("<h1>",{html:title_text,class:"title_name"});
+    h1text = $("<h1>",{html:title_text,class:"title_name"})
     return h1text;
   });
 
@@ -150,7 +150,12 @@ function EllsworthBoot() {
     var label = sec.attr("label");
     var div = $("<div>",{class:"section_box",sec_num:++n_sections,sec_title:sec.attr("title"),n_subsections:0});
     if (label) { div.attr("id","section_"+label); }
-    div.append($("<h2>",{html:div.attr("sec_num")+" &nbsp; "+div.attr("sec_title"),class:"section_title"}));
+    if (sec.hasClass("nonumber")) {
+      title_text = div.attr("sec_title");
+    } else {
+      title_text = div.attr("sec_num")+" &nbsp; "+div.attr("sec_title");
+    }
+    div.append($("<h2>",{html:title_text,class:"section_title"}));
     div.append(sec.children());
     return div;
   });
@@ -280,7 +285,12 @@ function EllsworthBoot() {
     }
     if (title=tab.attr("title")) {
       div.attr("tab_title",title);
-      div.append($("<h3>",{html:"Table "+tab_num+": "+tab.attr("title"),class:"table_title"}));
+      if (tab.hasClass("nonumber")) {
+        title_string = title;
+      } else {
+        title_string = "Table "+tab_num+": "+title;
+      }
+      div.append($("<h3>",{html:title_string,class:"table_title"}));
     }
     var tab_in = $("<div>",{class:"table_inner"});
     var datf = $("<table>",{class:"dataframe"});
