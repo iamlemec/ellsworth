@@ -148,11 +148,14 @@ function EllsworthBoot() {
   $("section").replaceWith(function () {
     var sec = $(this);
     var label = sec.attr("label");
-    var div = $("<div>",{class:"section_box",sec_num:++n_sections,sec_title:sec.attr("title"),n_subsections:0});
+    var div = $("<div>").addClass("section_box").attr("sec_title",sec.attr("title"));
     if (label) { div.attr("id","section_"+label); }
     if (sec.hasClass("nonumber")) {
+      div.addClass("nonumber");
       title_text = div.attr("sec_title");
     } else {
+      div.attr("sec_num",++n_sections);
+      div.attr("n_subsections",0)
       title_text = div.attr("sec_num")+" &nbsp; "+div.attr("sec_title");
     }
     div.append($("<h2>",{html:title_text,class:"section_title"}));
@@ -164,14 +167,19 @@ function EllsworthBoot() {
   $("subsection").replaceWith(function () {
     var sec = $(this);
     var label = sec.attr("label");
-    parent = sec.parent("div.section_box");
-    sec_num = parent.attr("sec_num");
-    subsec_num = Number(parent.attr("n_subsections"))+1;
-    parent.attr("n_subsections",subsec_num);
-    num_text = sec_num+"."+subsec_num;
-    var div = $("<div>",{class:"subsection_box",sec_title:sec.attr("title"),sec_num:sec_num,subsec_num:subsec_num});
+    var div = $("<div>").addClass("subsection_box").attr("sec_title",sec.attr("title"));
     if (label) { div.attr("id","subsec_"+label); }
-    div.append($("<h3>",{html:sec_num+"."+subsec_num+" &nbsp; "+sec.attr("title"),class:"subsection_title"}));
+    parent = sec.parent("div.section_box");
+    if (sec.hasClass("nonumber") || parent.hasClass("nonumber")) {
+      title_text = sec.attr("title");
+    } else {
+      sec_num = parent.attr("sec_num");
+      subsec_num = Number(parent.attr("n_subsections"))+1;
+      parent.attr("n_subsections",subsec_num);
+      div.attr("sec_num",sec_num).attr("subsec_num",subsec_num);
+      title_text = sec_num+"."+subsec_num+" &nbsp; "+sec.attr("title");
+    }
+    div.append($("<h3>",{html:title_text,class:"subsection_title"}));
     div.append(sec.children());
     return div;
   });

@@ -19,13 +19,15 @@ class EllsworthParser:
     self.author = ''
     self.abstract = ''
     self.biblio = ''
-    self.use_href = False
+    self.packages = set()
 
   def parse_soup(self,soup):
     # init
     self.clear()
     html = soup.html
-    packages = ['amsmath','amsthm','amssymb','graphicx']
+    self.packages.add('amsmath')
+    self.packages.add('amsthm')
+    self.packages.add('amssymb')
 
     # parse head config
     config = None
@@ -39,14 +41,16 @@ class EllsworthParser:
 
     # latex macros
     macros = ''
-    for (cmd,(sub,narg)) in conf['macros'].items():
-      macros += '\\newcommand{\\' + cmd + '}[' + str(narg) + ']{' + sub + '}\n'
+    if 'macros' in conf:
+      for (cmd,(sub,narg)) in conf['macros'].items():
+        macros += '\\newcommand{\\' + cmd + '}[' + str(narg) + ']{' + sub + '}\n'
 
     # latex environments
     environs = ''
-    for env in conf['environs']:
-      if env != 'proof':
-        environs += '\\newtheorem{' + env + '}{' + env.capitalize() + '}\n'
+    if 'environs' in conf:
+      for env in conf['environs']:
+        if env != 'proof':
+          environs += '\\newtheorem{' + env + '}{' + env.capitalize() + '}\n'
 
     # bibliography
     if 'biblio' in conf:
@@ -55,15 +59,15 @@ class EllsworthParser:
 
     # parse body
     body = self.parse_children(html.body)
-    if self.use_href: packages += ['hyperref']
 
     # make preamble info
     preamble = ''
-    preamble += '\n'.join(['\\usepackage{'+pname+'}' for pname in packages]) + '\n\n'
+    preamble += '\n'.join(['\\usepackage{'+pname+'}' for pname in self.packages]) + '\n\n'
     preamble += '\n'.join(preamble_inserts) + '\n\n'
     preamble += macros + '\n' + environs + '\n'
     if len(self.title): preamble += '\\title{' + self.title + '}\n'
     if len(self.author): preamble += '\\author{' + self.author + '}\n'
+    preamble += '\\date{}\n'
 
     # generate whole document
     document = ''
@@ -100,9 +104,12 @@ class EllsworthParser:
           return ''
       elif name == 'section':
         label = ' \\label{' + soup['label'] + '}\n' if ('label' in soup.attrs) else ''
-        return '\n\\section{'+soup['title']+'}\n' + label + self.parse_children(soup)
+        ast = '*' if ('class' in soup.attrs and 'nonumber' in soup['class']) else ''
+        return '\n\\section' + ast + '{'+soup['title']+'}\n' + label + self.parse_children(soup)
       elif name == 'subsection':
-        return '\n\\subsection{'+soup['title']+'}\n' + self.parse_children(soup)
+        label = ' \\label{' + soup['label'] + '}\n' if ('label' in soup.attrs) else ''
+        ast = '*' if ('class' in soup.attrs and 'nonumber' in soup['class']) else ''
+        return '\n\\subsection' + ast + '{'+soup['title']+'}\n' + label + self.parse_children(soup)
       elif name == 'figure':
         title = '\\caption{' + soup['title'] + '}\n' if ('title' in soup.attrs) else ''
         label = '\\label{' + soup['label'] + '}\n' if ('label' in soup.attrs) else ''
@@ -114,7 +121,7 @@ class EllsworthParser:
         thead = self.parse_inner(soup.thead.findChild('tr')) + ' \\\\ \\hline\n' if soup.thead else ''
         body = soup.tbody if soup.tbody else soup
         tbody = ' \\\\\n'.join(map(self.parse_inner,body.findAll('tr')))
-        return '\\begin{center}\n\\begin{tabular}{'+('c'*n_cols)+'}' + label +'\n' + thead + tbody + '\n\\end{tabular}\n\\end{center}'
+        return '\\begin{center}\n\\begin{tabular}{'+('|'.join('c'*n_cols))+'}' + label +'\n' + thead + tbody + '\n\\end{tabular}\n\\end{center}'
       elif name == 'tr':
         return ' & '.join(map(self.parse_inner,soup.children))
       elif name == 'td':
@@ -130,6 +137,7 @@ class EllsworthParser:
           label = ''
         return '\\begin{' + env + '}' + label + soup.text + '\\end{' + env + '}'
       elif name == 'media':
+        self.packages.add('graphicx')
         return '\\includegraphics[scale=0.6]{' + soup['source'] + '}'
       elif name == 'footnote':
         return '\\footnote{' + soup.text + '}'
@@ -146,8 +154,13 @@ class EllsworthParser:
       elif name == 'i':
         return '\\textit{' + self.parse_children(soup) + '}'
       elif name == 'a':
-        self.use_href = True
+        self.packages.add('hyperref')
         return '\\href{' + soup['href'] + '}{' + self.parse_children(soup) + '}'
+      elif name == 'br':
+        return '\n\n'
+      elif name == 'strike':
+        self.packages.add('ulem')
+        return '\\sout{' + self.parse_children(soup) + '}'
       else:
         if 'label' in soup.attrs:
           env = name
