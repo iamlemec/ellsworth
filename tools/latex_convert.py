@@ -55,7 +55,7 @@ class EllsworthParser:
     # bibliography
     if 'biblio' in conf:
       self.biblio = conf['biblio'].split('.')[0]
-      packages += ['natbib']
+      self.packages.add('natbib')
 
     # parse body
     body = self.parse_children(html.body)
