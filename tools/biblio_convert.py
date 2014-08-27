@@ -6,10 +6,12 @@ def convert_to_bib(text_in):
   json_in = json.loads(text_in)
   bib_out = ''
   for (label,info) in json_in.items():
-    bib_out += '@' + info.pop('type') + '{' + label + ',\n'
+    typ = info.pop('type')
+    if typ == 'Working Paper': typ = 'technicalreport'
+    bib_out += '@' + typ + '{' + label + ',\n'
     for (k,v) in info.items():
       bib_out += '  '+k+'={{'+v+'}},\n'
-    bib_out += '}\n\n'
+    bib_out += '}\n'
   return bib_out
 
 def convert_to_json(bib_in):
@@ -32,15 +34,16 @@ if __name__ == "__main__":
   import sys
 
   fname_in = sys.argv[1]
-  text_in = open(fname_in)
+  fname_out = sys.argv[2] if len(sys.argv) > 2 else None
+  text_in = open(fname_in,'r').read()
 
   (flabel_in,ext_in) = fname_in.split('.')
   if ext_in == 'bib':
     text_out = convert_to_json(text_in)
-    fname_out = flabel_in + '.json'
+    if fname_out is None: fname_out = flabel_in + '.json'
   elif ext_in == 'json':
     text_out = convert_to_bib(text_in)
-    fname_out = flabel_in + '.bib'
+    if fname_out is None: fname_out = flabel_in + '.bib'
 
   fid_out = open(fname_out,'w+')
   fid_out.write(text_out)

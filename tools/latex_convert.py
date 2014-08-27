@@ -6,7 +6,9 @@ from bs4 import BeautifulSoup, element
 
 preamble_inserts = ['\\linespread{1.4}',
                    '\\setlength{\parindent}{0pt}',
-                   '\\setlength{\parskip}{10pt}']
+                   '\\setlength{\parskip}{10pt}',
+                   '\\newtheorem{theorem}{Theorem}']
+
 document_inserts = ['\\setlength{\\abovedisplayskip}{20pt}',
                    '\\setlength{\\belowdisplayskip}{20pt}']
 
@@ -50,7 +52,8 @@ class EllsworthParser:
     if 'environs' in conf:
       for env in conf['environs']:
         if env != 'proof':
-          environs += '\\newtheorem{' + env + '}{' + env.capitalize() + '}\n'
+          environs += '\\newtheorem{' + env + '}[theorem]{' + env.capitalize() + '}\n'
+          environs += '\\newtheorem*{' + env + '*}{' + env.capitalize() + '}\n'
 
     # bibliography
     if 'biblio' in conf:
