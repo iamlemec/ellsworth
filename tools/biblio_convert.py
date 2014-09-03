@@ -10,7 +10,7 @@ def convert_to_bib(text_in):
     if typ == 'Working Paper': typ = 'technicalreport'
     bib_out += '@' + typ + '{' + label + ',\n'
     for (k,v) in info.items():
-      bib_out += '  '+k+'={{'+v+'}},\n'
+      bib_out += '  '+k+'="'+v+'",\n'
     bib_out += '}\n'
   return bib_out
 

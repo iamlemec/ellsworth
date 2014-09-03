@@ -12,6 +12,8 @@ preamble_inserts = ['\\linespread{1.4}',
 document_inserts = ['\\setlength{\\abovedisplayskip}{20pt}',
                    '\\setlength{\\belowdisplayskip}{20pt}']
 
+base_packages = ['amsmath','amsthm','amssymb','cleveref']
+
 class EllsworthParser:
   def __init__(self):
     self.clear()
@@ -27,9 +29,8 @@ class EllsworthParser:
     # init
     self.clear()
     html = soup.html
-    self.packages.add('amsmath')
-    self.packages.add('amsthm')
-    self.packages.add('amssymb')
+    for pkg in base_packages:
+      self.packages.add(pkg)
 
     # parse head config
     config = None
@@ -58,14 +59,19 @@ class EllsworthParser:
     # bibliography
     if 'biblio' in conf:
       self.biblio = conf['biblio'].split('.')[0]
-      self.packages.add('natbib')
+      self.packages.add(('natbib','round'))
 
     # parse body
     body = self.parse_children(html.body)
 
     # make preamble info
     preamble = ''
-    preamble += '\n'.join(['\\usepackage{'+pname+'}' for pname in self.packages]) + '\n\n'
+    for pkg in self.packages:
+      if type(pkg) == str:
+        preamble += '\\usepackage{' + pkg +'}\n'
+      elif type(pkg) in [list,tuple] and len(pkg) == 2:
+        preamble += '\\usepackage[' + pkg[1] + ']{' + pkg[0] + '}\n'
+    preamble += '\n\n'
     preamble += '\n'.join(preamble_inserts) + '\n\n'
     preamble += macros + '\n' + environs + '\n'
     if len(self.title): preamble += '\\title{' + self.title + '}\n'
@@ -145,9 +151,9 @@ class EllsworthParser:
       elif name == 'footnote':
         return '\\footnote{' + soup.text + '}'
       elif name == 'ref':
-        return '\\ref{' + soup['label'] + '}'
+        return '\\Cref{' + soup['label'] + '}'
       elif name == 'cite':
-        return '\\cite{' + soup['label'] + '}'
+        return '\\citet{' + soup['label'] + '}'
       elif name == 'enumerate':
         return '\\begin{enumerate}' + self.parse_children(soup) + '\\end{enumerate}'
       elif name == 'item':
@@ -184,9 +190,10 @@ soup_in = BeautifulSoup(text_in)
 parser = EllsworthParser()
 latex_out = parser.parse_soup(soup_in)
 
-# convert \lt to < and \gt to >
+# convert \lt to <, \gt to >, and % to \%
 latex_out = re.subn('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)[0]
 latex_out = re.subn('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)[0]
+latex_out = re.subn('%','\%',latex_out)[0]
 
 if fname_out:
   fid_out = open(fname_out,'w+')
