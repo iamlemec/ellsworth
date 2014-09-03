@@ -178,7 +178,13 @@ fname_in = sys.argv[1]
 fname_out = sys.argv[2] if len(sys.argv) > 2 else None
 
 fid_in = open(fname_in)
-soup_in = BeautifulSoup(fid_in)
+text_in = fid_in.read()
+
+# convert \lt to < and \gt to >
+text_in = re.subn('\\\\lt([^a-zA-Z0-9]|$)','< ',text_in)[0]
+text_in = re.subn('\\\\gt([^a-zA-Z0-9]|$)','> ',text_in)[0]
+
+soup_in = BeautifulSoup(text_in)
 parser = EllsworthParser()
 latex_out = parser.parse_soup(soup_in)
 
