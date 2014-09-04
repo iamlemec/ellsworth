@@ -184,6 +184,37 @@ function EllsworthBoot() {
     return div;
   });
 
+  // side navbar
+  $("navbar").each(function () {
+    console.log("replacing navbar!");
+    var nav = $("<nav>",{id:"nav",class:"sidebar small nav_box"});
+    var nav_title = $("<a>",{html:"Table of Contents",href:"#",class:"nav_title"});
+    var nav_list = $("<ul>",{class:"nav"});
+    $("div.section_box").each(function () {
+      var sec = $(this);
+      if (id=sec.attr("id")) {
+        var sec_li = $("<li>",{class:"nav_list_item"});
+        var sec_a = $("<a>",{html:sec.attr("sec_title"),href:"#"+id});
+        sec_li.append(sec_a);
+        nav_list.append(sec_li);
+      }
+    });
+    nav.append(nav_title);
+    nav.append(nav_list);
+
+    var big_box = $("<div>",{class:"container big_box"});
+    var div1 = $("<div>",{class:"col-sm-2 col-md-2 nav_outer"});
+    div1.append(nav);
+    outer_box.addClass("col-sm-10").addClass("col-md-10");
+    big_box.append(div1);
+    big_box.append(outer_box);
+    $("body").append(big_box);
+
+    // stay in viewport
+    $("#nav").attr("data-spy","affix");
+    $("body").scrollspy();
+  });
+
   // simple replacements - these go first so table environments will work
   for (rep in ec["replacements"]) {
     $(rep).replaceWith(function () {
