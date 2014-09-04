@@ -1,7 +1,7 @@
 <html>
 
 <head>
-<script type="text/javascript" src="/testing/ellsworth/js/ellsworth_load.js"></script>
+<script type="text/javascript" src="/ellsworth/js/ellsworth_load.js"></script>
 <script type="text/x-mathjax-config">
 EllsworthConfig({
   macros: {
@@ -14,6 +14,7 @@ EllsworthConfig({
     widebar: ['\\bar{#1}',1]
   },
   environs: {
+    fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
     proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
     proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
   },
@@ -29,37 +30,55 @@ body {
 
 body {
   background-color: white;
-}
-
-div.big_box {
-  margin: 0px;
-  padding: 0px;
+  position: relative;
 }
 
 nav.nav_box {
-  padding-top: 10px;
+  width: 300px;
+  padding-top: 5px;
 }
 
 div.nav_outer {
-  padding-top: 0px;
-  padding-left: 0px;
+  padding: 0px;
+}
+
+li.title_navitem {
+  line-height: 8px;
+  text-indent: 0px;
+}
+
+li.sec_navitem {
+  line-height: 8px;
+  text-indent: 15px;
+  border-top: 1px solid #CCC;
+}
+
+li.subsec_navitem {
+  line-height: 8px;
+  text-indent: 30px;
 }
 
 a.nav_title {
   color: #444;
   text-decoration: none;
-  padding-left: 10px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
-.nav > li > a {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 20px;
+a.sec_navlink {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+a.subsec_navlink {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 div.outer_box {
-  margin: 0px;
-  padding-top: 0px;
+  margin-left: 300px;
+  margin-top: 0px;
+  padding-top: 10px;
   border: none;
   box-shadow: none;
   border-left: 1px solid #CCC;
@@ -69,6 +88,38 @@ div.outer_box {
 div.section_box {
   margin-top: 50px;
 }
+
+
+/* all links */
+.nav_box .nav>li>a {
+    border-left: 2px solid transparent;
+}
+
+/* nested links */
+.nav_box .nav .nav>li>a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+}
+
+/* active & hover links */
+.nav_box .nav>.active>a,
+.nav_box .nav>li>a:hover,
+.nav_box .nav>li>a:focus {
+    color: #563d7c;
+    background-color: transparent;
+    border-left-color: #563d7c;
+}
+
+/* hide inactive nested list */
+.nav_box .nav ul.nav {
+    display: none;
+}
+/* show active nested list */
+.nav_box .nav>.active>ul.nav {
+    display: block;
+}
+
 </style>
 
 </head>

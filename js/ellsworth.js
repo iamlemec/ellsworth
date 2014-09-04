@@ -148,13 +148,18 @@ function EllsworthBoot() {
   $("section").replaceWith(function () {
     var sec = $(this);
     var label = sec.attr("label");
+    var sec_num = ++n_sections;
     var div = $("<div>").addClass("section_box").attr("sec_title",sec.attr("title"));
-    if (label) { div.attr("id","section_"+label); }
+    if (label) {
+      div.attr("id","section_"+label);
+    } else {
+      div.attr("id","section_"+sec_num);
+    }
     if (sec.hasClass("nonumber")) {
       div.addClass("nonumber");
       title_text = div.attr("sec_title");
     } else {
-      div.attr("sec_num",++n_sections);
+      div.attr("sec_num",sec_num);
       div.attr("n_subsections",0)
       title_text = div.attr("sec_num")+" &nbsp; "+div.attr("sec_title");
     }
@@ -168,13 +173,17 @@ function EllsworthBoot() {
     var sec = $(this);
     var label = sec.attr("label");
     var div = $("<div>").addClass("subsection_box").attr("sec_title",sec.attr("title"));
-    if (label) { div.attr("id","subsec_"+label); }
-    parent = sec.parent("div.section_box");
+    var parent = sec.parent("div.section_box");
+    var sec_num = parent.attr("sec_num");
+    var subsec_num = Number(parent.attr("n_subsections"))+1;
+    if (label) {
+      div.attr("id","subsec_"+label);
+    } else {
+      div.attr("id","subsec_"+sec_num+"_"+subsec_num);
+    }
     if (sec.hasClass("nonumber") || parent.hasClass("nonumber")) {
       title_text = sec.attr("title");
     } else {
-      sec_num = parent.attr("sec_num");
-      subsec_num = Number(parent.attr("n_subsections"))+1;
       parent.attr("n_subsections",subsec_num);
       div.attr("sec_num",sec_num).attr("subsec_num",subsec_num);
       title_text = sec_num+"."+subsec_num+" &nbsp; "+sec.attr("title");
@@ -187,32 +196,54 @@ function EllsworthBoot() {
   // side navbar
   $("navbar").each(function () {
     console.log("replacing navbar!");
-    var nav = $("<nav>",{id:"nav",class:"sidebar small nav_box"});
-    var nav_title = $("<a>",{html:"Table of Contents",href:"#",class:"nav_title"});
-    var nav_list = $("<ul>",{class:"nav"});
+    var nav = $("<nav>",{class:"sidebar small nav_box"});
+    var nav_list = $("<ul>",{class:"nav nav-list"});
+    var title_li = $("<li>",{class:"title_navitem"});
+    var title_a = $("<a>",{html:"Top",href:"#",class:"nav_title"});
+    title_li.append(title_a);
+    nav_list.append(title_li);
     $("div.section_box").each(function () {
       var sec = $(this);
       if (id=sec.attr("id")) {
-        var sec_li = $("<li>",{class:"nav_list_item"});
-        var sec_a = $("<a>",{html:sec.attr("sec_title"),href:"#"+id});
+        var sec_li = $("<li>",{class:"sec_navitem"});
+        var sec_a = $("<a>",{html:sec.attr("sec_title"),href:"#"+id,class:"sec_navlink"});
         sec_li.append(sec_a);
         nav_list.append(sec_li);
       }
+      sec.children("div.subsection_box").each(function() {
+        var subsec = $(this);
+        if (id=subsec.attr("id")) {
+          var subsec_li = $("<li>",{class:"subsec_navitem"});
+          var subsec_a = $("<a>",{html:subsec.attr("sec_title"),href:"#"+id,class:"subsec_navlink"});
+          subsec_li.append(subsec_a);
+          nav_list.append(subsec_li);
+        }
+      });
     });
-    nav.append(nav_title);
     nav.append(nav_list);
-
-    var big_box = $("<div>",{class:"container big_box"});
-    var div1 = $("<div>",{class:"col-sm-2 col-md-2 nav_outer"});
-    div1.append(nav);
-    outer_box.addClass("col-sm-10").addClass("col-md-10");
-    big_box.append(div1);
-    big_box.append(outer_box);
-    $("body").append(big_box);
+    $("body").prepend(nav);
+    $("body").attr("data-spy","scroll");
+    $("body").attr("data-target",".nav_box");
+    $(".nav_box").attr("data-spy","affix");
 
     // stay in viewport
-    $("#nav").attr("data-spy","affix");
-    $("body").scrollspy();
+
+    // smooth scrolling
+    $(".nav_box a").on('click', function(e) {
+      var target = $(this.hash);
+      if (target.selector == '') {
+        scroll_to = 0;
+      } else {
+        target = $('[id=' + this.hash.slice(1) +']');
+        if (target.length) {
+          scroll_to = target.offset().top-25;
+        } else {
+          return true;
+        }
+      }
+      $('html, body').animate({ scrollTop: scroll_to }, 500);
+      return false;
+    });
   });
 
   // simple replacements - these go first so table environments will work
@@ -561,4 +592,6 @@ function EllsworthBoot() {
       return span;
     });
   }
+
+  $("body").scrollspy({target:".nax_box"});
 };
