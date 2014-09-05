@@ -196,8 +196,8 @@ function EllsworthBoot() {
   // side navbar
   $("navbar").each(function () {
     console.log("replacing navbar!");
-    var nav = $("<nav>",{class:"sidebar small nav_box"});
-    var nav_list = $("<ul>",{class:"nav nav-list"});
+    var nav = $("<div>",{class:"small nav_box"});
+    var nav_list = $("<ul>",{class:"nav nav-list affix"});
     var title_li = $("<li>",{class:"title_navitem"});
     var title_a = $("<a>",{html:"Top",href:"#",class:"nav_title"});
     title_li.append(title_a);
@@ -221,12 +221,11 @@ function EllsworthBoot() {
       });
     });
     nav.append(nav_list);
-    $("body").prepend(nav);
+    $("html").css("height","100%");
     $("body").attr("data-spy","scroll");
     $("body").attr("data-target",".nav_box");
-    $(".nav_box").attr("data-spy","affix");
-
-    // stay in viewport
+    $("body").attr("data-offset","50");
+    $("body").prepend(nav);
 
     // smooth scrolling
     $(".nav_box a").on('click', function(e) {
@@ -592,6 +591,4 @@ function EllsworthBoot() {
       return span;
     });
   }
-
-  $("body").scrollspy({target:".nax_box"});
 };

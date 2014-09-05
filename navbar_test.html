@@ -33,13 +33,13 @@ body {
   position: relative;
 }
 
-nav.nav_box {
+div.nav_box {
   width: 300px;
   padding-top: 5px;
 }
 
-div.nav_outer {
-  padding: 0px;
+.nav_box ul {
+  width: 300px;
 }
 
 li.title_navitem {
@@ -89,37 +89,14 @@ div.section_box {
   margin-top: 50px;
 }
 
-
-/* all links */
-.nav_box .nav>li>a {
-    border-left: 2px solid transparent;
+.nav_box .nav > .active > a {
+    color: white;
+    background-color: #428BCA;
 }
 
-/* nested links */
-.nav_box .nav .nav>li>a {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 30px;
-}
-
-/* active & hover links */
-.nav_box .nav>.active>a,
 .nav_box .nav>li>a:hover,
 .nav_box .nav>li>a:focus {
-    color: #563d7c;
-    background-color: transparent;
-    border-left-color: #563d7c;
 }
-
-/* hide inactive nested list */
-.nav_box .nav ul.nav {
-    display: none;
-}
-/* show active nested list */
-.nav_box .nav>.active>ul.nav {
-    display: block;
-}
-
 </style>
 
 </head>
