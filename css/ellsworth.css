@@ -50,7 +50,7 @@ div.equation_inner {
 div.equation_number {
   vertical-align: middle;
   width: 20px;
-  color: red;
+  color: #AAA;
 }
 
 div.section_box {
