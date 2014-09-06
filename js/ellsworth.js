@@ -382,20 +382,17 @@ function EllsworthBoot() {
     tbody.addClass("df_tbody");
   });
 
-  // ordered lists - autonumbering!
+  // ordered lists - autonumbering with CSS!
   $("enumerate").replaceWith(function () {
     var enumer = $(this);
-    var div = $("<div>",{class:"enumerate_box",n_items:0});
+    var div = $("<div>",{class:"enumerate_box"});
     div.append(enumer.children());
     return div;
   });
 
   $("div.enumerate_box>item").replaceWith(function () {
     var item = $(this);
-    parent = item.parent("div.enumerate_box");
-    item_num = Number(parent.attr("n_items"))+1;
-    parent.attr("n_items",item_num);
-    var div = $("<div>",{class:"item_box",html:item_num+". "+item.html()});
+    var div = $("<div>",{class:"item_box",html:item.html()});
     return div;
   });
 
