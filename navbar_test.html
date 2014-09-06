@@ -26,20 +26,17 @@ EllsworthConfig({
 <style>
 body {
   font-family: "proxima-nova";
-}
-
-body {
   background-color: white;
-  position: relative;
 }
 
 div.nav_box {
-  width: 300px;
-  padding-top: 5px;
+  width: 250px;
+  padding-top: 0px;
 }
 
 .nav_box ul {
-  width: 300px;
+  width: 250px;
+  background-color: #F8F8F8;
 }
 
 li.title_navitem {
@@ -51,6 +48,7 @@ li.sec_navitem {
   line-height: 8px;
   text-indent: 15px;
   border-top: 1px solid #CCC;
+  /*background-color: #F1F1F1*/
 }
 
 li.subsec_navitem {
@@ -58,9 +56,7 @@ li.subsec_navitem {
   text-indent: 30px;
 }
 
-a.nav_title {
-  color: #444;
-  text-decoration: none;
+a.title_navlink {
   padding-top: 0px;
   padding-bottom: 0px;
 }
@@ -76,26 +72,42 @@ a.subsec_navlink {
 }
 
 div.outer_box {
-  margin-left: 300px;
+  margin-left: 250px;
   margin-top: 0px;
-  padding-top: 10px;
+  padding-top: 15px;
   border: none;
   box-shadow: none;
   border-left: 1px solid #CCC;
   border-right: 1px solid #CCC;
+  margin-bottom: 0px;
+  padding-bottom: 100px;
 }
 
 div.section_box {
   margin-top: 50px;
 }
 
-.nav_box .nav > .active > a {
-    color: white;
-    background-color: #428BCA;
+a.title_navlink {
+  color: black;
 }
 
-.nav_box .nav>li>a:hover,
-.nav_box .nav>li>a:focus {
+.nav_box .nav > .active > a.title_navlink {
+  color: white;
+  background-color: #428BCA;
+}
+
+.nav_box .nav > .active > a.sec_navlink {
+  color: white;
+  background-color: #428BCA;
+}
+
+.nav_box .nav > .active > a.subsec_navlink {
+  color: white;
+  background-color: #428BCA;
+}
+
+a:focus {
+  outline: 0px;
 }
 </style>
 
@@ -707,7 +719,7 @@ This can be used to calculate a number of pertinent values. For instance, assumi
 
 </subsection>
 
-<subsection title="Industry and Firm Heterogeneity">
+<subsection title="Heterogeneity">
 
 <text>
 In order to match the cross-industry variation in quantities such as transfer rates, expiry rates, and profitability, I introduce the possibility of heterogeneity across industries in the sequentiality of innovation. Industries are segmented in terms of innovation but share a common pool of labor. Let there be $M$ equal-mass segments in total. Each will have a particular value for $\alpha$ and associated innovation rates $\tau(\alpha)$, $z(\alpha)$, and $z_0(\alpha)$ and average inverse technological lead $\Gamma(\alpha)$. The initial analysis then carries through unchanged at the industry level and we need only be concerned with aggregate labor and bond market clearing. The labor market clearing condition is given by
@@ -742,7 +754,7 @@ In the basic model, there are seven parameters that need to be identified. First
 </text>
 
 <text>
-First, the the innovation production parameters can be jointly constrained using aggregate moments. Naturally, their exact values will dependent upon the estimated values of other parameters in the model. However, this partitioning is still useful at a conceptual level. The tail index parameter $\kappa$ will be a strong determinant of profits in the economy. The expression given in <ref label="markup_median"></ref> is calculated at the product line level. Aggregating this to the firm level has no apparent analytical form, so simulation must be used. Meanwhile, the R&D production function parameters can be effectively constrained using the aggregate growth rate and the share of R\&D spending in the economy. Both these moments are readily available from BEA data. For the sake of consistency, analogues at the firm level, namely the incumbent innovation rate and R\&D intensity, can be used as well.
+First, the the innovation production parameters can be jointly constrained using aggregate moments. Naturally, their exact values will dependent upon the estimated values of other parameters in the model. However, this partitioning is still useful at a conceptual level. The tail index parameter $\kappa$ will be a strong determinant of profits in the economy. The expression given in <ref label="markup_median"></ref> is calculated at the product line level. Aggregating this to the firm level has no apparent analytical form, so simulation must be used. Meanwhile, the R&D production function parameters can be effectively constrained using the aggregate growth rate and the share of R&D spending in the economy. Both these moments are readily available from BEA data. For the sake of consistency, analogues at the firm level, namely the incumbent innovation rate and R&D intensity, can be used as well.
 </text>
 
 <text>
@@ -1089,7 +1101,7 @@ One major difference that arises when introducing firm-level heterogeneity is th
 </text>
 
 <text>
-<b>Equilibrium:</b> There are two types of firms: high-intensity and low-intensity innovators, herein referred to as high and low type, that are differentiated by their R\&D cost functions. High type firms transition to non-adopting firms at flow rate $\nu$. Being a low type firm is an absorbing state. Denote a generic firm type with $i\in\{H,L\}$. There is a type-specific innovation cost function $c^i(\cdot)$ for external innovation. The internal innovation technology $d(\cdot)$ is the same across types. An entrant firm starts as type $H$ with probability $\zeta^H$ and type $L$ with probability $\zeta^L = 1 - \zeta^H$.
+<b>Equilibrium:</b> There are two types of firms: high-intensity and low-intensity innovators, herein referred to as high and low type, that are differentiated by their R&D cost functions. High type firms transition to non-adopting firms at flow rate $\nu$. Being a low type firm is an absorbing state. Denote a generic firm type with $i\in\{H,L\}$. There is a type-specific innovation cost function $c^i(\cdot)$ for external innovation. The internal innovation technology $d(\cdot)$ is the same across types. An entrant firm starts as type $H$ with probability $\zeta^H$ and type $L$ with probability $\zeta^L = 1 - \zeta^H$.
 </text>
 
 <text>

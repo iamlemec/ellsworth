@@ -104,8 +104,28 @@ function EllsworthBoot() {
     });
   }
 
+  // smooth scrolling
+  smooth_scroll = function() {
+    console.log('smooth scroll!');
+    $("a").on('click', function(e) {
+      var target = $(this.hash);
+      if (target.selector == '') {
+        scroll_to = 0;
+      } else {
+        target = $('[id=' + this.hash.slice(1) +']');
+        if (target.length) {
+          scroll_to = target.offset().top-25;
+        } else {
+          return true;
+        }
+      }
+      $('html, body').animate({ scrollTop: scroll_to }, 300);
+      return false;
+    });
+  }
+
   // create outer box for everyone to live in
-  $("body").append($("<div>",{class:"outer_box container",role:"main"}).append($("body>")));
+  $("body").append($("<div>",{class:"outer_box container",role:"main",id:"boxler"}).append($("body>")));
   outer_box = $("div.outer_box");
 
   // make header - title, author, abstract
@@ -199,7 +219,7 @@ function EllsworthBoot() {
     var nav = $("<div>",{class:"small nav_box"});
     var nav_list = $("<ul>",{class:"nav nav-list affix"});
     var title_li = $("<li>",{class:"title_navitem"});
-    var title_a = $("<a>",{html:"Top",href:"#",class:"nav_title"});
+    var title_a = $("<a>",{html:"Top",href:"#boxler",class:"title_navlink"});
     title_li.append(title_a);
     nav_list.append(title_li);
     $("div.section_box").each(function () {
@@ -226,23 +246,6 @@ function EllsworthBoot() {
     $("body").attr("data-target",".nav_box");
     $("body").attr("data-offset","50");
     $("body").prepend(nav);
-
-    // smooth scrolling
-    $(".nav_box a").on('click', function(e) {
-      var target = $(this.hash);
-      if (target.selector == '') {
-        scroll_to = 0;
-      } else {
-        target = $('[id=' + this.hash.slice(1) +']');
-        if (target.length) {
-          scroll_to = target.offset().top-25;
-        } else {
-          return true;
-        }
-      }
-      $('html, body').animate({ scrollTop: scroll_to }, 500);
-      return false;
-    });
   });
 
   // simple replacements - these go first so table environments will work
@@ -579,6 +582,8 @@ function EllsworthBoot() {
         }
         return bib;
       });
+
+      smooth_scroll();
     });
   } else {
     $("cite").replaceWith(function () {
@@ -590,5 +595,7 @@ function EllsworthBoot() {
       }
       return span;
     });
+
+    smooth_scroll();
   }
 };
