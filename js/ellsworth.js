@@ -106,7 +106,6 @@ function EllsworthBoot() {
 
   // smooth scrolling
   smooth_scroll = function() {
-    console.log('smooth scroll!');
     $("a").on('click', function(e) {
       var target = $(this.hash);
       if (target.selector == '') {
@@ -114,7 +113,7 @@ function EllsworthBoot() {
       } else {
         target = $('[id=' + this.hash.slice(1) +']');
         if (target.length) {
-          scroll_to = target.offset().top-25;
+          scroll_to = target.offset().top-20;
         } else {
           return true;
         }
@@ -574,8 +573,7 @@ function EllsworthBoot() {
         ref_list.sort(function (a,b) { return a["biblio_html"] > b["biblio_html"]; });
         for (i in ref_list) {
           var ref = ref_list[i];
-          bib.append($("<a>",{name:"biblio_"+ref["biblio_label"]}));
-          bib.append($("<div>",{html:ref["biblio_html"],class:"bibliography_item"}));
+          bib.append($("<div>",{html:ref["biblio_html"],class:"bibliography_item",id:"biblio_"+ref["biblio_label"]}));
         }
         return bib;
       });
