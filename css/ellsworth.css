@@ -140,6 +140,15 @@ div.item_box {
   padding-bottom: 3px;
 }
 
+div.enumerate_box {
+  counter-reset: item-counter;
+}
+
+div.item_box:before {
+  content: counter(item-counter) ". ";
+  counter-increment: item-counter;
+}
+
 span.ref_text {
   color: blue;
   cursor: pointer;
