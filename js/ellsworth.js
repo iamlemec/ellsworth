@@ -119,6 +119,7 @@ function EllsworthBoot() {
         }
       }
       $('html, body').animate({ scrollTop: scroll_to }, 300);
+      location.hash = this.hash;
       return false;
     });
   }
