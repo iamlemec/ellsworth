@@ -409,7 +409,13 @@ a.title_navlink {
   background-color: #428BCA;
 }
 
-div.outer_box.navbar {
+body.navbar {
+  background-color: white;
+  margin-bottom: 0px;
+  border: 0px;
+}
+
+body.navbar div.outer_box {
   margin-left: 250px;
   margin-top: 0px;
   padding-top: 15px;
@@ -419,10 +425,4 @@ div.outer_box.navbar {
   border-right: 1px solid #CCC;
   margin-bottom: 0px;
   padding-bottom: 100px;
-}
-
-body.navbar {
-  background-color: white;
-  margin-bottom: 0px;
-  border: 0px;
 }
