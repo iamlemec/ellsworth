@@ -246,6 +246,8 @@ function EllsworthBoot() {
     $("body").attr("data-target",".nav_box");
     $("body").attr("data-offset","50");
     $("body").prepend(nav);
+    $("div#boxler").addClass("navbar");
+    $("body").addClass("navbar");
   });
 
   // simple replacements - these go first so table environments will work

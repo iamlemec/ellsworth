@@ -1,4 +1,7 @@
 (function () {
+  prefix = "";
+  //prefix = "/testing";
+
   function headAppend(elem) {
     document.getElementsByTagName("head")[0].appendChild(elem);
   }
@@ -25,7 +28,7 @@
 
   // insert CSS defs - bootstrap, ellsworth
   loadCSS("/css/bootstrap.min.css");
-  loadCSS("/ellsworth/css/ellsworth.css");
+  loadCSS(prefix+"/ellsworth/css/ellsworth.css");
 
   // insert meta info - this is dumb
   var meta = document.createElement("meta");
@@ -36,7 +39,7 @@
   // load jQuery and subsequently the rest - bootstrap, MathJax, ellsworth
   loadScript("/js/jquery.min.js", function () {
     loadScript("/js/bootstrap.min.js");
-    loadScript("/ellsworth/js/ellsworth.js?version=1.0");
+    loadScript(prefix+"/ellsworth/js/ellsworth.js?version=1.0");
     loadScript("/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
   });
 })();
