@@ -423,4 +423,5 @@ div.outer_box.navbar {
 
 body.navbar {
   background-color: white;
+  margin-bottom: 0px;
 }
