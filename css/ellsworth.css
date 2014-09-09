@@ -302,6 +302,10 @@ div.bibliography_item {
     -webkit-overflow-scrolling: touch;
     max-width: 100% !important;
   }
+
+  div.nav_box {
+    visibility: hidden;
+  }
 }
 
 @media (min-width: 800px) {
@@ -343,86 +347,86 @@ div.bibliography_item {
     margin-left: auto;
     margin-right: auto;
   }
-}
 
-/* navbar section */
+  /* navbar section */
 
-div.nav_box {
-  width: 250px;
-  padding-top: 0px;
-}
+  div.nav_box {
+    width: 250px;
+    padding-top: 0px;
+  }
 
-div.nav_box ul {
-  width: 250px;
-  background-color: #F8F8F8;
-  border-bottom: 1px solid #CCC;
-}
+  div.nav_box ul {
+    width: 250px;
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #CCC;
+  }
 
-li.title_navitem {
-  line-height: 8px;
-  text-indent: 0px;
-}
+  li.title_navitem {
+    line-height: 8px;
+    text-indent: 0px;
+  }
 
-li.sec_navitem {
-  line-height: 8px;
-  text-indent: 15px;
-  border-top: 1px solid #CCC;
-  /*background-color: #F1F1F1*/
-}
+  li.sec_navitem {
+    line-height: 8px;
+    text-indent: 15px;
+    border-top: 1px solid #CCC;
+    /*background-color: #F1F1F1*/
+  }
 
-li.subsec_navitem {
-  line-height: 8px;
-  text-indent: 30px;
-}
+  li.subsec_navitem {
+    line-height: 8px;
+    text-indent: 30px;
+  }
 
-a.title_navlink {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
+  a.title_navlink {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
 
-a.sec_navlink {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
+  a.sec_navlink {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
 
-a.subsec_navlink {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
+  a.subsec_navlink {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
 
-a.title_navlink {
-  color: black;
-}
+  a.title_navlink {
+    color: black;
+  }
 
-.nav_box .nav > .active > a.title_navlink {
-  color: white;
-  background-color: #428BCA;
-}
+  .nav_box .nav > .active > a.title_navlink {
+    color: white;
+    background-color: #428BCA;
+  }
 
-.nav_box .nav > .active > a.sec_navlink {
-  color: white;
-  background-color: #428BCA;
-}
+  .nav_box .nav > .active > a.sec_navlink {
+    color: white;
+    background-color: #428BCA;
+  }
 
-.nav_box .nav > .active > a.subsec_navlink {
-  color: white;
-  background-color: #428BCA;
-}
+  .nav_box .nav > .active > a.subsec_navlink {
+    color: white;
+    background-color: #428BCA;
+  }
 
-body.navbar {
-  background-color: white;
-  margin-bottom: 0px;
-  border: 0px;
-}
+  body.navbar {
+    background-color: white;
+    margin-bottom: 0px;
+    border: 0px;
+  }
 
-body.navbar div.outer_box {
-  margin-left: 250px;
-  margin-top: 0px;
-  padding-top: 15px;
-  border: none;
-  box-shadow: none;
-  border-left: 1px solid #CCC;
-  border-right: 1px solid #CCC;
-  margin-bottom: 0px;
-  padding-bottom: 100px;
+  body.navbar div.outer_box {
+    margin-left: 250px;
+    margin-top: 0px;
+    padding-top: 15px;
+    border: none;
+    box-shadow: none;
+    border-left: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+    margin-bottom: 0px;
+    padding-bottom: 100px;
+  }
 }

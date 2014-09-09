@@ -39,7 +39,7 @@
   // load jQuery and subsequently the rest - bootstrap, MathJax, ellsworth
   loadScript("/js/jquery.min.js", function () {
     loadScript("/js/bootstrap.min.js");
-    loadScript(prefix+"/ellsworth/js/ellsworth.js?version=1.0");
+    loadScript(prefix+"/ellsworth/js/ellsworth.js");
     loadScript("/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
   });
 })();
