@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # ellsworth to latex converter
 
 import sys
@@ -146,8 +148,12 @@ class EllsworthParser:
           label = ''
         return '\\begin{' + env + '}' + label + soup.text + '\\end{' + env + '}'
       elif name == 'media':
+        source = soup['source']
+        (path,ext) = source.rsplit('.',1)
+        if ext == 'svg':
+          source = path + '.png'
         self.packages.add('graphicx')
-        return '\\includegraphics[scale=0.6]{' + soup['source'] + '}'
+        return '\\begin{center}\n\\includegraphics[scale=' + img_scale + ']{' + source + '}\n\\end{center}'
       elif name == 'footnote':
         return '\\footnote{' + soup.text + '}'
       elif name == 'ref':
@@ -164,7 +170,7 @@ class EllsworthParser:
         return '\\textit{' + self.parse_children(soup) + '}'
       elif name == 'a':
         self.packages.add('hyperref')
-        return '\\href{' + soup['href'] + '}{' + self.parse_children(soup) + '}'
+        return '\\href{' + soup['href'] + '}{' + self.parse_children(soup).replace('_','\\_') + '}'
       elif name == 'br':
         return '\n\n'
       elif name == 'strike':
@@ -182,6 +188,7 @@ class EllsworthParser:
 
 fname_in = sys.argv[1]
 fname_out = sys.argv[2] if len(sys.argv) > 2 else None
+img_scale = sys.argv[3] if len(sys.argv) > 3 else '0.6'
 
 fid_in = open(fname_in)
 text_in = fid_in.read()
@@ -197,7 +204,7 @@ latex_out = re.subn('%','\%',latex_out)[0]
 
 if fname_out:
   fid_out = open(fname_out,'w+')
-  fid_out.write(latex_out)
+  fid_out.write(latex_out.encode('ascii','replace'))
   fid_out.close()
 else:
   print latex_out

@@ -106,7 +106,7 @@ function EllsworthBoot() {
 
   // smooth scrolling
   smooth_scroll = function() {
-    $("a").on('click', function(e) {
+    $("a.ref_link").on('click', function(e) {
       var target = $(this.hash);
       if (target.selector == '') {
         scroll_to = 0;
@@ -391,11 +391,16 @@ function EllsworthBoot() {
     return div;
   });
 
-  $("div.enumerate_box>item").replaceWith(function () {
-    var item = $(this);
-    var div = $("<div>",{class:"item_box",html:item.html()});
-    return div;
-  });
+  var done = false;
+  while (!done) {
+    done = true;
+    $("div.enumerate_box>item").replaceWith(function () {
+      var item = $(this);
+      var div = $("<div>",{class:"item_box",html:item.html()});
+      done = false;
+      return div;
+    });
+  }
 
   // dereference refs - attach appropriate hover popups
   $("ref").replaceWith(function () {
