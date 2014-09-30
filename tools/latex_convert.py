@@ -200,7 +200,7 @@ latex_out = parser.parse_soup(soup_in)
 # convert \lt to <, \gt to >, and % to \%
 latex_out = re.subn('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)[0]
 latex_out = re.subn('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)[0]
-latex_out = re.subn('%','\%',latex_out)[0]
+# latex_out = re.subn('%','\%',latex_out)[0]
 
 if fname_out:
   fid_out = open(fname_out,'w+')
