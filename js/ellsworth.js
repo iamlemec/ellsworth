@@ -106,7 +106,7 @@ function EllsworthBoot() {
 
   // smooth scrolling
   smooth_scroll = function() {
-    $("a.ref_link").on('click', function(e) {
+    add_smooth_scroll = function(e) {
       var target = $(this.hash);
       if (target.selector == '') {
         scroll_to = 0;
@@ -121,7 +121,9 @@ function EllsworthBoot() {
       $('html, body').animate({ scrollTop: scroll_to }, 300);
       location.hash = this.hash;
       return false;
-    });
+    };
+    $("a.ref_link").on('click', add_smooth_scroll);
+    $("a.navlink").on('click', add_smooth_scroll);
   }
 
   // create outer box for everyone to live in
@@ -219,14 +221,14 @@ function EllsworthBoot() {
     var nav = $("<div>",{class:"small nav_box"});
     var nav_list = $("<ul>",{class:"nav nav-list affix"});
     var title_li = $("<li>",{class:"title_navitem"});
-    var title_a = $("<a>",{html:"Top",href:"#boxler",class:"title_navlink"});
+    var title_a = $("<a>",{html:"Top",href:"#boxler",class:"title_navlink navlink"});
     title_li.append(title_a);
     nav_list.append(title_li);
     $("div.section_box").each(function () {
       var sec = $(this);
       if (id=sec.attr("id")) {
         var sec_li = $("<li>",{class:"sec_navitem"});
-        var sec_a = $("<a>",{html:sec.attr("sec_title"),href:"#"+id,class:"sec_navlink"});
+        var sec_a = $("<a>",{html:sec.attr("sec_title"),href:"#"+id,class:"sec_navlink navlink"});
         sec_li.append(sec_a);
         nav_list.append(sec_li);
       }
@@ -234,7 +236,7 @@ function EllsworthBoot() {
         var subsec = $(this);
         if (id=subsec.attr("id")) {
           var subsec_li = $("<li>",{class:"subsec_navitem"});
-          var subsec_a = $("<a>",{html:subsec.attr("sec_title"),href:"#"+id,class:"subsec_navlink"});
+          var subsec_a = $("<a>",{html:subsec.attr("sec_title"),href:"#"+id,class:"subsec_navlink navlink"});
           subsec_li.append(subsec_a);
           nav_list.append(subsec_li);
         }
@@ -548,7 +550,7 @@ function EllsworthBoot() {
           if (sources.hasOwnProperty(label)) {
             src = sources[label];
             src["used"] = true;
-            link = $("<a>",{class:"cite_link"});
+            link = $("<a>",{class:"ref_link"});
             if (has_biblio) { link.attr("href","#biblio_"+label); }
             link.html(src["cite_form"]);
             span.append(link);

@@ -5,77 +5,39 @@
 <link href="/js/katex/katex.min.css" type="text/css" rel="stylesheet">
 <script src="/js/jquery.min.js" type="text/javascript"></script>
 <script src="/js/katex/katex.min.js" type="text/javascript"></script>
+<!-- JS Loading -->
+<script type="text/javascript">
+$(document).ready(function() {
+    console.log("Running config!");
+
+    function replacer(match, p, offset, string) {
+        return '<tex>' + p + '</tex>';
+    }
+    var re = /\$([^\$]*)\$/g;
+
+    $(".tex").each(function () {
+        var elem = $(this);
+        elem.html(elem.html().replace(re,replacer));
+    });
+
+    $("tex").replaceWith(function() {
+        var elem = $(this);
+        var span = $("<span>");
+        katex.render(elem.html(),span[0]);
+        return span;
+    });
+});
+</script>
 </head>
 
 <body>
 
 <div class="tex">
 <ol>
-<li>$\int_0^1 \exp(-x) \sin(\zeta / x) dx$</li>
+<li>$x^2+y^2$</li>
 <li>Hi</li>
 </ol>
 </div>
-
-<!-- JS Loading -->
-<script type="text/javascript">
-console.log("Running config!");
-
-function convertMath(elem) {
-    var displayMaths = elem.textContent.split("$$");
-
-    elem.innerHTML = "";
-
-    var isDisplay = false;
-    for (var i = 0; i < displayMaths.length; i++) {
-        var displayMath = displayMaths[i];
-        if (isDisplay) {
-            var display = document.createElement("span");
-            var wrap = document.createElement("div");
-
-            wrap.className = "katex-display";
-            wrap.appendChild(display);
-
-            try {
-                katex.render("\\displaystyle " + displayMath, display);
-                elem.appendChild(wrap);
-            } catch(e) {
-                elem.appendChild(
-                    document.createTextNode("$$" + displayMath + "$$"));
-                console.error("In " + displayMath, e.message);
-            }
-        } else {
-            var inlineMaths = displayMath.split("$");
-
-            var isInline = false;
-            for (var j = 0; j < inlineMaths.length; j++) {
-                var inlineMath = inlineMaths[j];
-                if (isInline) {
-                    var span = document.createElement("span");
-
-                    try {
-                        katex.render(inlineMath, span);
-                        elem.appendChild(span);
-                    } catch(e) {
-                        elem.appendChild(
-                            document.createTextNode("$" + inlineMath + "$"));
-                        console.error("In " + inlineMath, e.message);
-                    }
-                } else {
-                    elem.appendChild(
-                        document.createTextNode(inlineMath));
-                }
-                isInline = !isInline;
-            }
-        }
-        isDisplay = !isDisplay;
-    }
-}
-
-$(".tex").each(function () {
-  convertMath($(this)[0]);
-});
-// convertMath($("#eqtarg")[0]);
-</script>
 
 </body>
 

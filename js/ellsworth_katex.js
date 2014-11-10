@@ -12,6 +12,7 @@ var ec = {
   environs: {},
 };
 
+var config = false;
 function EllsworthConfig(c) {
   for (v in c) {
     if (v=="macros") {
@@ -25,9 +26,12 @@ function EllsworthConfig(c) {
     }
   }
 
-  $(document).ready(function() {
-    EllsworthBoot();
-  });
+  if (!config) {
+    config = true;
+    $(document).ready(function() {
+      EllsworthBoot();
+    });
+  }
 }
 
 // perform substitutions once document is ready
@@ -267,6 +271,25 @@ function EllsworthBoot() {
     })
   }
 
+  // typeset inline
+  function inline_marker(match, p, offset, string) {
+      return '<tex>' + p + '</tex>';
+  }
+  var inline_re = /\$([^\$]*)\$/g;
+  outer_box.html(outer_box.html().replace(inline_re,inline_marker));
+
+  $("tex").replaceWith(function() {
+      var elem = $(this);
+      var span = $("<span>");
+      try {
+        katex.render(elem.html(),span[0]);
+      } catch(e) {
+        span.html(elem.html());
+        span.css({'color': 'red'});
+      }
+      return span;
+  });
+
   // basic text environment
   $("text").replaceWith(function () {
     var text = $(this).html();
@@ -293,8 +316,13 @@ function EllsworthBoot() {
   $("equation").replaceWith(function () {
     var eqn = $(this);
     var div_box = $("<div>",{class:"equation_box container-fluid"});
-    var div = $("<div>",{style:"text-align: center;"});
-    katex.render("\\displaystyle{" + $(this).html() + "}",div[0]);
+    var div = $("<div>",{class:"equation_inner",style:"text-align: center;"});
+    try {
+      katex.render("\\displaystyle{" + eqn.html() + "}",div[0]);
+    } catch(e) {
+      div.html(eqn.html());
+      div.css({'color': 'red'});
+    }
     div_box.append(div);
     if (label=eqn.attr("label")) {
       div_box.attr("id","equation_"+label);

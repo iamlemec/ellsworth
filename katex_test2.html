@@ -1,28 +1,13 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-<script type="text/javascript" src="/ellsworth/js/ellsworth_load.js"></script>
-<script type="text/x-mathjax-config">
-EllsworthConfig({
-  macros: {
-    fr: ['\\frac{#1}{#2}',2],
-    pr: ['\\left(#1\\right)',1],
-    br: ['\\left[#1\\right]',1],
-    cb: ['\\left\\{#1\\right\\}',1],
-    pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
-    pder: ['\\frac{\\partial #1}{\\partial #2}',2],
-    widebar: ['\\bar{#1}',1]
-  },
-  environs: {
-    fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
-    proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
-    proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
-  },
-  biblio: "sequential_biblio.json"
-});
-</script>
 
-<link type='text/css' rel='stylesheet' href="/css/proxima-nova.css"/>
+<link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<link href="/js/katex/katex.min.css" type="text/css" rel="stylesheet">
+<link href="/ellsworth/css/ellsworth.css" type="text/css" rel="stylesheet">
+<link type='text/css' rel='stylesheet' href='/css/proxima-nova.css'>
+
 <style>
 body {
   font-family: "proxima-nova";
@@ -60,6 +45,30 @@ div.table_popup {
   background-color: white;
 }
 </style>
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/js/katex/katex.min.js" type="text/javascript"></script>
+<script src="/ellsworth/js/ellsworth_katex.js" type="text/javascript"></script>
+<script type="text/javascript">
+console.log("Running config!");
+EllsworthConfig({
+  macros: {
+    fr: ['\\frac{#1}{#2}',2],
+    pr: ['\\left(#1\\right)',1],
+    br: ['\\left[#1\\right]',1],
+    cb: ['\\left\\{#1\\right\\}',1],
+    pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
+    pder: ['\\frac{\\partial #1}{\\partial #2}',2],
+  },
+  environs: {
+    fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
+    proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
+    proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
+  },
+  biblio: "sequential_biblio.json"
+});
+</script>
 
 </head>
 
@@ -282,7 +291,7 @@ c + \dot{a} = w + ra
 </equation>
 where time dependence is suppressed for notational convenience. There is a single final good $Y$ for consumption, which is normalized to have a unit price at each point in time. Because all costs are purely in terms of labor, the final good resource constraint for the economy is simply $c = Y$. The associated Euler equation for this problem the delivers the result
 <equation>
-g \equiv \frac{\dot{Y}}{Y} = \frac{\dot{c}}{c} = \frac{r-\delta}{\sigma}
+g = \frac{\dot{Y}}{Y} = \frac{\dot{c}}{c} = \frac{r-\delta}{\sigma}
 </equation>
 Letting the common growth rate of $Y$ and $c$ be denoted by $g$, we arrive at $r = \delta + \sigma g$.
 </text>
@@ -365,24 +374,24 @@ Upon the arrival of an internal innovation, with probability $\alpha$ the innova
 </text>
 
 <text>
-Firms also face the rate of incoming external innovations by other firms. Let these events arrive at rate $\tau$. Finally, all patents in a particular product line expire at rate $b$, meaning the technological lead goes to zero and production profits vanish. When this happens, the firm retains its research capacity in that product line but is displaced upon any subsequent innovation by another firm. Denote the present expected value of successful innovation by $\widebar{V}$. Because both profits and labor costs scale up with output, I consider the output-normalized value of a patent protected product line with technological lead $\lambda$
+Firms also face the rate of incoming external innovations by other firms. Let these events arrive at rate $\tau$. Finally, all patents in a particular product line expire at rate $b$, meaning the technological lead goes to zero and production profits vanish. When this happens, the firm retains its research capacity in that product line but is displaced upon any subsequent innovation by another firm. Denote the present expected value of successful innovation by $\bar{V}$. Because both profits and labor costs scale up with output, I consider the output-normalized value of a patent protected product line with technological lead $\lambda$
 <equation>
-\delta_F V(\lambda) &- \dot{V}(\lambda) = \tilde{\pi}(\lambda) + \max_x \cb{-\tilde{w}c(x)+x\widebar{V}} \\
+\delta_F V(\lambda) &- \dot{V}(\lambda) = \tilde{\pi}(\lambda) + \max_x \cb{-\tilde{w}c(x)+x\bar{V}} \\
 &+ \max_z \cb{-\tilde{w}\lambda^{-1}d(z)+z(\mathbb{E}V(\beta\lambda)-V(\lambda))} \\
 &+ \alpha \tau p (\mathbb{E}V(\beta\lambda)-V(\lambda)) + (1-\alpha)\tau(0-V(\lambda)) + b(V_0-V(\lambda))
 </equation>
 where $\delta_F = r - g$ is the effective discount rate used by the firm. The value of a product line without patent protection is simply
 <equation>
-\delta_F V_0 - \dot{V}_0 =& \max_{x} \cb{-\tilde{w}c(x)+x\widebar{V}} \\
+\delta_F V_0 - \dot{V}_0 =& \max_{x} \cb{-\tilde{w}c(x)+x\bar{V}} \\
 &+ \max_z \cb{-\tilde{w}\lambda^{-1}d(z)+z(\mathbb{E}V(\beta\lambda)-V_0)} + \tau(0-V_0)
 </equation>
 Notice that $V(1) \ne V_0$, as expired product lines still retain their research capacity. To know the value of successful innovation, we must know the economy-wide distribution over $\lambda$. For now, denote the cumulative density for this variable by $\mu(\cdot)$. Furthermore, let $\mu_0$ be the mass of products whose patent has expired (meaning $\lambda=1$) and $\mu_+(\cdot)$ be the cumulative density over those products whose patents are not expired. The value of successful external innovation is then given by
 <equation>
-\widebar{V} = \br{(1-\alpha)+\alpha\mu_0)} \mathbb{E}V(\beta) + \alpha(1-p) \int_1^{\infty} (\mathbb{E}[V(\beta\lambda)-V(\lambda)) d\mu_+(\lambda)
+\bar{V} = \br{(1-\alpha)+\alpha\mu_0)} \mathbb{E}V(\beta) + \alpha(1-p) \int_1^{\infty} (\mathbb{E}[V(\beta\lambda)-V(\lambda)) d\mu_+(\lambda)
 </equation>
 As discussed earlier, each product line has a production value and a research value. The production value and internal research value will be a function of the technological lead, while the external research value will be independent of that variable since future innovations are undertaken on random external product lines. Thus it is useful to define the option values
 <equation>
-\Omega_x &= \max_x \cb{-\tilde{w}c(x) + x\widebar{V}} \\
+\Omega_x &= \max_x \cb{-\tilde{w}c(x) + x\bar{V}} \\
 \Omega_z(\lambda) &= \max_z \cb{-\tilde{w}\lambda^{-1}d(z) + z(\mathbb{E}V(\beta\lambda)-V(\lambda))} \\
 \Omega_0 &= \max_{z_0} \cb{-\tilde{w}d(z_0) + z_0(\mathbb{E}V(\beta\lambda)-V_0)}
 </equation>
@@ -401,7 +410,7 @@ Focusing on unexpired product lines (where $\lambda>0$), the  distribution will 
 <equation label="step_flow">
 \dot{\mu}_+(\lambda) =& (b+(1-\alpha)\tau)\br{F(\lambda)-\mu_+(\lambda)} \\
 &- (\alpha\tau+z) \int_1^{\infty}\br{1-F(\lambda/\lambda^{\prime})} d\mu_+(\lambda^{\prime}) \\
-&+ \pr{\frac{\dot{\mu}_+}{\mu_+}}\br{F(\lambda)-\mu_+(\lambda)}
+&+ \left(\frac{\dot{\mu}_+}{\mu_+}\right)\br{F(\lambda)-\mu_+(\lambda)}
 </equation>
 The first two terms are what we would expect in the case without patent expiry. Independent innovations arrive at rate $(1-\alpha)\tau$ and reset the technological lead to some random value $\beta$, and similarly for patent expiry $b$. Meanwhile, sequential and internal innovations arrive at rate $\alpha\tau+y$ and increment the technological lead by some random value $\beta$. The last term simply deals with the fact that there are also product lines flowing into and out of expiry.
 </text>
@@ -431,7 +440,7 @@ Here $\Omega_x$ is the option value of external innovation. Because of the conca
 </equation>
 with $\Omega_z(\lambda) = \lambda^{-1} \Omega_z$. Using these expressions, the expected gain from innovation can be simplified to
 <equation>
-\widebar{V} = \pr{(1-\alpha)+\alpha\mu_0} \pr{A-B/(1+\kappa)} + \alpha (1-p) \mu_+ \Gamma_+ B/(1+\kappa^{-1})
+\bar{V} = \left((1-\alpha)+\alpha\mu_0\right) \left(A-B/(1+\kappa)\right) + \alpha (1-p) \mu_+ \Gamma_+ B/(1+\kappa^{-1})
 </equation>
 The labor market clearing condition will include contributions from production, external innovation (from incumbents and entrants) and internal innovation (on expired and unexpired product lines) as delineated below
 <equation label="labor_market">
@@ -511,8 +520,8 @@ Thus the expected value of $\log(\lambda)$, conditional on being strictly positi
 <text>
 <b>Note</b> As an aside, I will note that the assumption of Pareto distributed step sizes is not critical to the equilibrium solution, but is needed to ensure tractability of the technological lead distribution, which simplifies notation in various places. For arbitrarily distributed $\beta$, one can write the flow equation for the quantity $\Gamma_+$ as
 <equation>
-\dot{\Gamma}_+ =& (b+(1-\alpha)\tau)\pr{\mathbb{E}[\beta^{-1}]-\Gamma_+} - (\alpha\tau+z)\pr{1-\mathbb{E}[\beta^{-1}]}\Gamma_+ \\
-&+ \pr{\mathbb{E}[\beta^{-1}]-\Gamma_+}\pr{\frac{\dot{\mu}_+}{\mu_+}}
+\dot{\Gamma}_+ =& (b+(1-\alpha)\tau)\left(\mathbb{E}[\beta^{-1}]-\Gamma_+\right) - (\alpha\tau+z)\left(1-\mathbb{E}[\beta^{-1}]\right)\Gamma_+ \\
+&+ \left(\mathbb{E}[\beta^{-1}]-\Gamma_+\right)\left(\frac{\dot{\mu}_+}{\mu_+}\right)
 </equation>
 Imposing $\dot{\Gamma}_+ = \dot{\mu}_+ = 0$ and solving then yields the equations
 <equation>
@@ -560,7 +569,7 @@ As discussed in the previous section, aggregate output can be decomposed into co
 The term $\log(\Delta)$ is a measure of labor usage heterogeneity, which leads to productive misallocation. This implies that $Q$ is the maximum possible output of the economy and $QL_P$ is the maximal output given a certain amount of production labor $L_P$. In steady state, this takes on the value
 <equation label="log_delta_eq">
 \log(\Delta) &= \log(\Gamma) + \mu_+ m \\
-&= \log\br{\frac{b+(\tau+z_0)/(1+m)}{b+\tau+z_0}}+\pr{\frac{\tau+z_0}{b+\tau+z_0}}m
+&= \log\br{\frac{b+(\tau+z_0)/(1+m)}{b+\tau+z_0}}+\left(\frac{\tau+z_0}{b+\tau+z_0}\right)m
 </equation>
 Notice that, holding innovation rates constant, this is decreasing in the patent length $b$ and increasing in sequentiality $\alpha$, since $m$ is also increasing in $\alpha$. Welfare is given according to
 <equation>
@@ -568,7 +577,7 @@ W = \int_0^{\infty} \br{\frac{Y(t)^{1-\sigma}-1}{1-\sigma}} \exp(-\delta t) dt
 </equation>
 Without loss of generality, I can assume that $Q(0) = 1$. Furthermore, we know that $\dot{Q}/Q = g$. Plugging in for $Y$ and evaluating the integral then yields
 <equation label="welfare">
-\delta W = \pfr{\delta}{\delta+(\sigma-1)g}\br{\frac{g}{\delta}+\frac{\pr{L_P/\Delta}^{1-\sigma}-1}{1-\sigma}}
+\delta W = \pfr{\delta}{\delta+(\sigma-1)g}\br{\frac{g}{\delta}+\frac{\left(L_P/\Delta\right)^{1-\sigma}-1}{1-\sigma}}
 </equation>
 Thus welfare can be easily expressed purely as a function of $\tau$, $z$, and $z_0$. One of the main implications of this model is that the welfare effects of monopoly distortions are more severe in more sequential industries. To see this, consider the effect of varying the aggregate innovation rates on the labor misallocation factor $\Delta$.
 </text>
@@ -608,16 +617,16 @@ The only aggregate variables of interest in this setting are the wage $\tilde{w}
 <text>
 <b>Transfer Rates:</b> The direction of transfer is indeterminate in this model. Let the probability that a transfer goes towards the innovator be $q$. Knowing this, what fraction of patents can one expect to be transferred in their lifetime? Patents are born at rate $\tau+\bar{z}$. They die at rate $b$ and an rendered obsolete at rate $(1-\alpha)\tau$. Additionally, an external patent (fraction $\tau/(\tau+\bar{y})$) has a probability $\alpha(1-q)$ of being transferred immediately upon birth, implying
 <equation>
-P(0) = \pr{\frac{\tau}{\tau+\bar{z}}}\alpha(1-q)
+P(0) = \left(\frac{\tau}{\tau+\bar{z}}\right)\alpha(1-q)
 </equation>
 Once born, patents of any type have a flow rate of transfer $\alpha q \tau$ for their entire lifetime. The probability of a particular patent surviving to age $t$ and being transferred for the first time is then
 <equation>
-P(t) = \br{1-\pr{\frac{\tau}{\tau+\bar{z}}}\alpha(1-q)}\alpha q\tau\exp\pr{-\pr{b+(1-\alpha)\tau+\alpha q\tau}t}
+P(t) = \br{1-\left(\frac{\tau}{\tau+\bar{z}}\right)\alpha(1-q)}\alpha q\tau\exp\left(-\left(b+(1-\alpha)\tau+\alpha q\tau\right)t\right)
 </equation>
 This exponential form is very close to what is seen in the data. A detailed evaluation of the match is given in the quantitative section. Finding the probability that a patent is never transferred is then a matter of evaluating the above expression in the limit as $t\rightarrow\infty$. This yields the expression
 <equation>
-P &= P(0) + \pr{1-P(0)}\pr{\frac{\alpha q\tau}{b+(1-\alpha)\tau+\alpha q\tau}} \\
-&\in \br{\alpha\pr{\frac{\tau}{\max\{\bar{z},b\}+\tau}},\alpha}
+P &= P(0) + \left(1-P(0)\right)\left(\frac{\alpha q\tau}{b+(1-\alpha)\tau+\alpha q\tau}\right) \\
+&\in \br{\alpha\left(\frac{\tau}{\max\{\bar{z},b\}+\tau}\right),\alpha}
 </equation>
 Thus it is very closely related to the incidence of sequential innovation. Notice that the lower bound decreases with the fraction of innovations that are within-firm, since these innovations result in no transfers. Having only external innovation would result in implausibly high fractions of patents being transferred. Additionally, the lower bound decreases with the rate of patent expiry, since innovation on an expired product line induce no transfers as well.
 </text>
@@ -641,15 +650,15 @@ Interpreting the loss of a patent due to failure to pay maintenance fees as crea
 <text>
 <b>Markups and Profits:</b> We must also address the effect of $\alpha$ on markups over cost. Recall that for a given product line, total revenues are always $Y$, while production labor costs are to $\lambda^{-1} Y$. Thus the markup for any one product line is simply $\lambda$ and average markup at the product line level is equal to
 <equation>
-\bar{\Lambda} = \mu_0 + \mu_+\pr{\frac{1}{1-m}} = \frac{b+(\tau+z_0)/(1-m)}{b+\tau+z_0}
+\bar{\Lambda} = \mu_0 + \mu_+\left(\frac{1}{1-m}\right) = \frac{b+(\tau+z_0)/(1-m)}{b+\tau+z_0}
 </equation>
 Unfortunately, this is not always well defined since we cannot guarantee that $m \lt 1$. We can however give a well-defined expression for the median markup at the product line level. The complete cumulative density for markups is given by $\mu(\lambda) = \mu_0 + \mu_+(1-\lambda^{-1/m})$. Equating this to one half yields
 <equation label="markup_median">
-\hat{\Lambda} = \max\cb{1,\br{2\pr{\frac{\tau+z_0}{b+\tau+z_0}}}^m}
+\hat{\Lambda} = \max\cb{1,\br{2\left(\frac{\tau+z_0}{b+\tau+z_0}\right)}^m}
 </equation>
 These cannot be directly observed in the Compustat data. However, one can look at total sales over variable cost at the firm level and target that using simulations. Meanwhile, the aggregate ratio of sales to cost over the entire economy ($\Lambda$) is simply the harmonic mean of individual product line markups
 <equation>
-\Lambda = \br{\mu_0 + \mu_+\pr{\frac{1}{1+m}}}^{-1} = \frac{b+\tau+z_0}{b+(\tau+z_0)/(1+m)}
+\Lambda = \br{\mu_0 + \mu_+\left(\frac{1}{1+m}\right)}^{-1} = \frac{b+\tau+z_0}{b+(\tau+z_0)/(1+m)}
 </equation>
 This measure can be calculated directly from the Compustat data set or taken from existing estimates. It can also be shown to be increasing in $\alpha$. However, the endogenous response of $\tau$, $z$, and $z_0$ will determine the net effect.
 </text>
@@ -657,14 +666,14 @@ This measure can be calculated directly from the Compustat data set or taken fro
 <text>
 <b>Patent Portfolios:</b> A closely related figure is the size of a firm's patent portfolio. In this case I will work with portfolios at the per-product line level, which can then be aggregated to the firm level. Let the mean portfolio size in a given industry be denoted by $\bar{n}$. The flow equation for this quantity is given by
 <equation>
-\dot{\widebar{n}} = \sum_{n=0}^{\infty} \dot{\mu}_n n
-= (1-\alpha)\tau + (\widebar{n}+1)(\alpha\tau+\bar{z}) - (b+\tau+\bar{z})\widebar{n}
+\dot{\bar{n}} = \sum_{n=0}^{\infty} \dot{\mu}_n n
+= (1-\alpha)\tau + (\bar{n}+1)(\alpha\tau+\bar{z}) - (b+\tau+\bar{z})\bar{n}
 </equation>
 which leads to the solution
 <equation>
-\widebar{n} = \frac{\tau+\bar{z}}{b+(1-\alpha)\tau}
+\bar{n} = \frac{\tau+\bar{z}}{b+(1-\alpha)\tau}
 </equation>
-This can be used to calculate a number of pertinent values. For instance, assuming independent innovations make no citations, the average number of external citations per patent will simply be $\pr{\frac{\tau}{\tau+\bar{z}}}\alpha\widebar{n}$.
+This can be used to calculate a number of pertinent values. For instance, assuming independent innovations make no citations, the average number of external citations per patent will simply be $\left(\frac{\tau}{\tau+\bar{z}}\right)\alpha\bar{n}$.
 </text>
 
 </subsection>
@@ -674,7 +683,7 @@ This can be used to calculate a number of pertinent values. For instance, assumi
 <text>
 In order to match the cross-industry variation in quantities such as transfer rates, expiry rates, and profitability, I introduce the possibility of heterogeneity across industries in the sequentiality of innovation. Industries are segmented in terms of innovation but share a common pool of labor. Let there be $M$ equal-mass segments in total. Each will have a particular value for $\alpha$ and associated innovation rates $\tau(\alpha)$, $z(\alpha)$, and $z_0(\alpha)$ and average inverse technological lead $\Gamma(\alpha)$. The initial analysis then carries through unchanged at the industry level and we need only be concerned with aggregate labor and bond market clearing. The labor market clearing condition is given by
 <equation>
-1 = \mathbb{E}_{\alpha}\br{\frac{\Gamma(\alpha)}{\tilde{w}}+(1+e)c(x(\alpha))+\mu_0(\alpha)d(z_0(\alpha))+\mu_+(\alpha)\Gamma_+(\alpha)d(z(\alpha))}
+1 = \mathbb{E}_{\alpha}\left[\frac{\Gamma(\alpha)}{\tilde{w}}+(1+e)c(x(\alpha))+\mu_0(\alpha)d(z_0(\alpha))+\mu_+(\alpha)\Gamma_+(\alpha)d(z(\alpha))\right]
 </equation>
 In practice, one can deal in the limit where $M\rightarrow\infty$, using a continuous distribution over $\alpha$. Each industry is then treated as an infinitesimally small segment of the overall spectrum of products.
 </text>
@@ -1055,7 +1064,7 @@ One major difference that arises when introducing firm-level heterogeneity is th
 </text>
 
 <text>
-Successful innovation yields a present value $\widebar{V}^i$. The per-product value of a firm is then
+Successful innovation yields a present value $\bar{V}^i$. The per-product value of a firm is then
 <equation>
 \delta_F V^H(\lambda) &- \dot{V}^H(\lambda) = \tilde{\pi}(\lambda) + \Omega^H_x + \Omega^H_z \\
 &+ \alpha \tau p (\mathbb{E}V^H(\beta\lambda)-V^H(\lambda)) + (1-\alpha) \tau (0-V^H(\lambda)) \\
@@ -1071,7 +1080,7 @@ where
 </equation>
 and
 <equation>
-\Omega^i_x &= \max_{x^i} \cb{-\tilde{w} c^i(x^i) + x^i\widebar{V}^i} \\
+\Omega^i_x &= \max_{x^i} \cb{-\tilde{w} c^i(x^i) + x^i\bar{V}^i} \\
 \Omega^i_z(\lambda) &= \max_{z^i} \cb{-\tilde{w} \lambda^{-1}d(z^i) + z^i(\mathbb{E}[V^i(\beta\lambda)-V^i(\lambda))} \\
 \Omega^i_0 &= \max_{z^i_0} \cb{-\tilde{w} d(z^i_0) + z^i_0(\mathbb{E}[V^i(\beta\lambda)-V^i_0)}
 </equation>
@@ -1082,7 +1091,7 @@ V^L(\lambda) &= A^L - B^L \lambda^{-1}
 </equation>
 We then find for the high type
 <equation>
-(\delta_F+b+(1-\alpha)\tau) A^H - \dot{A}^H &= 1 + \Omega^H_x + b V^H_0 +\nu\pr{A^L-A^H} \\
+(\delta_F+b+(1-\alpha)\tau) A^H - \dot{A}^H &= 1 + \Omega^H_x + b V^H_0 +\nu\left(A^L-A^H\right) \\
 (\delta_F+b+(1-\alpha)\tau) B^H - \dot{B}^H &= 1 - \Omega^H_z - \alpha \tau p/(1+\kappa^{-1}) B^H + \nu (B^L-B^H)
 </equation>
 and for the low type
@@ -1092,21 +1101,21 @@ and for the low type
 </equation>
 The option values of innovation be simplified to
 <equation>
-\Omega^i_x &= \max_{x^i}\cb{-\tilde{w}c^i(x^i)+x^i\widebar{V}^i} \\
+\Omega^i_x &= \max_{x^i}\cb{-\tilde{w}c^i(x^i)+x^i\bar{V}^i} \\
 \Omega^i_z &= \max_{z^i}\cb{-\tilde{w}d(z^i)+z^iB^i/(1+\kappa^{-1})} \\
 \Omega^i_0 &= \max_{z^i}\cb{-\tilde{w}d(z^i)+z^i(A^i-B^i/(1+\kappa)-V^i_0)}
 </equation>
-Now it can be verified that $B^H = B^L \equiv B$. As such we will also have $\Omega^H_z = \Omega^L_z \equiv \Omega_z$ and $z^H = z^H \equiv z$. As high type firms have a superior innovation technology, they will assume production in the case of sequential innovation. Between firms of a common type, it is ambiguous. The expected gain from innovation is given by
+Now it can be verified that $B^H = B^L = B$. As such we will also have $\Omega^H_z = \Omega^L_z = \Omega_z$ and $z^H = z^H = z$. As high type firms have a superior innovation technology, they will assume production in the case of sequential innovation. Between firms of a common type, it is ambiguous. The expected gain from innovation is given by
 <equation>
-\widebar{V}^H &= \br{(1-\alpha)+\alpha\mu_0} \mathbb{E}V^H(\beta) \\
-&+ \alpha (1-p) \br{ \int_1^{\infty} (\mathbb{E}V^H(\beta\lambda)-V^H(\lambda)) d\mu_+^H(\lambda) + \int_1^{\infty} (\mathbb{E}V^H(\beta\lambda)-V^L(\lambda)) d\mu_+^L(\lambda) } \\
-\widebar{V}^L &= \br{(1-\alpha)+\alpha\mu_0} \mathbb{E}V^L(\beta) \\
-&+ \alpha (1-p) \br{ \int_1^{\infty} (\mathbb{E}V^H(\beta\lambda)-V^L(\lambda)) d\mu_+^H(\lambda) + \int_1^{\infty} (\mathbb{E}V^L(\beta\lambda)-V^L(\lambda)) d\mu_+^L(\lambda) }
+\bar{V}^H &= \left[(1-\alpha)+\alpha\mu_0\right] \mathbb{E}V^H(\beta) \\
+&+ \alpha (1-p) \left[ \int_1^{\infty} (\mathbb{E}V^H(\beta\lambda)-V^H(\lambda)) d\mu_+^H(\lambda) + \int_1^{\infty} (\mathbb{E}V^H(\beta\lambda)-V^L(\lambda)) d\mu_+^L(\lambda) \right] \\
+\bar{V}^L &= \left[(1-\alpha)+\alpha\mu_0\right] \mathbb{E}V^L(\beta) \\
+&+ \alpha (1-p) \left[ \int_1^{\infty} (\mathbb{E}V^H(\beta\lambda)-V^L(\lambda)) d\mu_+^H(\lambda) + \int_1^{\infty} (\mathbb{E}V^L(\beta\lambda)-V^L(\lambda)) d\mu_+^L(\lambda) \right]
 </equation>
 These can then be simplified to
 <equation>
-\widebar{V}^H &= \br{(1-\alpha)+\alpha\mu_0} (A^H-B^H/(1+\kappa)) + \alpha(1-p) \br{(\mu_+\Gamma_+ B^H/(1+\kappa^{-1}) + \mu_+^L(A^H-A^L)} \\
-\widebar{V}^L &= \br{(1-\alpha)+\alpha\mu_0} (A^L-B^H/(1+\kappa)) + \alpha(1-p) \br{(\mu_+\Gamma_+ B^H/(1+\kappa^{-1}) + \mu_+^H(A^H-A^L)}
+\bar{V}^H &= \left[(1-\alpha)+\alpha\mu_0\right] (A^H-B^H/(1+\kappa)) + \alpha(1-p) \left[(\mu_+\Gamma_+ B^H/(1+\kappa^{-1}) + \mu_+^L(A^H-A^L)\right] \\
+\bar{V}^L &= \left[(1-\alpha)+\alpha\mu_0\right] (A^L-B^H/(1+\kappa)) + \alpha(1-p) \left[(\mu_+\Gamma_+ B^H/(1+\kappa^{-1}) + \mu_+^H(A^H-A^L)\right]
 </equation>
 Let there be a mass $L$ of researchers. The labor market clearing condition is
 <equation>
@@ -1117,7 +1126,7 @@ Let there be a mass $L$ of researchers. The labor market clearing condition is
 <text>
 <b>Steady State.</b> Imposing stationarity of values and state space elements, the firm value functions simplify to
 <equation>
-B = \frac{1}{\delta_F+b+(1-\alpha)\tau+(\alpha\tau p+z\pr{\frac{\delta+\tau+b}{\delta+\tau}}(1-1/\eta))/(1+\kappa^{-1})}
+B = \frac{1}{\delta_F+b+(1-\alpha)\tau+(\alpha\tau p+z\left(\frac{\delta+\tau+b}{\delta+\tau}\right)(1-1/\eta))/(1+\kappa^{-1})}
 </equation>
 and
 <equation>
@@ -1203,7 +1212,7 @@ as the log of a Pareto random variable is exponentially distributed and the sum 
 </equation>
 where $\lambda_L$ and $\lambda_g$ represent the aggregate shadow values of labor and growth. Let the maximands of the above be denoted $\vec{x}_i(\lambda_L,\lambda_g)$. Finally, let $\vec{x}(\lambda_L,\lambda_g) = [\vec{x}_i(\lambda_L,\lambda_g)]_{i=1}^M$ and $\Delta(\lambda_L,\lambda_g) = \prod_{i=1}^M \Delta_i(\lambda_L,\lambda_g)$. Define the aggregate maximization
 <equation>
-S = \max_{\lambda_L,\lambda_g} \cb{\br{\delta+(\sigma-1)g(\vec{x}(\lambda_L,\lambda_g))}\pr{\frac{1-L_R(\vec{x}(\lambda_L,\lambda_g))}{\Delta(\lambda_L,\lambda_g)}}^{\sigma-1}}
+S = \max_{\lambda_L,\lambda_g} \cb{\br{\delta+(\sigma-1)g(\vec{x}(\lambda_L,\lambda_g))}\left(\frac{1-L_R(\vec{x}(\lambda_L,\lambda_g))}{\Delta(\lambda_L,\lambda_g)}\right)^{\sigma-1}}
 </equation>
 It can be shown that any maximizer of the above problem is socially optimal. The above formulation has the advantage of having computational complexity that scales linearly with the number of industries, rather than quadratically.
 </text>
@@ -1220,17 +1229,17 @@ c(x) = c x^{\eta}
 </equation>
 Using the first order condition for innovation intensity, we can find an expression relating the option value of innovation and the expected return from successful innovation
 <equation>
-\Omega = (1-1/\eta)x\widebar{V} = \pr{\frac{1-1/\eta}{1+e}}\tau\widebar{V}
+\Omega = (1-1/\eta)x\bar{V} = \left(\frac{1-1/\eta}{1+e}\right)\tau\bar{V}
 </equation>
-Then we can construct an equation characterizing the relationship between $\widebar{V}$ and $\tau$
+Then we can construct an equation characterizing the relationship between $\bar{V}$ and $\tau$
 <equation>
-\widebar{V} = \frac{q_0\br{\pr{\frac{1}{\delta+b+(1-\alpha)\tau}}-\pr{\frac{1}{1+\kappa}}B}+\alpha(1-p)\pr{\Gamma-\mu_0}\pr{\frac{\kappa}{1+\kappa}}B}{1-q_0\pr{\frac{1-1/\eta}{1+e}}\pr{\frac{\tau}{\delta+\tau}}\pr{\frac{\delta+b+\tau}{\delta+b+(1-\alpha)\tau}}}
+\bar{V} = \frac{q_0\br{\left(\frac{1}{\delta+b+(1-\alpha)\tau}\right)-\left(\frac{1}{1+\kappa}\right)B}+\alpha(1-p)\left(\Gamma-\mu_0\right)\left(\frac{\kappa}{1+\kappa}\right)B}{1-q_0\left(\frac{1-1/\eta}{1+e}\right)\left(\frac{\tau}{\delta+\tau}\right)\left(\frac{\delta+b+\tau}{\delta+b+(1-\alpha)\tau}\right)}
 </equation>
-where $q_0 = (1-\alpha)+\alpha\mu_0$ is the probability of not having to purchase patent rights from the existing incumbent upon a successful innovation. This expression can be shown to be well-defined and positive for any $\tau\ge0$. Call this function $\widebar{V}(\tau)$. The first order condition for innovation be rearranged to
+where $q_0 = (1-\alpha)+\alpha\mu_0$ is the probability of not having to purchase patent rights from the existing incumbent upon a successful innovation. This expression can be shown to be well-defined and positive for any $\tau\ge0$. Call this function $\bar{V}(\tau)$. The first order condition for innovation be rearranged to
 <equation>
-L_R = c(1+e)^{1-\eta}\tau^\eta = \frac{\tau\widebar{V}}{\eta\Gamma+\tau\widebar{V}}
+L_R = c(1+e)^{1-\eta}\tau^\eta = \frac{\tau\bar{V}}{\eta\Gamma+\tau\bar{V}}
 </equation>
-Notice the value on the left is the share of resources devoted to research and the value on the right is strictly less than one, so we are guaranteed to find such a $\tau$ satisfying the above equation that results in a mixture of production and research labor. Showing uniqueness, which can be assured with the concavity of $\widebar{V}(\cdot)$, is a more difficult matter. However, this can be easily verified for particular sets of parameters.
+Notice the value on the left is the share of resources devoted to research and the value on the right is strictly less than one, so we are guaranteed to find such a $\tau$ satisfying the above equation that results in a mixture of production and research labor. Showing uniqueness, which can be assured with the concavity of $\bar{V}(\cdot)$, is a more difficult matter. However, this can be easily verified for particular sets of parameters.
 </text>
 
 <text>
@@ -1250,7 +1259,7 @@ which implies
 The above expression simplifies to
 <equation>
 \pder{\log(\Delta)}{\tau} =& \frac{m}{(b+\tau+z_0)^2}\pfr{bm}{bm+b+\tau+z_0} \\
-&+ \pder{m}{\tau}\pr{\frac{\tau+z_0}{b+\tau+z_0}-\pfr{1}{1+m}\pfr{\tau+z_0}{b(1+m)+\tau+z_0}}
+&+ \pder{m}{\tau}\left(\frac{\tau+z_0}{b+\tau+z_0}-\pfr{1}{1+m}\pfr{\tau+z_0}{b(1+m)+\tau+z_0}\right)
 </equation>
 which can be seen to be increasing in $\alpha$. As $\tau$ and $z_0$ enter into the above expression in the exact same manner, the same logic applies for $z_0$ as well. However, $z_0$ does not affect $m$, the resulting expression is simply
 <equation>
@@ -1258,7 +1267,7 @@ which can be seen to be increasing in $\alpha$. As $\tau$ and $z_0$ enter into t
 </equation>
 Conversely, $z$ affects $m$ positively but does not change the composition between expired and unexpired product lines, meaning we find
 <equation>
-\pder{\log(\Delta)}{z} = \pder{m}{z}\pr{\frac{\tau+z_0}{b+\tau+z_0}-\pfr{1}{1+m}\pfr{\tau+z_0}{b(1+m)+\tau+z_0}}
+\pder{\log(\Delta)}{z} = \pder{m}{z}\left(\frac{\tau+z_0}{b+\tau+z_0}-\pfr{1}{1+m}\pfr{\tau+z_0}{b(1+m)+\tau+z_0}\right)
 </equation>
 Varying $z$ and $z_0$ simultaneously would yield an expression equivalent to that for $\tau$, where both terms are present.
 </text>

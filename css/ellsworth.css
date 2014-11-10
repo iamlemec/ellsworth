@@ -178,11 +178,6 @@ a.sec_link {
 a.subsec_link {
 }
 
-a.cite_link {
-  color: blue;
-  text-decoration: none;
-}
-
 div.popup_outer {
   display: none;
   position: absolute;
