@@ -43,8 +43,16 @@ function EllsworthBoot() {
     });
   };
 
+  var max = function(arr) {
+    return Math.max.apply(null,arr);
+  };
+
+  var min = function(arr) {
+    return Math.min.apply(null,arr);
+  };
+
   // for a hover event and scale factor (of the realized object), generate appropriate css
-  get_offset = function(parent,popup) {
+  var get_offset = function(parent,popup) {
     elem_width = parent.outerWidth();
     elem_height = parent.outerHeight();
     offset_x = parent.offset().left;
@@ -63,7 +71,7 @@ function EllsworthBoot() {
   };
 
   // get a dictionary of attributes for an element, this doesn't exist already?
-  get_attributes = function(elem) {
+  var get_attributes = function(elem) {
     var attributes = {};
     $(elem[0].attributes).each(function(index,attr) {
       attributes[attr.name] = attr.value;
@@ -72,7 +80,7 @@ function EllsworthBoot() {
   };
 
   // attach a popup to parent
-  attach_popup = function(parent,popup) {
+  var attach_popup = function(parent,popup) {
     var pop_out = $("<div>",{class:"popup_outer"});
     pop_out.append(popup);
     var arrow = $("<div>",{class:"popup_arrow"});
@@ -99,7 +107,7 @@ function EllsworthBoot() {
   }
 
   // smooth scrolling
-  smooth_scroll = function() {
+  var smooth_scroll = function() {
     $("a.ref_link").on('click', function(e) {
       var target = $(this.hash);
       if (target.selector == '') {
@@ -334,6 +342,34 @@ function EllsworthBoot() {
       div.after(num_div);
     }
     return div_box;
+  });
+
+  $("eqnarray").replaceWith(function () {
+    var eqnarray = $(this);
+    eqns = eqnarray.children(".equation_box");
+    var div = $("<div>");
+    leftlist = [];
+    rightlist = [];
+    offlist = [];
+    eqns.each(function () {
+      var eqn = $(this);
+      var inner = eqn.children(".equation_inner");
+      var ktx = inner.children(".katex");
+      var anchor = ktx.find(".mrel");
+      var leftpos = (anchor.offset().left+anchor.width()/2) - ktx.offset().left;
+      var kwidth = ktx.width();
+      var rightpos = kwidth - leftpos;
+      var myoff = kwidth-2*leftpos;
+      leftlist.push(leftpos);
+      rightlist.push(rightpos);
+      offlist.push(myoff);
+    });
+    div.append(eqns);
+    var bigoff = (outer_box.innerWidth()+200-(max(rightlist)+max(leftlist)))/2;
+    eqns.each(function (i) {
+      $(eqns[i]).find(".katex").css({"margin-left":bigoff+offlist[i]});
+    });
+    return div;
   });
 
   // standard image container - uses bootstrap responsive resizing

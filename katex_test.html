@@ -34,15 +34,6 @@ div.proof_box {
 <script type="text/javascript">
 console.log("Running config!");
 EllsworthConfig({
-  macros: {
-    fr: ['\\frac{#1}{#2}',2],
-    pr: ['\\left(#1\\right)',1],
-    br: ['\\left[#1\\right]',1],
-    cb: ['\\left\\{#1\\right\\}',1],
-    pfr: ['\\left(\\frac{#1}{#2}\\right)',2],
-    pder: ['\\frac{\\partial #1}{\\partial #2}',2],
-    widebar: ['\\bar{#1}',1]
-  },
   environs: {
     proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
     proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
@@ -69,6 +60,11 @@ EllsworthConfig({
 <media source="image/transfer_expiry.svg"></media>
 </figure>
 <equation label="test_eqn_2">4z + 3 = 22</equation>
+<text>Test of equation array</text>
+<eqnarray>
+<equation>\sin^2(x) + \cos^2(x) = 1</equation>
+<equation>\frac{1}{\sqrt{2\pi\sigma^2}} \int_0^{\infty} \exp\left(-\frac{1}{2}\left[\frac{x-\mu}{\sigma}\right]^2\right) dx = 1</equation>
+</eqnarray>
 <text>Free text 3, according to <cite label="hopenhayn2006rewarding"></cite> this is valid.</text>
 <fact label="fact_1">All your base are belong to us.</fact>
 <text>See <ref label="test_fig"></ref> and additionally <ref label="test_eqn_2"></ref> for more details. This is in line with <ref label="fact_1"></ref>.</text>
