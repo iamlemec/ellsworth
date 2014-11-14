@@ -336,11 +336,13 @@ function EllsworthBoot() {
       div_box.attr("id","equation_"+label);
       var eqn_num = ++n_equations;
       div_box.attr("eqn_num",eqn_num);
-      var opp_div = $("<div>",{class:"equation_number"});
-      div.before(opp_div);
-      var num_div = $("<div>",{class:"equation_number",html:eqn_num});
-      div.after(num_div);
+    } else {
+      var eqn_num = "";
     }
+    var opp_div = $("<div>",{class:"equation_number"});
+    div.before(opp_div);
+    var num_div = $("<div>",{class:"equation_number",html:eqn_num});
+    div.after(num_div);
     return div_box;
   });
 
@@ -359,13 +361,13 @@ function EllsworthBoot() {
       var leftpos = (anchor.offset().left+anchor.width()/2) - ktx.offset().left;
       var kwidth = ktx.width();
       var rightpos = kwidth - leftpos;
-      var myoff = kwidth-2*leftpos;
+      var myoff = rightpos - leftpos;
       leftlist.push(leftpos);
       rightlist.push(rightpos);
       offlist.push(myoff);
     });
     div.append(eqns);
-    var bigoff = (outer_box.innerWidth()+200-(max(rightlist)+max(leftlist)))/2;
+    var bigoff = max(leftlist) - max(rightlist);
     eqns.each(function (i) {
       $(eqns[i]).find(".katex").css({"margin-left":bigoff+offlist[i]});
     });
