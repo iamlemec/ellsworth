@@ -49,6 +49,7 @@ div.equation_box {
 }
 
 div.equation_inner {
+  text-align: center;
 }
 
 div.equation_number {
@@ -334,6 +335,10 @@ div.bibliography_item {
 
   div.equation_inner {
     display: table-cell;
+  }
+
+  div.equation_inner div.equation_row:not(:first-child) {
+    margin-top: 20px;
   }
 
   div.table_box {

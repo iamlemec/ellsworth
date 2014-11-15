@@ -108,7 +108,7 @@ function EllsworthBoot() {
 
   // smooth scrolling
   var smooth_scroll = function() {
-    $("a.ref_link").on('click', function(e) {
+    add_smooth_scroll = function(e) {
       var target = $(this.hash);
       if (target.selector == '') {
         scroll_to = 0;
@@ -123,7 +123,9 @@ function EllsworthBoot() {
       $('html, body').animate({ scrollTop: scroll_to }, 300);
       location.hash = this.hash;
       return false;
-    });
+    };
+    $("a.ref_link").on('click', add_smooth_scroll);
+    $("a.navlink").on('click', add_smooth_scroll);
   }
 
   // create outer box for everyone to live in
@@ -221,14 +223,14 @@ function EllsworthBoot() {
     var nav = $("<div>",{class:"small nav_box"});
     var nav_list = $("<ul>",{class:"nav nav-list affix"});
     var title_li = $("<li>",{class:"title_navitem"});
-    var title_a = $("<a>",{html:"Top",href:"#boxler",class:"title_navlink"});
+    var title_a = $("<a>",{html:"Top",href:"#boxler",class:"title_navlink navlink"});
     title_li.append(title_a);
     nav_list.append(title_li);
     $("div.section_box").each(function () {
       var sec = $(this);
       if (id=sec.attr("id")) {
         var sec_li = $("<li>",{class:"sec_navitem"});
-        var sec_a = $("<a>",{html:sec.attr("sec_title"),href:"#"+id,class:"sec_navlink"});
+        var sec_a = $("<a>",{html:sec.attr("sec_title"),href:"#"+id,class:"sec_navlink navlink"});
         sec_li.append(sec_a);
         nav_list.append(sec_li);
       }
@@ -236,7 +238,7 @@ function EllsworthBoot() {
         var subsec = $(this);
         if (id=subsec.attr("id")) {
           var subsec_li = $("<li>",{class:"subsec_navitem"});
-          var subsec_a = $("<a>",{html:subsec.attr("sec_title"),href:"#"+id,class:"subsec_navlink"});
+          var subsec_a = $("<a>",{html:subsec.attr("sec_title"),href:"#"+id,class:"subsec_navlink navlink"});
           subsec_li.append(subsec_a);
           nav_list.append(subsec_li);
         }
@@ -279,32 +281,6 @@ function EllsworthBoot() {
     })
   }
 
-  // typeset inline
-  function inline_marker(match, p, offset, string) {
-      return '<tex>' + p + '</tex>';
-  }
-  var inline_re = /\$([^\$]*)\$/g;
-  outer_box.html(outer_box.html().replace(inline_re,inline_marker));
-
-  $("tex").replaceWith(function() {
-      var elem = $(this);
-      var span = $("<span>");
-      try {
-        katex.render(elem.html(),span[0]);
-      } catch(e) {
-        span.html(elem.html());
-        span.css({'color': 'red'});
-      }
-      return span;
-  });
-
-  // basic text environment
-  $("text").replaceWith(function () {
-    var text = $(this).html();
-    var p = $("<p>",{class:"paragraph_box",html:text});
-    return p;
-  });
-
   // create footnotes and attach hover popups
   var n_footnotes = 0;
   $("footnote").replaceWith(function () {
@@ -324,14 +300,18 @@ function EllsworthBoot() {
   $("equation").replaceWith(function () {
     var eqn = $(this);
     var div_box = $("<div>",{class:"equation_box container-fluid"});
-    var div = $("<div>",{class:"equation_inner",style:"text-align: center;"});
-    try {
-      katex.render("\\displaystyle{" + eqn.html() + "}",div[0]);
-    } catch(e) {
-      div.html(eqn.html());
-      div.css({'color': 'red'});
-    }
-    div_box.append(div);
+    var div_inner = $("<div>",{class:"equation_inner"});
+    var eqn_list = eqn.html().split('\\\\');
+    $.each(eqn_list, function (i,txt) {
+      var row = $("<div>",{class:"equation_row"});
+      try {
+        katex.render("\\displaystyle{" + txt + "}",row[0]);
+      } catch(e) {
+        row.html(txt);
+        row.css({'color': 'red'});
+      }
+      div_inner.append(row);
+    });
     if (label=eqn.attr("label")) {
       div_box.attr("id","equation_"+label);
       var eqn_num = ++n_equations;
@@ -340,38 +320,44 @@ function EllsworthBoot() {
       var eqn_num = "";
     }
     var opp_div = $("<div>",{class:"equation_number"});
-    div.before(opp_div);
     var num_div = $("<div>",{class:"equation_number",html:eqn_num});
-    div.after(num_div);
+    div_box.append(opp_div);
+    div_box.append(div_inner);
+    div_box.append(num_div);
     return div_box;
   });
 
-  $("eqnarray").replaceWith(function () {
-    var eqnarray = $(this);
-    eqns = eqnarray.children(".equation_box");
-    var div = $("<div>");
-    leftlist = [];
-    rightlist = [];
-    offlist = [];
-    eqns.each(function () {
-      var eqn = $(this);
-      var inner = eqn.children(".equation_inner");
-      var ktx = inner.children(".katex");
-      var anchor = ktx.find(".mrel");
-      var leftpos = (anchor.offset().left+anchor.width()/2) - ktx.offset().left;
-      var kwidth = ktx.width();
-      var rightpos = kwidth - leftpos;
-      var myoff = rightpos - leftpos;
-      leftlist.push(leftpos);
-      rightlist.push(rightpos);
-      offlist.push(myoff);
-    });
-    div.append(eqns);
-    var bigoff = max(leftlist) - max(rightlist);
-    eqns.each(function (i) {
-      $(eqns[i]).find(".katex").css({"margin-left":bigoff+offlist[i]});
-    });
-    return div;
+  $("div.equation_box").each(function () {
+    var div_inner = $(this).children(".equation_inner");
+    var eqn_boxes = div_inner.children(".equation_row");
+    if (eqn_boxes.length > 1) {
+      var leftlist = [];
+      var rightlist = [];
+      var offlist = [];
+      eqn_boxes.each(function () {
+        var eqn = $(this);
+        var ktx = eqn.children(".katex");
+        var kwidth = ktx.width();
+        var anchor = ktx.find(".align");
+        var leftpos;
+        var rightpos;
+        if (anchor.length) {
+          leftpos = (anchor.offset().left+anchor.width()/2) - ktx.offset().left;
+          rightpos = kwidth - leftpos;
+        } else {
+          leftpos = kwidth/2;
+          rightpos = kwidth/2;
+        }
+        var myoff = rightpos - leftpos;
+        leftlist.push(leftpos);
+        rightlist.push(rightpos);
+        offlist.push(myoff);
+      });
+      var bigoff = max(leftlist) - max(rightlist);
+      eqn_boxes.each(function (i) {
+        $(this).children(".katex").css({"margin-left":bigoff+offlist[i]});
+      });
+    }
   });
 
   // standard image container - uses bootstrap responsive resizing
@@ -453,6 +439,32 @@ function EllsworthBoot() {
       return div;
     });
   }
+
+  // typeset inline
+  function inline_marker(match, p, offset, string) {
+      return '<tex>' + p + '</tex>';
+  }
+  var inline_re = /\$([^\$]*)\$/g;
+  outer_box.html(outer_box.html().replace(inline_re,inline_marker));
+
+  $("tex").replaceWith(function() {
+      var elem = $(this);
+      var span = $("<span>");
+      try {
+        katex.render(elem.html(),span[0]);
+      } catch(e) {
+        span.html(elem.html());
+        span.css({'color': 'red'});
+      }
+      return span;
+  });
+
+  // basic text environment
+  $("text").replaceWith(function () {
+    var text = $(this).html();
+    var p = $("<p>",{class:"paragraph_box",html:text});
+    return p;
+  });
 
   // dereference refs - attach appropriate hover popups
   $("ref").replaceWith(function () {
