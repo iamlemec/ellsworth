@@ -81,6 +81,10 @@ function EllsworthBoot() {
 
   // attach a popup to parent
   var attach_popup = function(parent,popup) {
+    if (parent.hasClass("footnote_mark")) {
+      console.log("attaching popup to "+parent.html());
+      console.log(popup.html());
+    }
     var pop_out = $("<div>",{class:"popup_outer"});
     pop_out.append(popup);
     var arrow = $("<div>",{class:"popup_arrow"});
@@ -106,7 +110,8 @@ function EllsworthBoot() {
     });
   }
 
-  // smooth scrolling
+  /*
+  // smooth scrolling - not ready for prime time
   var smooth_scroll = function() {
     add_smooth_scroll = function(e) {
       var target = $(this.hash);
@@ -127,9 +132,10 @@ function EllsworthBoot() {
     $("a.ref_link").on('click', add_smooth_scroll);
     $("a.navlink").on('click', add_smooth_scroll);
   }
+  */
 
   // create outer box for everyone to live in
-  $("body").append($("<div>",{class:"outer_box container",role:"main",id:"boxler"}).append($("body>")));
+  $("body").append($("<div>",{class:"outer_box container",role:"main",id:"top"}).append($("body>")));
   outer_box = $("div.outer_box");
 
   // make header - title, author, abstract
@@ -223,7 +229,7 @@ function EllsworthBoot() {
     var nav = $("<div>",{class:"small nav_box"});
     var nav_list = $("<ul>",{class:"nav nav-list affix"});
     var title_li = $("<li>",{class:"title_navitem"});
-    var title_a = $("<a>",{html:"Top",href:"#boxler",class:"title_navlink navlink"});
+    var title_a = $("<a>",{html:"Top",href:"#top",class:"title_navlink navlink"});
     title_li.append(title_a);
     nav_list.append(title_li);
     $("div.section_box").each(function () {
@@ -280,20 +286,6 @@ function EllsworthBoot() {
       return div;
     })
   }
-
-  // create footnotes and attach hover popups
-  var n_footnotes = 0;
-  $("footnote").replaceWith(function () {
-    var foot = $(this);
-    var foot_num = ++n_footnotes;
-    var foot_text = foot.html();
-    var span = $("<span>",{html:"&#xfeff;"}); // ZWNBSPFTW!!!
-    var sup = $("<sup>",{class:"footnote_mark",foot_num:foot_num,html:foot_num,label:foot.attr("label"),foot_text:foot_text});
-    span.append(sup);
-    var popup = $("<div>",{class:"popup footnote_popup",html:foot_text});
-    attach_popup(span,popup);
-    return span;
-  });
 
   // generate equations - this wraps everything in an align environment, rather than the MathJax builtin $$, which maps to equation I assume
   var n_equations = 0;
@@ -440,24 +432,12 @@ function EllsworthBoot() {
     });
   }
 
-  // typeset inline
+  // typeset inline - goes very last due to math in popups
   function inline_marker(match, p, offset, string) {
       return '<tex>' + p + '</tex>';
   }
   var inline_re = /\$([^\$]*)\$/g;
   outer_box.html(outer_box.html().replace(inline_re,inline_marker));
-
-  $("tex").replaceWith(function() {
-      var elem = $(this);
-      var span = $("<span>");
-      try {
-        katex.render(elem.html(),span[0]);
-      } catch(e) {
-        span.html(elem.html());
-        span.css({'color': 'red'});
-      }
-      return span;
-  });
 
   // basic text environment
   $("text").replaceWith(function () {
@@ -466,34 +446,53 @@ function EllsworthBoot() {
     return p;
   });
 
+  // create footnotes and attach hover popups
+  var n_footnotes = 0;
+  $("footnote").replaceWith(function () {
+    var foot = $(this);
+    var foot_num = ++n_footnotes;
+    var foot_text = foot.html();
+    var span = $("<span>",{class:"footnote_box",html:"&#xfeff;",foot_text:foot_text}); // ZWNBSPFTW!!!
+    var sup = $("<sup>",{class:"footnote_mark",html:foot_num});
+    span.append(sup);
+    return span;
+  });
+
+  $("span.footnote_box").each(function () {
+    var span = $(this);
+    var foot_text = span.attr("foot_text");
+    var popup = $("<div>",{class:"popup footnote_popup",html:foot_text});
+    attach_popup(span,popup);
+  });
+
   // dereference refs - attach appropriate hover popups
   $("ref").replaceWith(function () {
     var ref = $(this);
     var span = $("<span>",{class:"ref_text"});
     if (label=ref.attr("label")) {
       if ((fig=$("div.figure_box[id=figure_"+label+"]")).length) {
-        link = $("<a>",{class:"ref_link fig_link",href:"#figure_"+label,html:"Figure "+fig.attr("fig_num")});
-        popup = $("<div>",{html:fig.attr("fig_title"),class:"popup fig_popup"});
+        var link = $("<a>",{class:"ref_link fig_link",href:"#figure_"+label,html:"Figure "+fig.attr("fig_num")});
+        var popup = $("<div>",{html:fig.attr("fig_title"),class:"popup fig_popup"});
         attach_popup(link,popup);
         span.append(link);
       } else if ((tab=$("div.table_box[id=table_"+label+"]")).length) {
-        link = $("<a>",{class:"ref_link tab_link",href:"#table_"+label,html:"Table "+tab.attr("tab_num")});
-        popup = $("<div>",{html:tab.attr("tab_title"),class:"popup tab_popup"});
+        var link = $("<a>",{class:"ref_link tab_link",href:"#table_"+label,html:"Table "+tab.attr("tab_num")});
+        var popup = $("<div>",{html:tab.attr("tab_title"),class:"popup tab_popup"});
         attach_popup(link,popup);
         span.append(link);
       } else if ((eqn=$("div.equation_box[id=equation_"+label+"]")).length) {
-        link = $("<a>",{class:"ref_link eqn_link",href:"#equation_"+label,html:"Equation "+eqn.attr("eqn_num")});
+        var link = $("<a>",{class:"ref_link eqn_link",href:"#equation_"+label,html:"Equation "+eqn.attr("eqn_num")});
         span.append(link);
         var popup = $("<div>",{class:"popup eqn_popup",html:eqn.children(".equation_inner").html()});
         attach_popup(span,popup);
       } else if ((sec=$("div.section_box[id=section_"+label+"]")).length) {
-        link = $("<a>",{class:"ref_link sec_link",href:"#section_"+label,html:"Section "+sec.attr("sec_num")});
-        popup = $("<div>",{html:sec.attr("sec_title"),class:"popup sec_popup"});
+        var link = $("<a>",{class:"ref_link sec_link",href:"#section_"+label,html:"Section "+sec.attr("sec_num")});
+        var popup = $("<div>",{html:sec.attr("sec_title"),class:"popup sec_popup"});
         attach_popup(link,popup);
         span.append(link);
       } else if ((sec=$("div.subsection_box[id=subsec_"+label+"]")).length) {
-        link = $("<a>",{class:"ref_link subsec_link",href:"#subsec_"+label,html:"Section "+sec.attr("sec_num")+'.'+sec.attr("subsec_num")});
-        popup = $("<div>",{html:sec.attr("sec_title"),class:"popup sec_popup"});
+        var link = $("<a>",{class:"ref_link subsec_link",href:"#subsec_"+label,html:"Section "+sec.attr("sec_num")+'.'+sec.attr("subsec_num")});
+        var popup = $("<div>",{html:sec.attr("sec_title"),class:"popup sec_popup"});
         attach_popup(link,popup);
         span.append(link);
       } else {
@@ -529,6 +528,18 @@ function EllsworthBoot() {
       }
     }
     return span;
+  });
+
+  $("tex").replaceWith(function() {
+      var elem = $(this);
+      var span = $("<span>");
+      try {
+        katex.render(elem.html(),span[0]);
+      } catch(e) {
+        span.html(elem.html());
+        span.css({'color': 'red'});
+      }
+      return span;
   });
 
   // on biblio load - parse, in text cites, end list
@@ -648,8 +659,6 @@ function EllsworthBoot() {
         }
         return bib;
       });
-
-      smooth_scroll();
     });
   } else {
     $("cite").replaceWith(function () {
@@ -661,7 +670,5 @@ function EllsworthBoot() {
       }
       return span;
     });
-
-    smooth_scroll();
   }
 };
