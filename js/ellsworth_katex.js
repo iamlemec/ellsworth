@@ -287,7 +287,7 @@ function EllsworthBoot() {
     })
   }
 
-  // generate equations - this wraps everything in an align environment, rather than the MathJax builtin $$, which maps to equation I assume
+  // generate equations
   var n_equations = 0;
   $("equation").replaceWith(function () {
     var eqn = $(this);
