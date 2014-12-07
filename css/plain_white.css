@@ -1,0 +1,12 @@
+body {
+  background-color: white;
+}
+
+div.outer_box {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  box-shadow: none;
+  max-width: 700px;
+}
