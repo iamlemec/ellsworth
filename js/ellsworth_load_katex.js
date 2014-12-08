@@ -1,5 +1,5 @@
-//prefix = "";
-prefix = "/testing";
+prefix = "";
+//prefix = "/testing";
 
 function headAppend(elem) {
   document.getElementsByTagName("head")[0].appendChild(elem);

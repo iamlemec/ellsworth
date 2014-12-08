@@ -1,5 +1,10 @@
+#!/usr/bin/env python
+
+# latex to ellsworth converter
+
 import re
 import sys
+from collections import OrderedDict
 
 # advanced regex substitution
 def sub_func(re_def,func,text):
@@ -48,11 +53,19 @@ preamble = '<!--\n{}\n-->\n\n'.format(preamble.strip())
 preamble += '<script type="text/javascript" src="/ellsworth/js/ellsworth_load.js"></script>\n<script type="text/x-mathjax-config">EllsworthConfig({});</script>'
 
 # perform substitutions
+environs = OrderedDict([
+  ['\\\\begin{align[*]?}(?P<eq>(.|\n)*?)\\\\end{align[*]?}','<equation>{eq}</equation>'], # align[*] -> equation
+  ['\\\\begin{equation[*]?}(?P<eq>(.|\n)*?)\\\\end{equation[*]?}','<equation>{eq}</equation>'], # equation[*] -> equation
+  ['\\\\begin{eqnarray[*]?}(?P<eq>(.|\n)*?)\\\\end{eqnarray[*]?}','<equation>{eq}</equation>'], # eqnarray[*] -> equation
+  ['\\\\subsection[*]?{(?P<title>.*?)}(?P<contents>((?!(\\\\subsection|\\\\section))(.|\n))*)','<subsection title="{title}">{contents}</subsection>\n\n'], # subsection
+  ['\\\\section[*]?{(?P<title>.*?)}(?P<contents>((?!\\\\section)(.|\n))*)','<section title="{title}">{contents}</section>\n\n'], # section
+  ['\\\\includegraphics(\[[^\]]*\])?{(?P<src>.*?)}','<media source="{src}"></media>'], # includegraphics -> media
+  ['\\\\begin{figure[*]?}(?P<contents>(.|\n)*?)\\\\end{figure[*]?}','<figure>{contents}</figure>'], # figure[*] -> figure
+  ['\\\\begin{tabular[*]?}(?P<contents>(.|\n)*?)\\\\end{tabular[*]?}','<table>{contents}</table>'], # tabular[*] -> table
+])
+
 body = body.replace('\\maketitle',head_text)
-body = sub_all('\\\\begin{align[*]?}(?P<eq>(.|\n)*?)\\\\end{align[*]?}',formatter_dict('<equation>{eq}</equation>'),body) # align[*] -> equation
-body = sub_all('\\\\subsection[*]?{(?P<title>.*?)}(?P<contents>((?!(\\\\subsection|\\\\section))(.|\n))*)',formatter_dict('<subsection title="{title}">{contents}</subsection>\n\n'),body) # subsection
-body = sub_all('\\\\section[*]?{(?P<title>.*?)}(?P<contents>((?!\\\\section)(.|\n))*)',formatter_dict('<section title="{title}">{contents}</section>\n\n'),body) # section
-body = sub_all('\\\\includegraphics(\[[^\]]*\])?{(?P<src>.*?)}',formatter_dict('<media source="{src}"></media>'),body) # includegraphics -> media
+for (k,v) in environs.items(): body = sub_all(k,formatter_dict(v),body)
 
 # output to file or stdout
 output_text = '<html>\n\n{}<body>{}</body>{}\n</html>'.format(preamble,body,postamble)
