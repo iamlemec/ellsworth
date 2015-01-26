@@ -100,7 +100,9 @@ class EllsworthParser:
       return '%' + unicode(soup)
     elif typ is element.Tag:
       name = soup.name
-      if name == 'header':
+      if name == 'script':
+        return ''
+      elif name == 'header':
         return self.parse_children(soup)
       elif name == 'title':
         self.title = soup.text
@@ -161,7 +163,7 @@ class EllsworthParser:
       elif name == 'cite':
         return '\\citet{' + soup['label'] + '}'
       elif name == 'enumerate':
-        return '\\begin{enumerate}' + self.parse_children(soup) + '\\end{enumerate}'
+        return '\\begin{enumerate}\n' + self.parse_children(soup) + '\\end{enumerate}'
       elif name == 'item':
         return '\\item ' + self.parse_children(soup)
       elif name == 'b':
@@ -200,7 +202,8 @@ latex_out = parser.parse_soup(soup_in)
 # convert \lt to <, \gt to >, and % to \%
 latex_out = re.subn('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)[0]
 latex_out = re.subn('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)[0]
-# latex_out = re.subn('%','\%',latex_out)[0]
+latex_out = re.subn('%','\\%',latex_out)[0]
+latex_out = re.subn('&','\\&',latex_out)[0]
 
 if fname_out:
   fid_out = open(fname_out,'w+')
