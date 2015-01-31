@@ -393,16 +393,25 @@ function EllsworthBoot() {
     return div;
   });
 
-  var done = false;
-  while (!done) {
-    done = true;
-    $("div.enumerate_box>item").replaceWith(function () {
-      var item = $(this);
-      var div = $("<div>",{class:"item_box",html:item.html()});
-      done = false;
-      return div;
-    });
-  }
+  $("div.enumerate_box>item").replaceWith(function () {
+    var item = $(this);
+    var div = $("<div>",{class:"item_box",html:item.html()});
+    return div;
+  });
+
+  // unordered lists
+  $("itemize").replaceWith(function () {
+    var enumer = $(this);
+    var div = $("<div>",{class:"itemize_box"});
+    div.append(enumer.children());
+    return div;
+  });
+
+  $("div.itemize_box>item").replaceWith(function () {
+    var item = $(this);
+    var div = $("<div>",{class:"item_box",html:item.html()});
+    return div;
+  });
 
   // dereference refs - attach appropriate hover popups
   $("ref").replaceWith(function () {
