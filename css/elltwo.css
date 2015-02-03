@@ -37,15 +37,15 @@
   margin: 0 auto;
 }
 
-div.abstract_box {
+.elltwo div.abstract_box {
   margin-top: 50px;
 }
 
-h4.abstract_head {
+.elltwo h4.abstract_head {
   text-align: center;
 }
 
-p.abstract_body {
+.elltwo p.abstract_body {
   line-height: 160%;
   /*text-align: justify;*/
 }
@@ -55,34 +55,34 @@ p.abstract_body {
   margin-top: 20px;
 }
 
-div.equation_box {
+.elltwo div.equation_box {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-div.equation_inner {
+.elltwo div.equation_inner {
   text-align: center;
 }
 
-div.equation_number {
+.elltwo div.equation_number {
   vertical-align: middle;
   width: 20px;
   color: #BBB;
 }
 
-div.section_box {
+.elltwo div.section_box {
   margin-top: 60px;
   margin-bottom: 0px;
   padding: 0px;
 }
 
-h2.section_title {
+.elltwo h2.section_title {
   text-align: center;
   font-weight: 400;
   margin-bottom: 30px;
 }
 
-sup.footnote_mark {
+.elltwo sup.footnote_mark {
   color: blue;
   cursor: pointer;
 }
@@ -94,66 +94,70 @@ sup.footnote_mark {
   margin-right: auto;
 }
 
-.elltwo figure  {
+.elltwo figure {
 }
 
-h3.table_title {
-  text-align: center;
-  font-weight: 400;
-}
-
-table.dataframe {
-  margin-left: auto;
-  margin-right: auto;
-  border-collapse: collapse;
-}
-
-div.item_box {
+.elltwo li {
   padding-left: 20px;
   padding-top: 15px;
   padding-bottom: 3px;
+}å
+
+.elltwo div.content {
+  counter-reset: section;
 }
 
-div.enumerate_box {
-  counter-reset: item-counter;
+.elltwo div.content > section {
+  counter-increment: section;
 }
 
-div.item_box:before {
-  content: counter(item-counter) ". ";
-  counter-increment: item-counter;
+.elltwo div.content > section > .title:before {
+  content: counter(section) " ";
 }
 
-span.ref_text {
+.elltwo div.content > section {
+  counter-reset: subsection;
+}
+
+.elltwo div.content > section > section {
+  counter-increment: subsection;
+}
+
+.elltwo div.content > section > section > .title:before {
+  content: counter(section) "." counter(subsection) " ";
+}
+
+.elltwo span.ref_text {
   color: blue;
   cursor: pointer;
 }
 
-a.ref_link {
+.elltwo a.ref_link {
   color: blue;
   text-decoration: none;
 }
 
-a.fig_link {
+.elltwo a.fig_link {
 }
 
-a.tab_link {
+.elltwo a.tab_link {
 }
 
-a.eqn_link {
+.elltwo a.eqn_link {
 }
 
-a.sec_link {
+.elltwo a.sec_link {
 }
 
-a.subsec_link {
+.elltwo a.subsec_link {
 }
 
-a.cite_link {
+.elltwo a.cite_link {
   color: blue;
   text-decoration: none;
 }
 
-div.popup_outer {
+.elltwo div.popup_outer {
   display: none;
   position: absolute;
   z-index: 2;
@@ -161,7 +165,7 @@ div.popup_outer {
   cursor: auto;
 }
 
-div.popup {
+.elltwo div.popup {
   font-size: 12px;
   font-weight: normal;
   text-align: center;
@@ -178,7 +182,7 @@ div.popup {
   max-width: 300px;
 }
 
-div.popup_arrow {
+.elltwo div.popup_arrow {
   border-bottom-color: transparent;
   border-bottom-style: solid;
   border-bottom-width: 0px;
@@ -197,50 +201,50 @@ div.popup_arrow {
   position: absolute;
 }
 
-div.footnote_popup {
+.elltwo div.footnote_popup {
 }
 
-div.footnote_popup a {
+.elltwo div.footnote_popup a {
   color: #2ECCFA;
 }
 
-div.sec_popup {
+.elltwo div.sec_popup {
 }
 
-div.eqn_popup {
+.elltwo div.eqn_popup {
   font-size: 17px;
   max-width: none;
   padding-top: 15px;
   padding-bottom: 15px;
 }
 
-div.fig_popup {
+.elltwo div.fig_popup {
 }
 
-div.tab_popup {
+.elltwo div.tab_popup {
 }
 
-div.cite_popup {
+.elltwo div.cite_popup {
 }
 
-div.bibliography_box {
+.elltwo div.bibliography_box {
   margin-top: 60px;
   margin-bottom: 0px;
 }
 
-h2.bibliography_head {
+.elltwo h2.bibliography_head {
   text-align: center;
   font-weight: 400;
  }
 
-div.bibliography_item {
+.elltwo div.bibliography_item {
   margin-top: 20px;
 }
 
 /* media query stuff */
 
 @media (max-width: 800px) {
-  div.elltwo {
+  .elltwo {
     overflow: hidden;
     max-width: 100% !important;
     padding-top: 20px;
@@ -265,11 +269,11 @@ div.bibliography_item {
 }
 
 @media (min-width: 800px) {
-  body {
+  .elltwo {
     background-color: #C8C8C8;
   }
 
-  div.elltwo {
+  .elltwo div.content {
     max-width: 700px;
     margin-top: 50px;
     margin-bottom: 50px;
