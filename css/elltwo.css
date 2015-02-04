@@ -15,15 +15,6 @@
   text-align: center;
 }
 
-.elltwo div.title_spacer {
-  min-height: 20px;
-}
-
-.elltwo h3.author_name {
-  text-align: center;
-  font-weight: 600;
-}
-
 .elltwo figure p {
   text-align: center;
   margin: 15px;
@@ -47,7 +38,6 @@
 
 .elltwo p.abstract_body {
   line-height: 160%;
-  /*text-align: justify;*/
 }
 
 .elltwo p {
@@ -70,18 +60,6 @@
   color: #BBB;
 }
 
-.elltwo div.section_box {
-  margin-top: 60px;
-  margin-bottom: 0px;
-  padding: 0px;
-}
-
-.elltwo h2.section_title {
-  text-align: center;
-  font-weight: 400;
-  margin-bottom: 30px;
-}
-
 .elltwo sup.footnote_mark {
   color: blue;
   cursor: pointer;
@@ -94,47 +72,37 @@
   margin-right: auto;
 }
 
-.elltwo figure {
-}
-
 .elltwo li {
   padding-left: 20px;
   padding-top: 15px;
   padding-bottom: 3px;
-}å
-
-.elltwo div.content {
-  counter-reset: section;
 }
 
-.elltwo div.content > section {
-  counter-increment: section;
+.elltwo section {
+  margin-top: 50px;
 }
 
-.elltwo div.content > section > .title:before {
-  content: counter(section) " ";
+.elltwo section > .title:before {
+  content: attr(sec-num) " ";
 }
 
-.elltwo div.content > section {
-  counter-reset: subsection;
+.elltwo figure > .title:before {
+  content: "Figure " attr(fig-num) ": ";
 }
 
-.elltwo div.content > section > section {
-  counter-increment: subsection;
-}
-
-.elltwo div.content > section > section > .title:before {
-  content: counter(section) "." counter(subsection) " ";
+.elltwo table > .title:before {
+  content: "Table " attr(tab-num) ": ";
 }
 
 .elltwo span.ref_text {
   color: blue;
-  cursor: pointer;
+
 }
 
 .elltwo a.ref_link {
   color: blue;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .elltwo a.fig_link {
@@ -155,6 +123,7 @@
 .elltwo a.cite_link {
   color: blue;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .elltwo div.popup_outer {
@@ -228,14 +197,9 @@
 }
 
 .elltwo div.bibliography_box {
-  margin-top: 60px;
+  margin-top: 30px;
   margin-bottom: 0px;
 }
-
-.elltwo h2.bibliography_head {
-  text-align: center;
-  font-weight: 400;
- }
 
 .elltwo div.bibliography_item {
   margin-top: 20px;
@@ -244,15 +208,6 @@
 /* media query stuff */
 
 @media (max-width: 800px) {
-  .elltwo {
-    overflow: hidden;
-    max-width: 100% !important;
-    padding-top: 20px;
-    padding-bottom: 30px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-
   div.equation_box {
     max-width: 100% !important;
   }
@@ -269,23 +224,9 @@
 }
 
 @media (min-width: 800px) {
-  .elltwo {
-    background-color: #C8C8C8;
-  }
-
-  .elltwo div.content {
-    max-width: 700px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    padding-top: 50px;
-    padding-bottom: 75px;
-    padding-left: 50px;
-    padding-right: 50px;
-    box-shadow: 1px 1px 4px #AAA, 0 0 1em #AAA, 2px 2px 0.5em #AAA;
-    border-left: 1px solid #BBB;
-    border-right: 1px solid #BBB;
-    background-color: white;
-    color: #333;
+  div.content {
+    padding-top: 30px;
+    padding-bottom: 50px;
   }
 
   div.equation_box {

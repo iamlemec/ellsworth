@@ -113,50 +113,31 @@ function EllsworthBoot() {
   // find outer box
   outer_box = $(".elltwo div.content");
 
-  // insert section titles
-  var n_sections = 0;
-  $("section").replaceWith(function () {
-    var sec = $(this);
-    var id = sec.attr("id");
-    var sec_num = ++n_sections;
-    var div = $("<div>").addClass("section_box").attr("sec_title",sec.attr("title"));
-    if (sec.hasClass("nonumber")) {
-      div.addClass("nonumber");
-      title_text = div.attr("sec_title");
-    } else {
-      div.attr("sec_num",sec_num);
-      div.attr("n_subsections",0)
-      title_text = div.attr("sec_num")+" &nbsp; "+div.attr("sec_title");
-    }
-    div.append($("<h2>",{html:title_text,class:"section_title"}));
-    div.append(sec.children());
-    return div;
-  });
+  // recursively number sections
+  handle_section = function(parent,prefix) {
+    var n_sections = 0;
+    parent.children("section:not(.nonumber)").each(function () {
+      var sec = $(this);
+      var sec_num = ++n_sections;
+      var sec_text = prefix + sec_num;
+      sec.attr("sec-num",sec_text);
+      sec.children(".title").attr("sec-num",sec_text);
+      handle_section(sec,sec_text+".");
+    });
+  }
+  handle_section(outer_box,"");
 
-  // we only go down to the subsection now - this is bad
-  $("subsection").replaceWith(function () {
-    var sec = $(this);
-    var label = sec.attr("label");
-    var div = $("<div>").addClass("subsection_box").attr("sec_title",sec.attr("title"));
-    var parent = sec.parent("div.section_box");
-    var sec_num = parent.attr("sec_num");
-    var subsec_num = Number(parent.attr("n_subsections"))+1;
-    if (label) {
-      div.attr("id","subsec_"+label);
-    } else {
-      div.attr("id","subsec_"+sec_num+"_"+subsec_num);
-    }
-    if (sec.hasClass("nonumber") || parent.hasClass("nonumber")) {
-      title_text = sec.attr("title");
-    } else {
-      parent.attr("n_subsections",subsec_num);
-      div.attr("sec_num",sec_num).attr("subsec_num",subsec_num);
-      title_text = sec_num+"."+subsec_num+" &nbsp; "+sec.attr("title");
-    }
-    div.append($("<h3>",{html:title_text,class:"subsection_title"}));
-    div.append(sec.children());
-    return div;
-  });
+  handle_numbers = function(htag,rtag) {
+    var n = 0;
+    outer_box.find(htag+"").each(function () {
+      var obj = $(this);
+      var num = ++n;
+      obj.attr(rtag+"-num",num);
+      obj.children(".title").attr(rtag+"-num",num);
+    });
+  }
+  handle_numbers("figure","fig");
+  handle_numbers("table","tab");
 
   // simple replacements - these go first so table environments will work
   for (rep in ec["replacements"]) {
@@ -176,12 +157,12 @@ function EllsworthBoot() {
     content = rule[0];
     $(env).replaceWith(function () {
       elem = $(this);
-      label = elem.attr("label");
+      id = elem.attr("id");
       orig_html = elem.html();
       elem.attr("number",++n_environs);
       elem.attr("content",orig_html);
       div = $("<div>",{class:env+"_box",html:content.format_dict(get_attributes(elem)),number:n_environs,content:orig_html});
-      if (label) { div.attr("id",env+"_"+label); }
+      if (id) { div.attr("id",id); }
       return div;
     })
   }
@@ -206,7 +187,7 @@ function EllsworthBoot() {
     if (id=eqn.attr("id")) {
       div_box.attr("id",id);
       var eqn_num = ++n_equations;
-      div_box.attr("eqn_num",eqn_num);
+      div_box.attr("eqn-num",eqn_num);
     } else {
       var eqn_num = "";
     }
@@ -266,41 +247,30 @@ function EllsworthBoot() {
     var foot_text = foot.html();
     var span = $("<span>",{class:"footnote_box",html:"&#xfeff;",foot_text:foot_text}); // ZWNBSPFTW!!!
     var sup = $("<sup>",{class:"footnote_mark",html:foot_num});
-    span.append(sup);
-    return span;
-  });
-
-  $("span.footnote_box").each(function () {
-    var span = $(this);
-    var foot_text = span.attr("foot_text");
     var popup = $("<div>",{class:"popup footnote_popup",html:foot_text});
     attach_popup(span,popup);
+    span.append(sup);
+    return span;
   });
 
   // dereference refs - attach appropriate hover popups
   $("ref").replaceWith(function () {
     var ref = $(this);
-    var span = $("<span>",{class:"ref_text"});
+    var span = $("<span>");
     if (target=ref.attr("target")) {
-      if ((fig=$("div.figure_box[id="+target+"]")).length) {
-        var link = $("<a>",{class:"ref_link fig_link",href:"#"+target,html:"Figure "+fig.attr("fig_num")});
-        var popup = $("<div>",{html:fig.attr("fig_title"),class:"popup fig_popup"});
-        attach_popup(link,popup);
+      if ((fig=$("figure[id="+target+"]")).length) {
+        var link = $("<a>",{class:"ref_link fig_link",href:"#"+target,html:"Figure "+fig.attr("fig-num")});
         span.append(link);
       } else if ((tab=$("div.table_box[id="+target+"]")).length) {
-        var link = $("<a>",{class:"ref_link tab_link",href:"#"+target,html:"Table "+tab.attr("tab_num")});
-        var popup = $("<div>",{html:tab.attr("tab_title"),class:"popup tab_popup"});
-        attach_popup(link,popup);
+        var link = $("<a>",{class:"ref_link tab_link",href:"#"+target,html:"Table "+tab.attr("tab-num")});
         span.append(link);
       } else if ((eqn=$("div.equation_box[id="+target+"]")).length) {
-        var link = $("<a>",{class:"ref_link eqn_link",href:"#"+target,html:"Equation "+eqn.attr("eqn_num")});
+        var link = $("<a>",{class:"ref_link eqn_link",href:"#"+target,html:"Equation "+eqn.attr("eqn-num")});
         span.append(link);
         var popup = $("<div>",{class:"popup eqn_popup",html:eqn.children(".equation_inner").html()});
         attach_popup(span,popup);
       } else if ((sec=$("section[id="+target+"]")).length) {
-        var link = $("<a>",{class:"ref_link sec_link",href:"#"+target,html:"Section "+sec.attr("sec_num")});
-        var popup = $("<div>",{html:sec.attr("sec_title"),class:"popup sec_popup"});
-        attach_popup(link,popup);
+        var link = $("<a>",{class:"ref_link sec_link",href:"#"+target,html:"Section "+sec.attr("sec-num")});
         span.append(link);
       } else {
         // look for matches in the custom environments
@@ -314,7 +284,7 @@ function EllsworthBoot() {
             } else {
               tip = "";
             }
-            if ((div=$("div."+env+"_box[id="+env+"_"+target+"]")).length) {
+            if ((div=$("div."+env+"_box[id="+target+"]")).length) {
               attrib = get_attributes(div);
               attrib["html"] = div.html();
               link = $("<a>",{class:"ref_link "+env+"_link",href:"#"+env+"_"+target,html:reference.format_dict(attrib)});
@@ -425,9 +395,8 @@ function EllsworthBoot() {
       $("cite").replaceWith(function () {
         var cite = $(this);
         span = $("<span>");
-        if (cite.attr("label")) {
-          var label = cite.attr("label");
-          if (sources.hasOwnProperty(label)) {
+        if (target=cite.attr("target")) {
+          if (label in sources) {
             src = sources[label];
             src["used"] = true;
             link = $("<a>",{class:"cite_link"});
@@ -435,7 +404,7 @@ function EllsworthBoot() {
             link.html(src["cite_form"]);
             span.append(link);
             pop_txt = src["title"];
-            if (src.hasOwnProperty("journal")) {
+            if ("journal" in src) {
               pop_txt += " ("+src["journal"]+")";
             }
             popup = $("<div>",{html:pop_txt,class:"popup cite_popup"});
@@ -450,8 +419,6 @@ function EllsworthBoot() {
       // write bibliography if needed
       $("bibliography").replaceWith(function () {
         var bib = $("<div>",{class:"bibliography_box"});
-        var bib_head = $("<h2>",{class:"bibliography_head",html:"Bibliography"});
-        bib.append(bib_head);
         var ref_list = [];
         for (label in sources) {
           var source = sources[label];

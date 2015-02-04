@@ -8,7 +8,8 @@
 <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
 <link href="/js/katex/katex.min.css" type="text/css" rel="stylesheet">
 <link href="/css/proxima-nova.css" type="text/css" rel="stylesheet">
-<link href="css/elltwo.css" type="text/css" rel="stylesheet">
+<link href="/ellsworth/css/elltwo.css" type="text/css" rel="stylesheet">
+<link href="/ellsworth/css/plain.css" type="text/css" rel="stylesheet">
 
 <style>
 .elltwo {
@@ -23,8 +24,13 @@
 <div class="content container">
 
 <header>
-<h1 class="title">Test Article Prime</h1>
+<h1 class="title">Test Article Prime Directive</h1>
 <h3 class="author">Douglas Hanley (Pitt)</h3>
+<br/>
+<h4><b>Abstract</b></h4>
+<p class="abstract">
+Various things are explained in this article. Various things are explained in this article. Various things are explained in this article. Various things are explained in this article. Various things are explained in this article. Various things are explained in this article. Various things are explained in this article. Various things are explained in this article. Various things are  explained in this article. Various things are explained in this article. Various things are explained in this article. Various things are explained in this article.
+</p>
 </header>
 
 <section id="intro">
@@ -48,7 +54,7 @@ Free text 2, see <ref target="test_eqn_1"></ref> and <ref target="test_fig"></re
 </p>
 
 <figure id="test_fig">
-<h3>Check Out This Clear Trend</h3>
+<h3 class="title">Check Out This Clear Trend</h3>
 <img src="image/transfer_expiry.svg" class="img-responsive"/>
 <p>This shows some stuff</p>
 </figure>
@@ -57,7 +63,9 @@ Free text 2, see <ref target="test_eqn_1"></ref> and <ref target="test_fig"></re
 4z + 3 = 22
 </equation>
 
-<p>Test of equation array</p>
+<p>
+Test of equation array
+</p>
 
 <equation>
 \sin^2(x) + \cos^2(x) \align = 1 \\
@@ -73,21 +81,8 @@ All your base are belong to us.
 </fact>
 
 <p>
-See <ref target="test_fig"></ref> and additionally <ref target="test_eqn_2"></ref> for more details. This is in line with <ref target="fact_1"></ref>.
+See <ref target="test_fig"></ref> and additionally <ref target="test_eqn_2"></ref> for more details. This is in line with the results in <ref target="fact_1"></ref>.
 </p>
-
-<figure id="useless_stats">
-<h2>Useless Statistics</h2>
-<table>
-<thead>
-<tr><td>Column 1</td><td>Column 2</td></tr>
-</thead>
-<tbody>
-<tr><td>1</td><td>2</td></tr>
-<tr><td>3</td><td>4</td></tr>
-</tbody>
-</table>
-</figure>
 
 <p>Yepppp</p>
 
@@ -112,7 +107,7 @@ Free text 1, see <ref target="intro"></ref>
 </p>
 
 <equation id="test_eqn_3">
-\dot{\mu}_+(\lambda) = (b+(1-\alpha)\tau)\left[F(\lambda)-\mu_+(\lambda)\right]-(\alpha\tau+z)\int_1^{\infty}\left[1-F(\lambda/\lambda^{\prime})\right]d\mu_+(\lambda^{\prime})
+\dot{\mu}_+(\lambda) = (b+(1-\alpha)\tau)\left[F(\lambda)-\mu_+(\lambda)\right]
 </equation>
 
 <p>
@@ -120,7 +115,7 @@ Free text 2, see <ref target="test_eqn_3"></ref> and <ref target="test_fig_2"></
 </p>
 
 <figure id="test_fig_2">
-<h2>Check Out This Clear Trend</h2>
+<h3 class="title">Check Out This Clear Trend</h3>
 <img src="image/transfer_profit.svg" class="img-responsive"/>
 <p>This shows some stuff</p>
 </figure>
@@ -134,7 +129,7 @@ Free text 3, according to <cite target="hopenhayn2006rewarding"></cite> this is 
 </p>
 
 <p>
-See <ref target="test_fig_2"></ref> and additionally <ref target="test_eqn_4"></ref> for more details. Confer with <ref target="useless_stats"></ref>
+See <ref target="test_fig_2"></ref> and additionally <ref target="test_eqn_4"></ref> for more details.
 </p>
 
 <p>
@@ -163,16 +158,21 @@ The state variable $Q$ evolves according to
 
 </section>
 
+<section class="nonumber">
+<h2 class="title">Bibliography</h2>
+<bibliography/>
+</section>
+
 </div>
 
 <script src="/js/jquery.min.js" type="text/javascript"></script>
 <script src="/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/js/katex/katex.min.js" type="text/javascript"></script>
-<script src="js/elltwo.js" type="text/javascript"></script>
+<script src="/ellsworth/js/elltwo.js" type="text/javascript"></script>
 <script type="text/javascript">
-console.log("Running config!");
 ElltwoConfig({
   environs: {
+    fact: ['<b>Fact {number}.</b> &nbsp; {content}','Fact {number}','{content}'],
     proposition: ['<b>Proposition {number}.</b> &nbsp; {content}','Proposition {number}','{content}'],
     proof: ['<b>Proof.</b> &nbsp; {content}','Proof {number}','{content}']
   },
