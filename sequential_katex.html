@@ -402,8 +402,8 @@ Having characterized the firm value functions and their dynamics, we must also a
 Focusing on unexpired product lines (where $\lambda \gt 0$), the  distribution will satisfy the flow equation
 <equation label="step_flow">
 \dot{\mu}_+(\lambda) = \align  (b+(1-\alpha)\tau)\left[F(\lambda)-\mu_+(\lambda)\right] \\
- \align - (\alpha\tau+z) \int_1^{\infty}\left[1-F(\lambda/\lambda^{\prime})\right] d\mu_+(\lambda^{\prime}) \\
- \align + \left(\frac{\dot{\mu}_+}{\mu_+}\right)\left[F(\lambda)-\mu_+(\lambda)\right]
+\align - (\alpha\tau+z) \int_1^{\infty}\left[1-F(\lambda/\lambda^{\prime})\right] d\mu_+(\lambda^{\prime}) \\
+\align + \left(\frac{\dot{\mu}_+}{\mu_+}\right)\left[F(\lambda)-\mu_+(\lambda)\right]
 </equation>
 The first two terms are what we would expect in the case without patent expiry. Independent innovations arrive at rate $(1-\alpha)\tau$ and reset the technological lead to some random value $\beta$, and similarly for patent expiry $b$. Meanwhile, sequential and internal innovations arrive at rate $\alpha\tau+y$ and increment the technological lead by some random value $\beta$. The last term simply deals with the fact that there are also product lines flowing into and out of expiry.
 </text>
@@ -423,13 +423,13 @@ V(\lambda) = A - B \lambda^{-1}
 </equation>
 Recall that $\tilde{\pi}(\lambda) = 1 - \lambda^{-1}$. Inserting the above into the product line value function and equating coefficients on the constant term and the $\lambda^{-1}$ terms yields the following characterization of the coefficients
 <equation>
-(\delta_F+b+(1-\alpha)\tau) A - \dot{A}  \align = 1 + \Omega_x + b V_0 \\
-(\delta_F+b+(1-\alpha)\tau) B - \dot{B}  \align = 1 - \Omega_z - \alpha \tau p B/(1+\kappa^{-1})
+(\delta_F+b+(1-\alpha)\tau) A - \dot{A} \align = 1 + \Omega_x + b V_0 \\
+(\delta_F+b+(1-\alpha)\tau) B - \dot{B} \align = 1 - \Omega_z - \alpha \tau p B/(1+\kappa^{-1})
 </equation>
 Here $\Omega_x$ is the option value of external innovation. Because of the concavity of the profit function in the technological lead, the gross returns to internal innovation are decreasing. However, since the the cost also decreases by the same proportion, the net returns also scale down with the technological lead. Thus internal innovation shows up in the variable portion of the value function as
 <equation>
-\Omega_z  \align = \max_z\left\{-\tilde{w}d(z)+zB/(1+\kappa^{-1})\right\} \\
-\Omega_0  \align = \max_{z_0}\left\{-\tilde{w}d(z_0)+z_0(A-B/(1+\kappa)-V_0)\right\}
+\Omega_z \align = \max_z\left\{-\tilde{w}d(z)+zB/(1+\kappa^{-1})\right\} \\
+\Omega_0 \align = \max_{z_0}\left\{-\tilde{w}d(z_0)+z_0(A-B/(1+\kappa)-V_0)\right\}
 </equation>
 with $\Omega_z(\lambda) = \lambda^{-1} \Omega_z$. Using these expressions, the expected gain from innovation can be simplified to
 <equation>
@@ -448,11 +448,10 @@ Aggregate consistency of the rate of external innovation requires that $\tau = (
 Y = Q L_P/\Delta
 </equation>
 where $Q$ is the log aggregate productivity $\log(Q) = \int_0^1\log(q_j)dj$ and $\Delta$ is a measure of labor misallocation given by
-<eqnarray>
-<equation>\log(\Delta) \align = \log\left[\int_0^1 \ell_j dj\right]-\int_0^1 \log(\ell_j)dj</equation>
-<equation>\align = \log\left[\int_1^{\infty}\lambda^{-1}d\mu(\lambda)\right]-\int_1^{\infty}\log(\lambda^{-1})d\mu(\lambda) \ge 0
+<equation>
+\log(\Delta) \align = \log\left[\int_0^1 \ell_j dj\right]-\int_0^1 \log(\ell_j)dj \\
+\align = \log\left[\int_1^{\infty}\lambda^{-1}d\mu(\lambda)\right]-\int_1^{\infty}\log(\lambda^{-1})d\mu(\lambda) \ge 0
 </equation>
-</eqnarray>
 where the inequality above follows from Jensen's inequality. It is straightforward to show that the growth rate of the aggregated productivity will simply be
 <equation label="aggregate_growth">
 g = \kappa (\tau+\bar{z})
@@ -471,8 +470,8 @@ The above section fully characterized the dynamic equilibrium of the model. In p
 <text>
 In steady state, all normalized figures, such as those comprising the value function, will be constant. In addition, the position in the aggregate state space, as defined above, will be invariant. Proceeding from this basis, the firm value function coefficients simplify to
 <equation label="value_coefficients">
-A  \align = \frac{1+\Omega_x+bV_0}{\delta_F+b+(1-\alpha)\tau} \\
-B  \align = \frac{1-\Omega_z}{\delta_F+b+((1-\alpha)+\alpha p \kappa/(1+\kappa))\tau}
+A \align = \frac{1+\Omega_x+bV_0}{\delta_F+b+(1-\alpha)\tau} \\
+B \align = \frac{1-\Omega_z}{\delta_F+b+((1-\alpha)+\alpha p \kappa/(1+\kappa))\tau}
 </equation>
 The value of a product line where patent protection has expired becomes simply
 <equation label="value_expired">
@@ -515,7 +514,7 @@ Thus the expected value of $\log(\lambda)$, conditional on being strictly positi
 <b>Note</b> As an aside, I will note that the assumption of Pareto distributed step sizes is not critical to the equilibrium solution, but is needed to ensure tractability of the technological lead distribution, which simplifies notation in various places. For arbitrarily distributed $\beta$, one can write the flow equation for the quantity $\Gamma_+$ as
 <equation>
 \dot{\Gamma}_+ = \align  (b+(1-\alpha)\tau)\left(E[\beta^{-1}]-\Gamma_+\right) - (\alpha\tau+z)\left(1-E[\beta^{-1}]\right)\Gamma_+ \\
- \align + \left(E[\beta^{-1}]-\Gamma_+\right)\left(\frac{\dot{\mu}_+}{\mu_+}\right)
+\align + \left(E[\beta^{-1}]-\Gamma_+\right)\left(\frac{\dot{\mu}_+}{\mu_+}\right)
 </equation>
 Imposing $\dot{\Gamma}_+ = \dot{\mu}_+ = 0$ and solving then yields the equations
 <equation>
@@ -556,14 +555,14 @@ See Appendix.
 <text>
 As discussed in the previous section, aggregate output can be decomposed into contributions from three components
 <equation>
-\log(Y)  \align = \int_0^1 \log(q_j \ell_j)dj \\
- \align = \log(Q) + \int_1^{\infty} \mu(\lambda) \log(\ell(\lambda)) d\lambda \\
- \align = \log(Q) + \log(L_P) - \log(\Delta)
+\log(Y) \align = \int_0^1 \log(q_j \ell_j)dj \\
+\align = \log(Q) + \int_1^{\infty} \mu(\lambda) \log(\ell(\lambda)) d\lambda \\
+\align = \log(Q) + \log(L_P) - \log(\Delta)
 </equation>
 The term $\log(\Delta)$ is a measure of labor usage heterogeneity, which leads to productive misallocation. This implies that $Q$ is the maximum possible output of the economy and $QL_P$ is the maximal output given a certain amount of production labor $L_P$. In steady state, this takes on the value
 <equation label="log_delta_eq">
-\log(\Delta)  \align = \log(\Gamma) + \mu_+ m \\
- \align = \log\left[\frac{b+(\tau+z_0)/(1+m)}{b+\tau+z_0}\right]+\left(\frac{\tau+z_0}{b+\tau+z_0}\right)m
+\log(\Delta) \align = \log(\Gamma) + \mu_+ m \\
+\align = \log\left[\frac{b+(\tau+z_0)/(1+m)}{b+\tau+z_0}\right]+\left(\frac{\tau+z_0}{b+\tau+z_0}\right)m
 </equation>
 Notice that, holding innovation rates constant, this is decreasing in the patent length $b$ and increasing in sequentiality $\alpha$, since $m$ is also increasing in $\alpha$. Welfare is given according to
 <equation>
@@ -619,8 +618,8 @@ P(t) = \left[1-\left(\frac{\tau}{\tau+\bar{z}}\right)\alpha(1-q)\right] \alpha q
 </equation>
 This exponential form is very close to what is seen in the data. A detailed evaluation of the match is given in the quantitative section. Finding the probability that a patent is never transferred is then a matter of evaluating the above expression in the limit as $t\rightarrow\infty$. This yields the expression
 <equation>
-P  \align = P(0) + \left(1-P(0)\right)\left(\frac{\alpha q\tau}{b+(1-\alpha)\tau+\alpha q\tau}\right) \\
- \align \in \left[\alpha\left(\frac{\tau}{\max\{\bar{z},b\}+\tau}\right),\alpha\right]
+P \align = P(0) + \left(1-P(0)\right)\left(\frac{\alpha q\tau}{b+(1-\alpha)\tau+\alpha q\tau}\right) \\
+\align \in \left[\alpha\left(\frac{\tau}{\max\{\bar{z},b\}+\tau}\right),\alpha\right]
 </equation>
 Thus it is very closely related to the incidence of sequential innovation. Notice that the lower bound decreases with the fraction of innovations that are within-firm, since these innovations result in no transfers. Having only external innovation would result in implausibly high fractions of patents being transferred. Additionally, the lower bound decreases with the rate of patent expiry, since innovation on an expired product line induce no transfers as well.
 </text>
@@ -707,7 +706,7 @@ In the basic model, there are seven parameters that need to be identified. First
 </text>
 
 <text>
-First, the the innovation production parameters can be jointly constrained using aggregate moments. Naturally, their exact values will dependent upon the estimated values of other parameters in the model. However, this partitioning is still useful at a conceptual level. The tail index parameter $\kappa$ will be a strong determinant of profits in the economy. The expression given in <ref label="markup_median"></ref> is calculated at the product line level. Aggregating this to the firm level has no apparent analytical form, so simulation must be used. Meanwhile, the R&D production function parameters can be effectively constrained using the aggregate growth rate and the share of R\ \align D spending in the economy. Both these moments are readily available from BEA data. For the sake of consistency, analogues at the firm level, namely the incumbent innovation rate and R\ \align D intensity, can be used as well.
+First, the the innovation production parameters can be jointly constrained using aggregate moments. Naturally, their exact values will dependent upon the estimated values of other parameters in the model. However, this partitioning is still useful at a conceptual level. The tail index parameter $\kappa$ will be a strong determinant of profits in the economy. The expression given in <ref label="markup_median"></ref> is calculated at the product line level. Aggregating this to the firm level has no apparent analytical form, so simulation must be used. Meanwhile, the R&D production function parameters can be effectively constrained using the aggregate growth rate and the share of R&D spending in the economy. Both these moments are readily available from BEA data. For the sake of consistency, analogues at the firm level, namely the incumbent innovation rate and R&D intensity, can be used as well.
 </text>
 
 <text>
@@ -1054,7 +1053,7 @@ One major difference that arises when introducing firm-level heterogeneity is th
 </text>
 
 <text>
-<b>Equilibrium:</b> There are two types of firms: high-intensity and low-intensity innovators, herein referred to as high and low type, that are differentiated by their R\ \align D cost functions. High type firms transition to non-adopting firms at flow rate $\nu$. Being a low type firm is an absorbing state. Denote a generic firm type with $i\in\{H,L\}$. There is a type-specific innovation cost function $c^i(\cdot)$ for external innovation. The internal innovation technology $d(\cdot)$ is the same across types. An entrant firm starts as type $H$ with probability $\zeta^H$ and type $L$ with probability $\zeta^L = 1 - \zeta^H$.
+<b>Equilibrium:</b> There are two types of firms: high-intensity and low-intensity innovators, herein referred to as high and low type, that are differentiated by their R&D cost functions. High type firms transition to non-adopting firms at flow rate $\nu$. Being a low type firm is an absorbing state. Denote a generic firm type with $i\in\{H,L\}$. There is a type-specific innovation cost function $c^i(\cdot)$ for external innovation. The internal innovation technology $d(\cdot)$ is the same across types. An entrant firm starts as type $H$ with probability $\zeta^H$ and type $L$ with probability $\zeta^L = 1 - \zeta^H$.
 </text>
 
 <text>
@@ -1069,39 +1068,39 @@ Successful innovation yields a present value $\bar{V}^i$. The per-product value 
 </equation>
 where
 <equation>
-(\delta_F+\tau) V_0^H - \dot{V}_0^H  \align = \Omega^H_x + \Omega^H_0 + \nu (V_0^L-V_0^H) \\
-(\delta_F+\tau) V_0^L - \dot{V}_0^L  \align = \Omega^L_x + \Omega^L_0
+(\delta_F+\tau) V_0^H - \dot{V}_0^H \align = \Omega^H_x + \Omega^H_0 + \nu (V_0^L-V_0^H) \\
+(\delta_F+\tau) V_0^L - \dot{V}_0^L \align = \Omega^L_x + \Omega^L_0
 </equation>
 and
 <equation>
-\Omega^i_x  \align = \max_{x^i} \left\{-\tilde{w} c^i(x^i) + x^i\bar{V}^i\right\} \\
-\Omega^i_z(\lambda)  \align = \max_{z^i} \left\{-\tilde{w} \lambda^{-1}d(z^i) + z^i(E[V^i(\beta\lambda)-V^i(\lambda))\right\} \\
-\Omega^i_0  \align = \max_{z^i_0} \left\{-\tilde{w} d(z^i_0) + z^i_0(E[V^i(\beta\lambda)-V^i_0)\right\}
+\Omega^i_x \align = \max_{x^i} \left\{-\tilde{w} c^i(x^i) + x^i\bar{V}^i\right\} \\
+\Omega^i_z(\lambda) \align = \max_{z^i} \left\{-\tilde{w} \lambda^{-1}d(z^i) + z^i(E[V^i(\beta\lambda)-V^i(\lambda))\right\} \\
+\Omega^i_0 \align = \max_{z^i_0} \left\{-\tilde{w} d(z^i_0) + z^i_0(E[V^i(\beta\lambda)-V^i_0)\right\}
 </equation>
 As before, posit a linearly separable form
 <equation>
-V^H(\lambda)  \align = A^H - B^H \lambda^{-1} \\
-V^L(\lambda)  \align = A^L - B^L \lambda^{-1}
+V^H(\lambda) \align = A^H - B^H \lambda^{-1} \\
+V^L(\lambda) \align = A^L - B^L \lambda^{-1}
 </equation>
 We then find for the high type
 <equation>
-(\delta_F+b \align +(1-\alpha)\tau) A^H - \dot{A}^H  \align = 1 \\
+(\delta_F+b \align +(1-\alpha)\tau) A^H - \dot{A}^H \align = 1 \\
 \align + \Omega^H_x + b V^H_0 +\nu\left(A^L-A^H\right) \\
-(\delta_F+b \align +(1-\alpha)\tau) B^H - \dot{B}^H  \align = 1 \\
+(\delta_F+b \align +(1-\alpha)\tau) B^H - \dot{B}^H \align = 1 \\
 \align - \Omega^H_z - \alpha \tau p/(1+\kappa^{-1}) B^H + \nu (B^L-B^H)
 </equation>
 and for the low type
 <equation>
-(\delta_F+b \align +(1-\alpha)\tau) A^L - \dot{A}^L  \align = 1 \\
+(\delta_F+b \align +(1-\alpha)\tau) A^L - \dot{A}^L \align = 1 \\
 \align + \Omega^L_x + b V^L_0 + \alpha \tau^H p (A^H - A^L)\\
-(\delta_F+b \align +(1-\alpha)\tau) B^L - \dot{B}^L  \align = 1 \\
+(\delta_F+b \align +(1-\alpha)\tau) B^L - \dot{B}^L \align = 1 \\
 \align - \Omega^L_z - \alpha \tau^L p/(1+\kappa^{-1}) B^L - \alpha \tau^H p (B^L-B^H/\lambda)
 </equation>
 The option values of innovation be simplified to
 <equation>
-\Omega^i_x  \align = \max_{x^i}\left\{-\tilde{w}c^i(x^i)+x^i\bar{V}^i\right\} \\
-\Omega^i_z  \align = \max_{z^i}\left\{-\tilde{w}d(z^i)+z^iB^i/(1+\kappa^{-1})\right\} \\
-\Omega^i_0  \align = \max_{z^i}\left\{-\tilde{w}d(z^i)+z^i(A^i-B^i/(1+\kappa)-V^i_0)\right\}
+\Omega^i_x \align = \max_{x^i}\left\{-\tilde{w}c^i(x^i)+x^i\bar{V}^i\right\} \\
+\Omega^i_z \align = \max_{z^i}\left\{-\tilde{w}d(z^i)+z^iB^i/(1+\kappa^{-1})\right\} \\
+\Omega^i_0 \align = \max_{z^i}\left\{-\tilde{w}d(z^i)+z^i(A^i-B^i/(1+\kappa)-V^i_0)\right\}
 </equation>
 Now it can be verified that $B^H = B^L = B$. As such we will also have $\Omega^H_z = \Omega^L_z = \Omega_z$ and $z^H = z^H = z$. As high type firms have a superior innovation technology, they will assume production in the case of sequential innovation. Between firms of a common type, it is ambiguous. The expected gain from innovation is given by
 <equation>
@@ -1142,15 +1141,15 @@ The first part of Theorem 1 regarding the value of $\Gamma_+$ still holds in the
 <text>
 The relevant product mass distributions have flow equations
 <equation>
-\dot{\mu}^H_0  \align = b \mu^H_+ - (\tau+z^H_0+\nu) \mu^H_0 \\
-\dot{\mu}^L_0  \align = b \mu^L_+ + \nu \mu^H_0 - (\tau+z^L_0) \mu^L_0 \\
-\dot{\mu}^H_+  \align = \tau^H \mu_0 + z^H_0 \mu_0^H + \tau^H \mu^L_+ - (1-\alpha) \tau^L \mu^H_+ - \nu \mu^H_+ - b \mu^H_+ \\
-\dot{\mu}^L_+  \align = \tau^L \mu_0 + z^L_0 \mu_0^L + (1-\alpha) \tau^L \mu^H_+ - \tau^H \mu^L_+ + \nu \mu^H_+ - b \mu^L_+
+\dot{\mu}^H_0 \align = b \mu^H_+ - (\tau+z^H_0+\nu) \mu^H_0 \\
+\dot{\mu}^L_0 \align = b \mu^L_+ + \nu \mu^H_0 - (\tau+z^L_0) \mu^L_0 \\
+\dot{\mu}^H_+ \align = \tau^H \mu_0 + z^H_0 \mu_0^H + \tau^H \mu^L_+ - (1-\alpha) \tau^L \mu^H_+ - \nu \mu^H_+ - b \mu^H_+ \\
+\dot{\mu}^L_+ \align = \tau^L \mu_0 + z^L_0 \mu_0^L + (1-\alpha) \tau^L \mu^H_+ - \tau^H \mu^L_+ + \nu \mu^H_+ - b \mu^L_+
 </equation>
 The overall mass distributions by type are
 <equation>
-\dot{\mu}^H  \align = \tau^H (1-\mu^H) - \tau^L \mu_0^H - (1-\alpha)\tau^L \mu_+^H - \nu \mu^H\\
-\dot{\mu}^L  \align = \tau^L \mu_0^H - \tau^H \mu^L + (1-\alpha)\tau^L \mu_+^H + \nu \mu^H
+\dot{\mu}^H \align = \tau^H (1-\mu^H) - \tau^L \mu_0^H - (1-\alpha)\tau^L \mu_+^H - \nu \mu^H\\
+\dot{\mu}^L \align = \tau^L \mu_0^H - \tau^H \mu^L + (1-\alpha)\tau^L \mu_+^H + \nu \mu^H
 </equation>
 A bit of algebra reveals that the mass of high type firms can be expressed as
 <equation>
@@ -1158,8 +1157,8 @@ A bit of algebra reveals that the mass of high type firms can be expressed as
 </equation>
 with $\mu^L = 1 - \mu^H$. The fractions of products that are expired conditional on type are then
 <equation>
-\mu^H_0  \align = \left[\frac{b}{b+\tau+z^H_0+\nu}\right] \mu^H \\
-\mu^L_0  \align = \left[\frac{b+\nu\mu^H_0}{b+\tau+z^L_0}\right] \mu^L
+\mu^H_0 \align = \left[\frac{b}{b+\tau+z^H_0+\nu}\right] \mu^H \\
+\mu^L_0 \align = \left[\frac{b+\nu\mu^H_0}{b+\tau+z^L_0}\right] \mu^L
 </equation>
 The average inverse technological lead for patent protected product lines resolves to
 <equation>
@@ -1171,15 +1170,15 @@ These can be used to determine the labor market clearing condition.
 <text>
 For simulations, we also need the conditional step distributions. For high type
 <equation>
-\dot{\mu}_0^H  \align = b \mu^H - (b+\tau+z^H_0+\nu) \mu_0^H \\
-\dot{\mu}_1^H  \align = (1-\alpha) \tau^H + \alpha \tau^H \mu_0 + z^H_0 \mu^H_0 - (b+\tau+z+\nu) \mu_1^H \\
-\dot{\mu}_n^H  \align = \alpha\tau^H \mu_{n-1} + (\alpha\tau^L+z) \mu_{n-1}^H - (b+\tau+z+\nu) \mu_n^H
+\dot{\mu}_0^H \align = b \mu^H - (b+\tau+z^H_0+\nu) \mu_0^H \\
+\dot{\mu}_1^H \align = (1-\alpha) \tau^H + \alpha \tau^H \mu_0 + z^H_0 \mu^H_0 - (b+\tau+z+\nu) \mu_1^H \\
+\dot{\mu}_n^H \align = \alpha\tau^H \mu_{n-1} + (\alpha\tau^L+z) \mu_{n-1}^H - (b+\tau+z+\nu) \mu_n^H
 </equation>
 and for low type
 <equation>
-\dot{\mu}_0^L  \align = \nu \mu_0^H + b \mu^L - (b+\tau+z^L_0) \mu_0^L \\
-\dot{\mu}_1^L  \align = \nu \mu_1^H + (1-\alpha) \tau^L + \tau^L \mu_0 + z^L_0 \mu^L_0 - (b+\tau+z) \mu_1^L \\
-\dot{\mu}_n^L  \align = \nu \mu_n^H + (\alpha\tau^L+z) \mu_{n-1}^L - (b+\tau+z) \mu_n^L
+\dot{\mu}_0^L \align = \nu \mu_0^H + b \mu^L - (b+\tau+z^L_0) \mu_0^L \\
+\dot{\mu}_1^L \align = \nu \mu_1^H + (1-\alpha) \tau^L + \tau^L \mu_0 + z^L_0 \mu^L_0 - (b+\tau+z) \mu_1^L \\
+\dot{\mu}_n^L \align = \nu \mu_n^H + (\alpha\tau^L+z) \mu_{n-1}^L - (b+\tau+z) \mu_n^L
 </equation>
 These can be solved for iteratively with foreknowledge of $\mu^H$ and $\mu^L$.
 </text>
@@ -1249,7 +1248,7 @@ Notice the value on the left is the share of resources devoted to research and t
 <b>Proof of <ref label="delta_sequential"></ref>.</b> Using the expression for $\log(\Delta)$ in <ref label="log_delta_eq"></ref>, we can derive
 <equation>
 \frac{\partial\log(\Delta)}{\partial\tau} = \align  \left(\frac{1}{b(1+m)+\tau+z_0}\right) - \left(\frac{\tau+z_0}{b(1+m)+\tau+z_0}\right) \left(\frac{1}{1+m}\right) \frac{\partial m}{\partial\tau} \\
- \align - \frac{1}{b+\tau+z_0} + \frac{mb}{(b+\tau+z_0)^2} + \left(\frac{\tau+z_0}{b+\tau+z_0}\right)\frac{\partial m}{\partial\tau}
+\align - \frac{1}{b+\tau+z_0} + \frac{mb}{(b+\tau+z_0)^2} + \left(\frac{\tau+z_0}{b+\tau+z_0}\right)\frac{\partial m}{\partial\tau}
 </equation>
 <ref label="tech_tail_index"></ref> implies that $m$ increases with both $\tau$ and $\alpha$. Further, we can derive
 <equation>
@@ -1262,7 +1261,7 @@ which implies
 The above expression simplifies to
 <equation>
 \frac{\partial\log(\Delta)}{\partial\tau} = \align  \frac{m}{(b+\tau+z_0)^2}\left(\frac{bm}{bm+b+\tau+z_0}\right) \\
- \align + \frac{\partial m}{\partial\tau}\left(\frac{\tau+z_0}{b+\tau+z_0}-\left(\frac{1}{1+m}\right)\left(\frac{\tau+z_0}{b(1+m)+\tau+z_0}\right)\right)
+\align + \frac{\partial m}{\partial\tau}\left(\frac{\tau+z_0}{b+\tau+z_0}-\left(\frac{1}{1+m}\right)\left(\frac{\tau+z_0}{b(1+m)+\tau+z_0}\right)\right)
 </equation>
 which can be seen to be increasing in $\alpha$. As $\tau$ and $z_0$ enter into the above expression in the exact same manner, the same logic applies for $z_0$ as well. However, $z_0$ does not affect $m$, the resulting expression is simply
 <equation>

@@ -139,6 +139,13 @@ function EllsworthBoot() {
   handle_numbers("figure","fig");
   handle_numbers("table","tab");
 
+  // typeset inline - goes very last due to math in popups
+  function inline_marker(match, p, offset, string) {
+      return '<span class=\"tex\">' + p + '</span>';
+  }
+  var inline_re = /\$([^\$]*)\$/g;
+  outer_box.html(outer_box.html().replace(inline_re,inline_marker));
+
   // simple replacements - these go first so table environments will work
   for (rep in ec["replacements"]) {
     $(rep).replaceWith(function () {
@@ -163,6 +170,7 @@ function EllsworthBoot() {
       elem.attr("content",orig_html);
       div = $("<div>",{class:env+"_box",html:content.format_dict(get_attributes(elem)),number:n_environs,content:orig_html});
       if (id) { div.attr("id",id); }
+      if (env == "fact") { console.log(div.html()); }
       return div;
     })
   }
@@ -231,13 +239,6 @@ function EllsworthBoot() {
       });
     }
   });
-
-  // typeset inline - goes very last due to math in popups
-  function inline_marker(match, p, offset, string) {
-      return '<span class=\"tex\">' + p + '</span>';
-  }
-  var inline_re = /\$([^\$]*)\$/g;
-  outer_box.html(outer_box.html().replace(inline_re,inline_marker));
 
   // create footnotes and attach hover popups
   var n_footnotes = 0;
@@ -396,11 +397,11 @@ function EllsworthBoot() {
         var cite = $(this);
         span = $("<span>");
         if (target=cite.attr("target")) {
-          if (label in sources) {
-            src = sources[label];
+          if (target in sources) {
+            src = sources[target];
             src["used"] = true;
             link = $("<a>",{class:"cite_link"});
-            if (has_biblio) { link.attr("href","#biblio_"+label); }
+            if (has_biblio) { link.attr("href","#biblio_"+target); }
             link.html(src["cite_form"]);
             span.append(link);
             pop_txt = src["title"];
@@ -410,7 +411,7 @@ function EllsworthBoot() {
             popup = $("<div>",{html:pop_txt,class:"popup cite_popup"});
             attach_popup(link,popup);
           } else {
-            span.html("source:"+label).css({"color":"red"});
+            span.html("source:"+target).css({"color":"red"});
           }
         }
         return span;
@@ -420,10 +421,10 @@ function EllsworthBoot() {
       $("bibliography").replaceWith(function () {
         var bib = $("<div>",{class:"bibliography_box"});
         var ref_list = [];
-        for (label in sources) {
-          var source = sources[label];
+        for (target in sources) {
+          var source = sources[target];
           if (source["used"]) {
-            ref_list.push({"biblio_html":source["biblio_form"],"biblio_label":label});
+            ref_list.push({"biblio_html":source["biblio_form"],"biblio_label":target});
           }
         }
         ref_list.sort(function (a,b) { return a["biblio_html"] > b["biblio_html"]; });
@@ -438,9 +439,8 @@ function EllsworthBoot() {
     $("cite").replaceWith(function () {
       var cite = $(this);
       var span = $("<span>",{class:"cite_text"});
-      if (cite.attr("label")) {
-        var label = cite.attr("label");
-        span.html("source:"+label).css({"color":"red"});
+      if (target=cite.attr("target")) {
+        span.html("source:"+target).css({"color":"red"});
       }
       return span;
     });
