@@ -129,7 +129,7 @@ function EllsworthBoot() {
 
   handle_numbers = function(htag,rtag) {
     var n = 0;
-    outer_box.find(htag+"").each(function () {
+    outer_box.find(htag).each(function () {
       var obj = $(this);
       var num = ++n;
       obj.attr(rtag+"-num",num);
@@ -137,7 +137,7 @@ function EllsworthBoot() {
     });
   }
   handle_numbers("figure","fig");
-  handle_numbers("table","tab");
+  handle_numbers("tabular","tab");
 
   // typeset inline - goes very last due to math in popups
   function inline_marker(match, p, offset, string) {
@@ -145,6 +145,15 @@ function EllsworthBoot() {
   }
   var inline_re = /\$([^\$]*)\$/g;
   outer_box.html(outer_box.html().replace(inline_re,inline_marker));
+
+  // tabulars are really figure-tables
+  outer_box.find("figure").addClass("figure");
+  outer_box.find("tabular").replaceWith(function () {
+    var tab = $(this);
+    var div = $("<figure>",{class:"table",id:tab.attr("id"),html:tab.html()});
+    div.attr("tab-num",tab.attr("tab-num"));
+    return div;
+  });
 
   // simple replacements - these go first so table environments will work
   for (rep in ec["replacements"]) {
@@ -168,9 +177,7 @@ function EllsworthBoot() {
       orig_html = elem.html();
       elem.attr("number",++n_environs);
       elem.attr("content",orig_html);
-      div = $("<div>",{class:env+"_box",html:content.format_dict(get_attributes(elem)),number:n_environs,content:orig_html});
-      if (id) { div.attr("id",id); }
-      if (env == "fact") { console.log(div.html()); }
+      div = $("<div>",{class:env+"_box",id:id,html:content.format_dict(get_attributes(elem)),number:n_environs,content:orig_html});
       return div;
     })
   }
@@ -259,10 +266,10 @@ function EllsworthBoot() {
     var ref = $(this);
     var span = $("<span>");
     if (target=ref.attr("target")) {
-      if ((fig=$("figure[id="+target+"]")).length) {
+      if ((fig=$("figure.figure[id="+target+"]")).length) {
         var link = $("<a>",{class:"ref_link fig_link",href:"#"+target,html:"Figure "+fig.attr("fig-num")});
         span.append(link);
-      } else if ((tab=$("div.table_box[id="+target+"]")).length) {
+      } else if ((tab=$("figure.table[id="+target+"]")).length) {
         var link = $("<a>",{class:"ref_link tab_link",href:"#"+target,html:"Table "+tab.attr("tab-num")});
         span.append(link);
       } else if ((eqn=$("div.equation_box[id="+target+"]")).length) {
@@ -288,7 +295,7 @@ function EllsworthBoot() {
             if ((div=$("div."+env+"_box[id="+target+"]")).length) {
               attrib = get_attributes(div);
               attrib["html"] = div.html();
-              link = $("<a>",{class:"ref_link "+env+"_link",href:"#"+env+"_"+target,html:reference.format_dict(attrib)});
+              link = $("<a>",{class:"ref_link "+env+"_link",href:"#"+target,html:reference.format_dict(attrib)});
               span.append(link);
               if (tip.length) {
                 var popup = $("<div>",{class:"popup "+env+"_popup",html:tip.format_dict(attrib)});

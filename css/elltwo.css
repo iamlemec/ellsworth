@@ -90,8 +90,31 @@
   content: "Figure " attr(fig-num) ": ";
 }
 
-.elltwo table > .title:before {
+.elltwo figure.table > .title:before {
   content: "Table " attr(tab-num) ": ";
+}
+
+.elltwo figure.table > table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+}
+
+.elltwo figure.table > table > thead {
+}
+
+.elltwo figure.table > table > tbody {
+}
+
+.elltwo figure.table > table td {
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #BBB;
+}
+
+.elltwo figure.table > table > thead > td {
+  border: 1px solid #777;
+  font-weight: 600;
 }
 
 .elltwo span.ref_text {
