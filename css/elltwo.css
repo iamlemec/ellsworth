@@ -1,5 +1,6 @@
 .elltwo {
   font-size: 17px;
+  margin: 0px;
 }
 
 .elltwo a:focus {
@@ -231,15 +232,15 @@
 /* media query stuff */
 
 @media (max-width: 800px) {
-  div.equation_box {
+  .elltwo div.equation_box {
     max-width: 100% !important;
   }
 
-  div.equation_number {
+  .elltwo div.equation_number {
     float: right;
   }
 
-  div.equation_inner {
+  .elltwo div.equation_inner {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     max-width: 100% !important;
@@ -247,25 +248,25 @@
 }
 
 @media (min-width: 800px) {
-  div.content {
+  .elltwo div.content {
     padding-top: 30px;
     padding-bottom: 50px;
   }
 
-  div.equation_box {
+  .elltwo div.equation_box {
     display: table;
     width: 100%;
   }
 
-  div.equation_number {
+  .elltwo div.equation_number {
     display: table-cell;
   }
 
-  div.equation_inner {
+  .elltwo div.equation_inner {
     display: table-cell;
   }
 
-  div.equation_inner div.equation_row:not(:first-child) {
+  .elltwo div.equation_inner div.equation_row:not(:first-child) {
     margin-top: 20px;
   }
 }

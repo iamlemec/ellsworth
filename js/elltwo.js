@@ -81,10 +81,6 @@ function EllsworthBoot() {
 
   // attach a popup to parent
   var attach_popup = function(parent,popup) {
-    if (parent.hasClass("footnote_mark")) {
-      console.log("attaching popup to "+parent.html());
-      console.log(popup.html());
-    }
     var pop_out = $("<div>",{class:"popup_outer"});
     pop_out.append(popup);
     var arrow = $("<div>",{class:"popup_arrow"});
@@ -111,7 +107,14 @@ function EllsworthBoot() {
   }
 
   // find outer box
+  elltwo_box = $(".elltwo");
   outer_box = $(".elltwo div.content");
+
+  // optional marquee box
+  if (marquee=$(".elltwo div.marquee")) {
+    var span = $("<span>",{class:"tex",html:"\\ell^2"});
+    marquee.append(span);
+  }
 
   // recursively number sections
   handle_section = function(parent,prefix) {
