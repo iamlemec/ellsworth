@@ -7,12 +7,13 @@
     margin-top: 0px;
     margin-bottom: 0px;
   }
+
+  .elltwo div.marquee {
+    visibility: hidden;
+  }
 }
 
 @media (min-width: 800px) {
-  .elltwo {
-  }
-
   .elltwo div.content {
     max-width: 600px;
     margin: 0px auto;
