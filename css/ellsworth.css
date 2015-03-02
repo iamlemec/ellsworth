@@ -270,7 +270,7 @@ div.bibliography_item {
 
 /* media query stuff */
 
-@media (max-width: 800px) {
+@media only screen and (max-width: 799px) {
   div.outer_box {
     overflow: hidden;
     max-width: 100% !important;
@@ -309,7 +309,7 @@ div.bibliography_item {
   }
 }
 
-@media (min-width: 800px) {
+@media only screen and (min-width: 800px) {
   body {
     background-color: #C8C8C8;
   }
