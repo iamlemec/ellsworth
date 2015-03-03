@@ -3,6 +3,11 @@
   margin: 0px;
 }
 
+.elltwo p {
+  line-height: 160%;
+  margin-top: 20px;
+}
+
 .elltwo a:focus {
   outline: 0px;
 }
@@ -39,11 +44,6 @@
 
 .elltwo p.abstract_body {
   line-height: 160%;
-}
-
-.elltwo p {
-  line-height: 160%;
-  margin-top: 20px;
 }
 
 .elltwo div.equation_box {
@@ -231,7 +231,11 @@
 
 /* media query stuff */
 
-@media (max-width: 800px) {
+@media only screen and (max-device-width: 799px) {
+  .elltwo div.content {
+    padding: 15px;
+  }
+
   .elltwo div.equation_box {
     max-width: 100% !important;
   }
@@ -247,10 +251,9 @@
   }
 }
 
-@media (min-width: 800px) {
+@media only screen and (min-device-width: 800px) {
   .elltwo div.content {
-    padding-top: 30px;
-    padding-bottom: 50px;
+    padding: 50px;
   }
 
   .elltwo div.equation_box {
