@@ -189,7 +189,7 @@ function EllsworthBoot() {
   var n_equations = 0;
   $("equation").replaceWith(function () {
     var eqn = $(this);
-    var div_box = $("<div>",{class:"equation_box container-fluid"});
+    var div_box = $("<div>",{class:"equation_box"});
     var div_inner = $("<div>",{class:"equation_inner"});
     var eqn_list = eqn.html().split('\\\\');
     $.each(eqn_list, function (i,txt) {
