@@ -130,17 +130,17 @@ function EllsworthBoot() {
   }
   handle_section(outer_box,"");
 
-  handle_numbers = function(htag,rtag) {
+  handle_numbers = function(fclass) {
     var n = 0;
-    outer_box.find(htag).each(function () {
+    outer_box.find("figure."+fclass).each(function () {
       var obj = $(this);
       var num = ++n;
-      obj.attr(rtag+"-num",num);
-      obj.children(".title").attr(rtag+"-num",num);
+      obj.attr(fclass+"-num",num);
+      obj.children(".title").attr(fclass+"-num",num);
     });
   }
-  handle_numbers("figure","fig");
-  handle_numbers("tabular","tab");
+  handle_numbers("image");
+  handle_numbers("table");
 
   // typeset inline - goes very last due to math in popups
   function inline_marker(match, p, offset, string) {
@@ -269,11 +269,11 @@ function EllsworthBoot() {
     var ref = $(this);
     var span = $("<span>");
     if (target=ref.attr("target")) {
-      if ((fig=$("figure.figure[id="+target+"]")).length) {
-        var link = $("<a>",{class:"ref_link fig_link",href:"#"+target,html:"Figure "+fig.attr("fig-num")});
+      if ((fig=$("figure.image[id="+target+"]")).length) {
+        var link = $("<a>",{class:"ref_link fig_link",href:"#"+target,html:"Figure "+fig.attr("image-num")});
         span.append(link);
       } else if ((tab=$("figure.table[id="+target+"]")).length) {
-        var link = $("<a>",{class:"ref_link tab_link",href:"#"+target,html:"Table "+tab.attr("tab-num")});
+        var link = $("<a>",{class:"ref_link tab_link",href:"#"+target,html:"Table "+tab.attr("table-num")});
         span.append(link);
       } else if ((eqn=$("div.equation_box[id="+target+"]")).length) {
         var link = $("<a>",{class:"ref_link eqn_link",href:"#"+target,html:"Equation "+eqn.attr("eqn-num")});

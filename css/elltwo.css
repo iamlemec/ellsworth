@@ -21,18 +21,14 @@
   text-align: center;
 }
 
-.elltwo figure p {
-  text-align: center;
-  margin: 15px;
-}
-
-.elltwo table {
-  margin: 0 auto;
-}
-
 .elltwo img {
-  margin: 0 auto;
+   height: auto;
+   width:100%;
 }
+
+/*.elltwo img {*/
+  /*margin: 0 auto;*/
+/*}*/
 
 .elltwo div.abstract_box {
   margin-top: 50px;
@@ -88,11 +84,16 @@
 }
 
 .elltwo figure > .title:before {
-  content: "Figure " attr(fig-num) ": ";
+  content: "Figure " attr(image-num) ": ";
+}
+
+.elltwo figure > figcaption {
+  text-align: center;
+  margin: 15px;
 }
 
 .elltwo figure.table > .title:before {
-  content: "Table " attr(tab-num) ": ";
+  content: "Table " attr(table-num) ": ";
 }
 
 .elltwo figure.table > table {
@@ -102,6 +103,7 @@
 }
 
 .elltwo figure.table > table > thead {
+  font-weight: bold;
 }
 
 .elltwo figure.table > table > tbody {
@@ -253,6 +255,8 @@
 
 @media only screen and (min-device-width: 800px) {
   .elltwo div.content {
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
     padding: 50px;
   }
 

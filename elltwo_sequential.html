@@ -165,10 +165,10 @@ Industry level regressions are done using weighted least squares. The weighting 
 There is a negative correlation between patent transfer rates and patent expiry rates across industries.
 </fact>
 
-<figure id="transfer_expiry">
+<figure class="image" id="transfer_expiry">
 <h3 class="title">Transfer&mdash;Expiry Relationship</h3>
-<img src="image/transfer_expiry.svg" class="img-responsive"/>
-<p class="caption">Relationship between patent transfer and expiry. Red line: WLS regression $\beta = -0.33$. Correlation is $\rho=-0.34$.</p>
+<img src="image/transfer_expiry.svg"/>
+<figcaption>Relationship between patent transfer and expiry. Red line: WLS regression $\beta = -0.33$. Correlation is $\rho=-0.34$.</figcaption>
 </figure>
 
 <p>
@@ -179,10 +179,10 @@ The transfer rate is the fraction of patents granted in the data window that are
 There is a positive correlation between patent transfer rates and firm profitability across industries.
 </fact>
 
-<figure id="transfer_profit">
+<figure class="image" id="transfer_profit">
 <h3 class="title">Transfer&mdash;Profitability Relationship</h3>
-<img src="image/transfer_profit.svg" class="img-responsive"/>
-<p class="caption">Relationship between patent transfer and median profitability. Red line: WLS regression $\beta = 3.85$. Correlation is $\rho=0.40$.</p>
+<img src="image/transfer_profit.svg"/>
+<figcaption>Relationship between patent transfer and median profitability. Red line: WLS regression $\beta = 3.85$. Correlation is $\rho=0.40$.</figcaption>
 </figure>
 
 <p>
@@ -193,10 +193,10 @@ Here I calculate the firm-level profitability as the ratio of revenue to the cos
 The variance of firm growth rates is positively correlated with patent transfer rates across industries.
 </fact>
 
-<figure>
+<figure class="image">
 <h3 class="title">Transfer&mdash;Growth Volatility Relationship</h3>
-<img src="image/transfer_growthstd.svg" class="img-responsive"/>
-<p class="caption">Relationship between patent transfer rate and growth volatility. Red line: WLS regression $\beta = 0.21$. Correlation is $\rho=0.19$.</p>
+<img src="image/transfer_growthstd.svg"/>
+<figcaption>Relationship between patent transfer rate and growth volatility. Red line: WLS regression $\beta = 0.21$. Correlation is $\rho=0.19$.</figcaption>
 </figure>
 
 <p>
@@ -207,10 +207,10 @@ Here the variance of firm growth is calculated using a number of common firm siz
 There is a negative correlation between firm exit rates and patent transfer rates across industries.
 </fact>
 
-<figure>
+<figure class="image">
 <h3 class="title">Transfer&mdash;Exit Rate Relationship</h3>
-<img src="image/transfer_exited.svg" class="img-responsive"/>
-<p class="caption">Relationship between patent transfer rate and five-year exit rate. Red line: WLS regression $\beta = -0.26$. Correlation is $\rho=-0.16$.</p>
+<img src="image/transfer_exited.svg"/>
+<figcaption>Relationship between patent transfer rate and five-year exit rate. Red line: WLS regression $\beta = -0.26$. Correlation is $\rho=-0.16$.</figcaption>
 </figure>
 
 <p>
@@ -221,10 +221,10 @@ In line with <ref target="fact_transfer_expiry"></ref>, interpreting lower expir
 Patent transfers are directed primarily toward young and small firms. Firms aged less than $10$ years account for only 14% of the patent stock, while receiving approximately 57% of patent transfers.
 </fact>
 
-<figure>
+<figure class="image">
 <h3 class="title">Age/Size Cumulative Fractions</h3>
-<img src="image/age_size_cumfrac.svg" class="img-responsive"/>
-<p class="caption">Cumulative fractions of patenting activity by firm age and size (patent stock).</p>
+<img src="image/age_size_cumfrac.svg"/>
+<figcaption>Cumulative fractions of patenting activity by firm age and size (patent stock).</figcaption>
 </figure>
 
 <p>
@@ -251,10 +251,10 @@ As described above, I classify firms into various technological categories by us
 
 <fact id="fact_transfer_citation"> The internal citation rate is uncorrelated with transfer rates, while the external citation rate is highly correlated with transfer rates across industries.</fact>
 
-<figure id="figure_transfer_extcite">
+<figure class="image" id="figure_transfer_extcite">
 <h3 class="title">Transfer&mdash;External Citation Relationship</h3>
-<img src="image/transfer_extcite.svg" class="img-responsive"/>
-<p class="caption">Relationship between patent transfer and external citations. Red line: WLS regression $\beta = 44.1$. Correlation is $\rho=0.49$.</p>
+<img src="image/transfer_extcite.svg"/>
+<figcaption>Relationship between patent transfer and external citations. Red line: WLS regression $\beta = 44.1$. Correlation is $\rho=0.49$.</figcaption>
 </figure>
 
 <p>
@@ -786,7 +786,7 @@ To measure internal citations, one must take a stance on the exact mapping betwe
 The transfer rate mean and variance statistics are calculated as the probability that a patent in a particular industry filed for during the period in question is ever transferred (including beyond the end of the period). The three year transfer rate is simply the same probability but restricting to the transfer occurring within three years of filing. The analog in the model is taken to be the probability of immediate transfer. The delay is chosen to allow for the fact that this process will not be instantaneous in a real-world setting.
 </p>
 
-<tabular id="table_moments">
+<figure class="table" id="table_moments">
 <h3 class="title">Moment Values</h3>
 <table>
 <thead>
@@ -808,13 +808,13 @@ The transfer rate mean and variance statistics are calculated as the probability
 <tr><td>R&D Intensity</td><td>$0.092$</td><td>$0.051$</td></tr>
 </tbody>
 </table>
-</tabular>
+</figure>
 
 <p>
 The remaining aggregate moments are fairly straightforward. The aggregate growth figure is taken from the FRED data on output per person. The median profit is computed using the sample of Compustat firms. The moment values at the optimum are given in <ref target="table_moments"></ref>. It is evident that the fit of the model to the data is quite close in many dimensions, but misses the mark in some cases. The moments on aggregate growth, transfer statistics, citations, profits, and R&D levels are all very closely matched.
 </p>
 
-<tabular id="table_parameters">
+<figure class="table" id="table_parameters">
 <h3 class="title">Estimated Parameter Values</h3>
 <table>
 <thead>
@@ -837,7 +837,7 @@ The remaining aggregate moments are fairly straightforward. The aggregate growth
 <tr><td>Transfer Direction</td><td>$q$</td><td>$0.730$</td></tr>
 </tbody>
 </table>
-</tabular>
+</figure>
 
 <p>
 The parameter estimates themselves are summarized in the <ref target="table_parameters"></ref>. Of prime importance are the sequentiality distribution parameters, which indicate that in the average industry, $35\%$ of innovations are sequential as opposed to independent. Furthermore, looking across industries, this quantity has a standard deviation of $22\%$.
@@ -863,16 +863,16 @@ The firm type dynamics parameters are consistent with previous structural studie
 With these estimates in hand, we can evaluate the ability of the model to match the cross-industry and firm-level trends outlined in the data section. <ref target="figure_crossind_predictions"></ref> documents the model's qualitative success in reproducing four of the the major cross-industry trends seen in the data. In each pane, the variable of interest is plotted at the industry level against the sequentiality for that industry, which is simply the fraction of patents that are transferred in their lifetime. This measure is used so as to most closely match the facts presented in the data section and varies monotonically with the underlying theoretical sequentiality parameter $\alpha$. The median profitability, firm growth, and exit rate figures are the result of simulations and so have noise associated with each point, but the magnitude of this noise is not enough to obscure the evident trends.
 </p>
 
-<figure id="figure_crossind_predictions">
+<figure class="image" id="figure_crossind_predictions">
 <h2 class="title">Cross-Industry Predictions</h2>
-<img src="image/crossind_predictions.svg" class="img-responsive"/>
+<img src="image/crossind_predictions.svg"/>
 </figure>
 
 <p>
 To get an idea of the quantitative match of the model with regards to these trends, the average level of each variable over all industries in the data and in simulations is given in <ref target="table_industry_means"></ref>. The expiry rate and firm growth volatility are both matched well, while the profitability and exit rate figures are both not matched entirely. The profitability figure, though targeted at the economy-wide level, is grouped by industry and can thus be different due to aggregation effects. The exit rate may reflect asymmetries between entry and exit that are not present in the model, which features only entry of and exit by one-product firms. In the data, though entering firms are generally quite small, large firms may exit or cease to exist due to mergers. The framework used here implicitly categorizes innovations in to internal, sequential, and independent types. By targeting patent transfers and internal citation rates, the close alignment of the data here further supports the notion that sequential innovation is reflected in patent transfers, while independent innovation is reflected in patent expiry.
 </p>
 
-<tabular id="table_industry_means">
+<figure class="table" id="table_industry_means">
 <h3 class="title">Average Industry-Wide Values</h3>
 <table>
 <thead>
@@ -885,15 +885,15 @@ To get an idea of the quantitative match of the model with regards to these tren
 <tr><td>Exit Rate</td><td>$29\%$</td><td>$15\%$</td></tr>
 </tbody>
 </table>
-</tabular>
+</figure>
 
 <p>
 Having analyzed the levels of each of the four variables of interest here, I now study the variation across industries. To assess the amount of variation across industries in the various quantities, I perform a weighted least squares regression on sequentiality (the rate of patent transfer) and look at the predicted effect of moving between the mean plus or minus one standard deviation, as normalized by the mean value for that particular quantity. Comparing the values given by this metric for both the data and the simulated model, I can assess the predictive power of the model. It is important to note that though the variation in sequentiality was targeted, variation in the other quantities has not been, meaning these implications come purely from the model structure. Using this metric, the model can account for approximately $65\%$ of the variation in profitability (return on sales), $26\%$ of the variation in firm growth volatility (employment), and $40\%$ of the variation in exit rates. Meanwhile, the level of variation in expiry rates is overpredicted by the model. In <ref target="figure_crossind_variation"></ref>, I plot the proportional variation for each quantity. Both the data and model generated numbers are normalized by their respective mean values, as is the regression line for the data.
 </p>
 
-<figure id="figure_crossind_variation">
+<figure class="image" id="figure_crossind_variation">
 <h3 class="title">Cross-Industry Variation</h3>
-<img src="image/crossind_variation.svg" class="img-responsive"/>
+<img src="image/crossind_variation.svg"/>
 </figure>
 
 <p>
@@ -904,16 +904,16 @@ Having analyzed the levels of each of the four variables of interest here, I now
 As expected theoretically, internal innovation rates rise with sequentiality due to the reduced threat of creative destruction in more sequential industries. The n-shaped dependence of the average firm type on sequentiality is somewhat unexpected. One would anticipate that high type firms would face the largest drops in product loss rates moving to more sequential industries, which is indeed the case. However, this effect is eventually overwhelmed by the disproportionate drop in high type external innovation rates. Finally, the level of monopoly distortion ($\Delta$) on a per-industry basis is shown. As would be expected, this rises with sequentiality, as a result of the agglomeration of larger patent portfolios by firms.
 </p>
 
-<figure id="figure_crossind_eqvars">
+<figure class="image" id="figure_crossind_eqvars">
 <h3 class="title">Cross-Industry Equilibrium Variables</h3>
-<img src="image/crossind_eqvars.svg" class="img-responsive"/>
+<img src="image/crossind_eqvars.svg"/>
 </figure>
 
 <p>
 Now consider the aggregate trends in the economy. The following table summarizes the growth contributions of entrants, external innovation, and internal innovation.
 </p>
 
-<tabular id="table_equil_decomp">
+<figure class="table" id="table_equil_decomp">
 <h3 class="title">Equilibrium Decompositions (Percentages)</h3>
 <table>
 <thead>
@@ -924,7 +924,7 @@ Now consider the aggregate trends in the economy. The following table summarizes
 <tr><td>Labor</td><td>$1.37$ $(16.0\%)$</td><td>$5.38$ $(62.8\%)$</td><td>$1.81$ $(21.1\%)$</td><td>$8.56$ $(100.0\%)$</td></tr>
 </tbody>
 </table>
-</tabular>
+</figure>
 
 <p>
 External innovation by incumbents still plays a large role in innovation, followed by incumbent internal innovation, then entrants. Additionally, internal innovation achieves notable performance in terms of innovations per unit labor. Considering both the cost and capacity are similar to that of external innovation, this is largely a sign that it is simply utilized less.
@@ -934,9 +934,9 @@ External innovation by incumbents still plays a large role in innovation, follow
 As noted previously, introducing firm types into such a model naturally allows us to consider the potential effects of sequentiality on reallocation. Entering firms start out with a particular fraction of high-type firms ($\zeta = 58\%$). Over time the surviving firms decay at rate $\nu = 13\%$. High type firms have a higher survival probability, so the distribution over type by firm age exceeds the simple case of exponential decay. The transfer direction parameter dictates that when firms of like type transfer patents, the innovator becomes the eventual owner in $73\%$ of cases. Using the respective shares high type and low type products, this implies that overall a high type innovator assumes final ownership in $96\%$ of cases, while the same number for low types is $61\%$, and the overall number is $76\%$.
 </p>
 
-<figure id="figure_distributions">
+<figure class="image" id="figure_distributions">
 <h3 class="title">Equilibrium Distributions</h3>
-<img src="image/markup_translag_dists.svg" class="img-responsive"/>
+<img src="image/markup_translag_dists.svg"/>
 </figure>
 
 <p>
@@ -951,9 +951,9 @@ Looking at <ref target="figure_distributions"></ref>, we can see that the match 
 To better understand the means through which sequentiality affects the incentives for innovation, in this section I consider various modification to the estimated model. First, I investigate the effects of varying the bargaining power parameter, which was previously set to the symmetric value of $1/2$. Because payoffs are back-loaded in more sequential industries and hence only partially delivered to the incumbent through the bargaining process, this parameter will be an important determinant of the incentives for external innovation.
 </p>
 
-<figure id="figure_bargaining_experiment">
+<figure class="image" id="figure_bargaining_experiment">
 <h3 class="title">Bargaining Process Alternatives</h3>
-<img src="image/bargaining_experiment.svg" class="img-responsive"/>
+<img src="image/bargaining_experiment.svg"/>
 </figure>
 
 <p>
@@ -982,16 +982,16 @@ There are also important effects on the firm size distribution. Moving from the 
 As discussed previously, I consider both a constrained social planner, who can make innovation decisions but is still subject to patent policy and the resulting monopoly distortions, and an unconstrained planner who can make both innovation and production decisions at will. The constrained optimum yields innovations rates by type on a per-industry basis, while the unconstrained optimum will feature uniform innovation rates across industry. Note that the constrained planner is still also subject to firm type dynamics as in the decentralized case, while the unconstrained planner can reassign product lines to different firms at will but is still subject to exogenous heterogeneity in entrant types. In the constrained setting, the share of labor allocated to research rises from $8.6\%$ to $15.3\%$, while the aggregate growth rate rises to $4.6\%$.
 </p>
 
-<figure id="figure_socopt_innov">
+<figure class="image" id="figure_socopt_innov">
 <h3 class="title">Social Optimum Innovation Rates</h3>
-<img src="image/socopt_innovation.svg" class="img-responsive"/>
+<img src="image/socopt_innovation.svg"/>
 </figure>
 
 <p>
 In <ref target="figure_socopt_innov"></ref>, both the internal and external innovation rates are plotted for the equilibrium and the constrained and unconstrained planner. Because monopoly distortions arising from innovation are much more severe in sequential industries, the planner reduces innovation of both types in these industries. As a result the level of monopoly distortion in the economy goes down by $0.50$ percentage points. The net welfare gains from moving to the constrained planner's allocation are $2.5\%$. The aggregate growth and labor decompositions are show in the table below
 </p>
 
-<tabular id="table_constr_optim_decomp">
+<figure class="table" id="table_constr_optim_decomp">
 <h3 class="title">Constrained Optimum Decompositions</h3>
 <table>
 <thead>
@@ -1002,7 +1002,7 @@ In <ref target="figure_socopt_innov"></ref>, both the internal and external inno
 <tr><td>Labor</td><td>$2.41$ $(15.8\%)$</td><td>$10.54$ $(68.9\%)$</td><td>$2.33$ $(15.3\%)$</td><td>$15.29$ $(100.0\%)$</td></tr>
 </tbody>
 </table>
-</tabular>
+</figure>
 
 <p>
 In the aggregate, in addition to the increase in the level of research labor overall, there is a shift from internal to external innovation. This is consistent with the intuition presented in <cite target="aghion1992model"></cite> by which externally oriented innovation can be either under or over-invested in, dependent on the step size.
@@ -1012,7 +1012,7 @@ In the aggregate, in addition to the increase in the level of research labor ove
 In the unconstrained optimum, we actually see a partial reversal of the trends that occurred when going from the equilibrium to the constrained optimum. The external innovation rate is uniformly higher than in the equilibrium case. However, due to the shift to all high type research, this is done using proportionately less labor. Meanwhile, the uniform innovation rate of the unconstrained planner is quite close to the equilibrium rate seen in highly sequential industries, where one would expect firms to internalize much of the social gains from innovation. The following table summarizes the overall allocation by research type
 </p>
 
-<tabular id="table_unconstr_optim_decomp">
+<figure class="table" id="table_unconstr_optim_decomp">
 <h3 class="title">Unconstrained Optimum Decompositions</h3>
 <table>
 <thead>
@@ -1023,7 +1023,7 @@ In the unconstrained optimum, we actually see a partial reversal of the trends t
 <tr><td>Labor</td><td>$1.47$ $(8.9\%)$</td><td>$11.92$ $(72.2\%)$</td><td>$3.11$ $(18.8\%)$</td><td>$16.49$ $(100.0\%)$</td></tr>
 </tbody>
 </table>
-</tabular>
+</figure>
 
 <p>
 Here we see a further shift towards external innovation, with accompanying gains due to the increase in the quality of incumbent firms. The total amount of research labor rises only slightly above the constrained planners case, while the growth rate rises considerably to $5.72\%$. It is interesting to note the alignment of the share of growth and labor from each source. This arises from the fact that from the perspective of the unconstrained planner, each type of innovation has the same effect, namely increasing the overall productivity level by a common factor in perpetuity, and there is a common cost elasticity across each type. The consumption equivalent welfare gains associated with moving to the unconstrained planner's allocation are $16\%$. Much of this, however, comes from the total elimination of monopoly distortions, while the rest is from growth related effects.
@@ -1047,9 +1047,9 @@ In highly sequential industries, a greater fraction of the benefits from a parti
 Motivated by these considerations, I study both policies that are constant across industries and those that vary linearly with industry sequentiality. In terms of implementation, though sequentiality cannot be directly observed, one can infer its value for each industry using the equilibrium relationship between sequentiality and the probability of patent transfer (or any other observable that varies monotonically with sequentiality).
 </p>
 
-<figure id="figure_opt_lin_pat">
+<figure class="image" id="figure_opt_lin_pat">
 <h3 class="title">Optimal Linear Patent Policy</h3>
-<img src="image/optimal_linear_patent.svg" class="img-responsive"/>
+<img src="image/optimal_linear_patent.svg"/>
 </figure>
 
 <p>
