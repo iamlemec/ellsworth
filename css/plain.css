@@ -13,7 +13,7 @@
 
 @media only screen and (min-device-width: 800px) {
   .elltwo div.content {
-    max-width: 600px;
+    width: 600px !important;
     margin: 0px auto;
     border-left: 1px solid #BBB;
     border-right: 1px solid #BBB;
@@ -22,14 +22,7 @@
   }
 
   .elltwo div.marquee {
-    background-color: #EEE;
-    color: #444;
+    color: #333;
     position: fixed;
-    font-size: 30px;
-    font-weight: bold;
-    border-right: 1px solid #BBB;
-    border-bottom: 1px solid #BBB;
-    margin: 0px;
-    padding: 10px 8px 0px 10px;
   }
 }

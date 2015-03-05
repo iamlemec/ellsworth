@@ -58,7 +58,7 @@
 .elltwo div.equation_number {
   vertical-align: middle;
   width: 20px;
-  color: #BBB;
+  color: #888;
 }
 
 .elltwo sup.footnote_mark {
@@ -101,7 +101,9 @@
   border-collapse: collapse;
 }
 
-.elltwo figure.table > table > thead {
+.elltwo figure.table > table > thead th {
+  padding: 5px;
+  border: 1px solid #BBB;
 }
 
 .elltwo figure.table > table > tbody {
@@ -246,6 +248,7 @@
 
   .elltwo div.equation_inner {
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     max-width: 100% !important;
   }
@@ -253,6 +256,9 @@
 
 @media only screen and (min-device-width: 800px) {
   .elltwo div.content {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
     padding: 50px;
   }
 
