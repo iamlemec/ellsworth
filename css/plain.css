@@ -1,3 +1,9 @@
+@import url("proxima-nova.css");
+
+.elltwo {
+  font-family: proxima-nova;
+}
+
 @media only screen and (max-device-width: 799px) {
   .elltwo div.content {
     overflow-x: hidden;

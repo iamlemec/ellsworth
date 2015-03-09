@@ -30,17 +30,32 @@ loadCSS("/js/katex/katex.min.css");
 loadCSS(prefix+"/ellsworth/css/elltwo.css");
 
 // insert meta info
-var meta = document.createElement("meta");
-meta.name = "viewport";
-meta.content = "width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1";
-headAppend(meta);
+var meta1 = document.createElement("meta");
+meta1.name = "viewport";
+meta1.content = "width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1";
+headAppend(meta1);
 
-// load jQuery then KaTex then elltwo
-function EllsworthAutoload(opts) {
+var meta2 = document.createElement("meta");
+meta2.setAttribute("charset","utf-8");
+headAppend(meta2);
+
+// load jQuery then KaTex then elltwo + theme
+function ElltwoAutoload(opts) {
+  if (!opts) {
+    opts = {};
+  }
+
+  var theme;
+  if ("theme" in opts) {
+    theme = opts["theme"];
+  } else {
+    theme = "plain";
+  }
+  loadCSS(prefix+"/ellsworth/css/"+theme+".css");
+
   loadScript("/js/jquery.min.js", function () {
     loadScript("/js/katex/katex.min.js", function () {
       loadScript(prefix+"/ellsworth/js/elltwo.js", function () {
-        console.log("hi");
         ElltwoConfig(opts);
       });
     });

@@ -65,10 +65,21 @@
   margin-right: auto;
 }
 
-.elltwo li {
+.elltwo ul {
   padding-left: 20px;
-  padding-top: 15px;
-  padding-bottom: 3px;
+  padding-right: 10px;
+}
+
+.elltwo ol {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.elltwo li {
+  line-height: 160%;
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 5px;
 }
 
 .elltwo section {
