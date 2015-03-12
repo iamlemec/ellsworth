@@ -3,8 +3,11 @@
   margin: 0px;
 }
 
-.elltwo p {
+.elltwo * {
   line-height: 160%;
+}
+
+.elltwo p {
   margin-top: 20px;
 }
 
@@ -23,7 +26,7 @@
 
 .elltwo img {
    height: auto;
-   width:100%;
+   width: 100%;
 }
 
 .elltwo div.abstract_box {
