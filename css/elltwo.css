@@ -11,6 +11,10 @@
   margin-top: 20px;
 }
 
+.elltwo a {
+  text-decoration: none;
+}
+
 .elltwo a:focus {
   outline: 0px;
 }
