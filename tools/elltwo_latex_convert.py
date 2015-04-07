@@ -3,6 +3,7 @@
 # ellsworth to latex converter
 
 import sys
+import argparse
 import re
 from bs4 import BeautifulSoup, element
 
@@ -14,7 +15,8 @@ preamble_inserts = ['\\linespread{1.4}',
 document_inserts = ['\\setlength{\\abovedisplayskip}{20pt}',
                    '\\setlength{\\belowdisplayskip}{20pt}']
 
-base_packages = ['amsmath','amsthm','amssymb','cleveref']
+base_packages = ['amsmath','amsthm','amssymb','cleveref',
+                 ('geometry','top=1.5in,bottom=1.5in,left=1.5in,right=1.5in')]
 
 class EllsworthParser:
   def __init__(self):
@@ -35,6 +37,7 @@ class EllsworthParser:
       self.packages.add(pkg)
 
     # parse body
+    self.sub_level = 0
     body = self.parse_children(html.body)
 
     # make preamble info
@@ -67,41 +70,66 @@ class EllsworthParser:
     if typ is element.NavigableString:
       return unicode(soup)
     elif typ is element.Comment:
-      return '%' + unicode(soup)
+      return '%' + unicode(soup.replace('\n','\n%'))
     elif typ is element.Tag:
       name = soup.name
       if name == 'script':
         return ''
       elif name == 'header':
+        title = soup.select('.title')
+        if len(title):
+          self.title = title[0].extract().text
+        return ''
+      elif name == 'div':
         return self.parse_children(soup)
-      elif name == 'title':
-        self.title = soup.text
-        return ''
-      elif name == 'author':
-        self.author = soup.text
-        return ''
       elif name == 'bibliography':
         if len(self.biblio):
           return '\n\\bibliographystyle{abbrvnat}\n\\bibliography{' + self.biblio + '}\n'
         else:
           return ''
       elif name == 'section':
-        label = ' \\label{' + soup['label'] + '}\n' if ('label' in soup.attrs) else ''
+        if 'label' in soup:
+          label = ' \\label{' + soup['label'] + '}\n'
+        else:
+          label = ''
         title = soup.select('.title')
         if len(title):
-          title = title[0].extract()
-          title = title.text
+          title = title[0].extract().text
         else:
           title = ''
-        ast = '*' if ('class' in soup.attrs and 'nonumber' in soup['class']) else ''
-        return '\n\\section' + ast + '{' + title + '}\n' + label + self.parse_children(soup)
+        ast = '*' if ('class' in soup and 'nonumber' in soup['class']) else ''
+        subcmd = self.sub_level*'sub'
+        self.sub_level += 1
+        subtext = self.parse_children(soup)
+        self.sub_level -= 1
+        return '\n\\' + subcmd + 'section' + ast + '{' + title + '}\n' + label + subtext
       elif name == 'figure':
-        title = '\\caption{' + soup['title'] + '}\n' if ('title' in soup.attrs) else ''
-        label = '\\label{' + soup['label'] + '}\n' if ('label' in soup.attrs) else ''
-        caption = soup['caption'] + '\n' if ('caption' in soup.attrs) else ''
-        return '\\begin{figure}\n' + label + title + '\\begin{center}' + self.parse_children(soup) + '\n' + caption + '\\end{center}\n' + '\\end{figure}'
+        title = soup.select('.title')
+        if len(title):
+          title = title[0].extract().text
+        else:
+          title = ''
+        figcap = soup.select('figcaption')
+        if len(figcap):
+          figcap = figcap[0].extract().text + '\n'
+        else:
+          figcap = ''
+        title = '\\caption{' + title + '}\n' if title else ''
+        label = '\\label{' + soup['id'] + '}\n' if ('id' in soup) else ''
+        return '\\begin{figure}\n' + label + title + '\\begin{center}\n' + self.parse_children(soup).strip() + '\n\n' + figcap + '\\end{center}\n' + '\\end{figure}\n'
+      elif name == 'img':
+        source = soup['src']
+        (path,ext) = source.rsplit('.',1)
+        if ext == 'svg':
+          self.packages.add('svg')
+          (sdir,fname) = path.rsplit('/',1)
+          img_dir = '\\includesvg[svgpath=' + img_prefix + sdir + '/,width=' + img_scale + '\\textwidth]' + '{' + fname + '}'
+        else:
+          self.packages.add('graphicx')
+          img_dir = '\\includegraphics[scale=' + img_scale + ']' + '{' + img_prefix + source + '}'
+        return img_dir
       elif name == 'table':
-        label = ' \\label{' + soup['label'] + '}' if ('label' in soup.attrs) else ''
+        label = ' \\label{' + soup['label'] + '}' if ('label' in soup) else ''
         n_cols = len(list(soup.tr.children)) # a little hacky
         thead = self.parse_inner(soup.thead.findChild('tr')) + ' \\\\ \\hline\n' if soup.thead else ''
         body = soup.tbody if soup.tbody else soup
@@ -114,26 +142,20 @@ class EllsworthParser:
       elif name == 'p':
         return self.parse_children(soup)
       elif name == 'equation':
-        if 'label' in soup.attrs:
+        if 'label' in soup:
           env = 'align'
           label = ' \\label{' + soup['label'] + '}'
         else:
           env = 'align*'
           label = ''
         return '\\begin{' + env + '}' + label + soup.text + '\\end{' + env + '}'
-      elif name == 'media':
-        source = soup['source']
-        (path,ext) = source.rsplit('.',1)
-        if ext == 'svg':
-          source = path + '.png'
-        self.packages.add('graphicx')
-        return '\\begin{center}\n\\includegraphics[scale=' + img_scale + ']{' + source + '}\n\\end{center}'
       elif name == 'footnote':
         return '\\footnote{' + soup.text + '}'
       elif name == 'ref':
-        return '\\Cref{' + soup['label'] + '}'
+        return '\\Cref{' + soup['target'] + '}'
       elif name == 'cite':
-        return '\\citet{' + soup['label'] + '}'
+        self.packages.add('natbib')
+        return '\\citet{' + soup['target'] + '}'
       elif name == 'ol':
         return '\\begin{enumerate}\n' + self.parse_children(soup) + '\\end{enumerate}'
       elif name == 'li':
@@ -150,8 +172,16 @@ class EllsworthParser:
       elif name == 'strike':
         self.packages.add('ulem')
         return '\\sout{' + self.parse_children(soup) + '}'
+      elif name == 'blockquote':
+        return '\\begin{quote}' + self.parse_children(soup) + '\\end{quote}'
+      elif name == 'proposition':
+        return self.parse_children(soup)
+      elif name == 'pre':
+        return self.parse_children(soup)
+      elif name == 'code':
+        return self.parse_children(soup)
       else:
-        if 'label' in soup.attrs:
+        if 'label' in soup:
           env = name
           label = ' \\label{' + soup['label'] + '}'
         else:
@@ -160,16 +190,28 @@ class EllsworthParser:
         return '\\begin{' + env + '}' + label + '\n' + self.parse_children(soup) + '\n\\end{' + env + '}'
         # return '% UNRECOGNIZED: ' + unicode(soup)
 
-fname_in = sys.argv[1]
-fname_out = sys.argv[2] if len(sys.argv) > 2 else None
-img_scale = sys.argv[3] if len(sys.argv) > 3 else '0.6'
+# main
+
+parser = argparse.ArgumentParser(description='Convert from EllTwo to LaTeX')
+parser.add_argument('infile', help='Input EllTwo filename')
+parser.add_argument('outfile', default=None, help='Output LaTeX filename')
+parser.add_argument('--image-prefix', dest='image_prefix', default='', help='Image prefix (optional)')
+parser.add_argument('--image-scale', dest='image_scale', default='1.0', help='Image scale (optional)')
+args = parser.parse_args()
+
+fname_in = args.infile
+fname_out = args.outfile
+img_prefix = args.image_prefix
+img_scale = args.image_scale
 
 fid_in = open(fname_in)
 text_in = fid_in.read()
 
 # preprocess text
-text_in = re.subn('%','\\%',text_in)[0]
-text_in = re.subn('&','\\&',text_in)[0]
+text_in = re.subn('\\\\align','&',text_in)[0]
+text_in = re.subn('\\\\plusminus','+',text_in)[0]
+text_in = re.subn('\\&ldquo;','``',text_in)[0]
+text_in = re.subn('\\&rdquo;','\'\'',text_in)[0]
 
 # parse html
 soup_in = BeautifulSoup(text_in)
@@ -179,6 +221,9 @@ latex_out = parser.parse_soup(soup_in)
 # convert \lt to <, \gt to >, and % to \%
 latex_out = re.subn('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)[0]
 latex_out = re.subn('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)[0]
+
+# postprocess text
+latex_out = re.subn('&','\\&',latex_out)[0]
 
 if fname_out:
   fid_out = open(fname_out,'w+')
