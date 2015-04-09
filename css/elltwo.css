@@ -33,16 +33,11 @@
    width: 100%;
 }
 
-.elltwo div.abstract_box {
-  margin-top: 50px;
-}
-
-.elltwo h4.abstract_head {
+.elltwo p.author {
   text-align: center;
 }
 
-.elltwo p.abstract_body {
-  line-height: 160%;
+.elltwo p.abstract {
 }
 
 .elltwo div.equation_box {

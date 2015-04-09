@@ -16,7 +16,8 @@ document_inserts = ['\\setlength{\\abovedisplayskip}{20pt}',
                    '\\setlength{\\belowdisplayskip}{20pt}']
 
 base_packages = ['amsmath','amsthm','amssymb','cleveref',
-                 ('geometry','top=1.5in,bottom=1.5in,left=1.5in,right=1.5in')]
+                 ('geometry','top=1.5in,bottom=1.5in,left=1.5in,right=1.5in'),
+                 ('inputenc','utf8')]
 
 class EllsworthParser:
   def __init__(self):
@@ -33,12 +34,38 @@ class EllsworthParser:
     # init
     self.clear()
     html = soup.html
+    body = html.body
     for pkg in base_packages:
       self.packages.add(pkg)
 
+    # parse config
+    conf = {}
+    script = body.findAll('script')
+    if script:
+      config = unicode(script[-1].text)
+      config = soup.text
+      config = re.sub('([^\s]*):','"\\1":',config) # keys should be in quotes
+      config = re.search('ElltwoConfig\((?P<config>(.|\n)*)\)',config).groupdict()['config'] # extract dict
+      conf = eval(config) # i know, i know, no time now
+
+    # latex environments
+    environs = ''
+    if 'environs' in conf:
+      for env in conf['environs']:
+        if env != 'proof':
+          environs += '\\newtheorem{' + env + '}[theorem]{' + env.capitalize() + '}\n'
+          environs += '\\newtheorem*{' + env + '*}{' + env.capitalize() + '}\n'
+        else:
+          self.packages.add('amsthm')
+
+    # bibliography
+    if 'biblio' in conf:
+      self.biblio = conf['biblio'].split('.')[0]
+      self.packages.add(('natbib','round'))
+
     # parse body
     self.sub_level = 0
-    body = self.parse_children(html.body)
+    body = self.parse_children(body)
 
     # make preamble info
     preamble = ''
@@ -49,6 +76,7 @@ class EllsworthParser:
         preamble += '\\usepackage[' + pkg[1] + ']{' + pkg[0] + '}\n'
     preamble += '\n\n'
     preamble += '\n'.join(preamble_inserts) + '\n\n'
+    preamble += environs + '\n'
     if len(self.title): preamble += '\\title{' + self.title + '}\n'
     if len(self.author): preamble += '\\author{' + self.author + '}\n'
     preamble += '\\date{}\n'
@@ -154,7 +182,6 @@ class EllsworthParser:
       elif name == 'ref':
         return '\\Cref{' + soup['target'] + '}'
       elif name == 'cite':
-        self.packages.add('natbib')
         return '\\citet{' + soup['target'] + '}'
       elif name == 'ol':
         return '\\begin{enumerate}\n' + self.parse_children(soup) + '\\end{enumerate}'
@@ -174,8 +201,8 @@ class EllsworthParser:
         return '\\sout{' + self.parse_children(soup) + '}'
       elif name == 'blockquote':
         return '\\begin{quote}' + self.parse_children(soup) + '\\end{quote}'
-      elif name == 'proposition':
-        return self.parse_children(soup)
+      #elif name == 'proposition':
+      #  return self.parse_children(soup)
       elif name == 'pre':
         return self.parse_children(soup)
       elif name == 'code':
@@ -185,9 +212,9 @@ class EllsworthParser:
           env = name
           label = ' \\label{' + soup['label'] + '}'
         else:
-          env = name + '*'
+          env = name
           label = ''
-        return '\\begin{' + env + '}' + label + '\n' + self.parse_children(soup) + '\n\\end{' + env + '}'
+        return '\\begin{' + env + '}' + label + self.parse_children(soup) + '\\end{' + env + '}'
         # return '% UNRECOGNIZED: ' + unicode(soup)
 
 # main
@@ -208,8 +235,6 @@ fid_in = open(fname_in)
 text_in = fid_in.read()
 
 # preprocess text
-text_in = re.subn('\\\\align','&',text_in)[0]
-text_in = re.subn('\\\\plusminus','+',text_in)[0]
 text_in = re.subn('\\&ldquo;','``',text_in)[0]
 text_in = re.subn('\\&rdquo;','\'\'',text_in)[0]
 
@@ -224,6 +249,7 @@ latex_out = re.subn('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)[0]
 
 # postprocess text
 latex_out = re.subn('&','\\&',latex_out)[0]
+latex_out = re.subn('\\\\align','&',latex_out)[0]
 
 if fname_out:
   fid_out = open(fname_out,'w+')
