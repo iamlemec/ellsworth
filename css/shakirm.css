@@ -1,0 +1,59 @@
+@import url("proxima-nova.css");
+
+.elltwo {
+  font-family: proxima-nova;
+}
+
+@media only screen and (max-device-width: 799px) {
+  .elltwo div.content {
+    overflow-x: hidden;
+    max-width: 100% !important;
+    margin: 0px;
+    border: none;
+  }
+
+  .elltwo div.marquee {
+    visibility: hidden;
+  }
+}
+
+@media only screen and (min-device-width: 800px) {
+  .elltwo * {
+    line-height: 150%;
+  }
+
+  .elltwo header {
+    border-bottom: 1px solid #BBB;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+
+  /*
+  div.content > section {
+    border-bottom: 1px solid #BBB;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  */
+
+  .elltwo p {
+    text-align: justify;
+  }
+
+  .elltwo section > .title {
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .elltwo div.content {
+    width: 600px !important;
+    margin: 0px auto;
+    background-color: white;
+    color: #333;
+  }
+
+  .elltwo div.marquee {
+    color: #333;
+    position: fixed;
+  }
+}
