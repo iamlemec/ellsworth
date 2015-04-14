@@ -48,4 +48,17 @@
     text-align: left;
     font-weight: bold;
   }
+
+  .elltwo figure.table > table td {
+    border: none;
+    padding: 0px 15px 0px 15px;
+  }
+
+  .elltwo figure.table > table > thead {
+    border-bottom: 1px solid #777;
+  }
+
+  .elltwo figure.table > table td:first-child {
+    text-align: left;
+  }
 }
