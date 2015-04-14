@@ -4,6 +4,34 @@
   font-family: proxima-nova;
 }
 
+.elltwo header {
+  border-bottom: 1px solid #BBB;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.elltwo p {
+  text-align: justify;
+}
+
+.elltwo section > .title {
+  text-align: left;
+  font-weight: bold;
+}
+
+.elltwo figure.table > table td {
+  border: none;
+  padding: 0px 15px 0px 15px;
+}
+
+.elltwo figure.table > table > thead {
+  border-bottom: 1px solid #777;
+}
+
+.elltwo figure.table > table td:first-child {
+  text-align: left;
+}
+
 @media only screen and (max-device-width: 799px) {
   .elltwo div.content {
     overflow-x: hidden;
@@ -32,33 +60,5 @@
   .elltwo div.marquee {
     color: #333;
     position: fixed;
-  }
-
-  .elltwo header {
-    border-bottom: 1px solid #BBB;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
-  }
-
-  .elltwo p {
-    text-align: justify;
-  }
-
-  .elltwo section > .title {
-    text-align: left;
-    font-weight: bold;
-  }
-
-  .elltwo figure.table > table td {
-    border: none;
-    padding: 0px 15px 0px 15px;
-  }
-
-  .elltwo figure.table > table > thead {
-    border-bottom: 1px solid #777;
-  }
-
-  .elltwo figure.table > table td:first-child {
-    text-align: left;
   }
 }
