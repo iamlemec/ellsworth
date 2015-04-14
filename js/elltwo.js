@@ -273,9 +273,17 @@ function EllsworthBoot() {
       if ((fig=$("figure.image[id="+target+"]")).length) {
         var link = $("<a>",{class:"ref_link fig_link",href:"#"+target,html:"Figure "+fig.attr("image-num")});
         span.append(link);
+        if (title=fig.find(".title")) {
+          var popup = $("<div>",{class:"popup fig_popup",html:title.html()});
+          attach_popup(span,popup);
+        }
       } else if ((tab=$("figure.table[id="+target+"]")).length) {
         var link = $("<a>",{class:"ref_link tab_link",href:"#"+target,html:"Table "+tab.attr("table-num")});
         span.append(link);
+        if (title=tab.find(".title")) {
+          var popup = $("<div>",{class:"popup tab_popup",html:title.html()});
+          attach_popup(span,popup);
+        }
       } else if ((eqn=$("div.equation_box[id="+target+"]")).length) {
         var link = $("<a>",{class:"ref_link eqn_link",href:"#"+target,html:"Equation "+eqn.attr("eqn-num")});
         span.append(link);
