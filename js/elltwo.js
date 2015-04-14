@@ -52,20 +52,34 @@ function EllsworthBoot() {
   };
 
   // for a hover event and scale factor (of the realized object), generate appropriate css
-  var get_offset = function(parent,popup) {
-    elem_width = parent.outerWidth();
-    elem_height = parent.outerHeight();
-    offset_x = parent.offset().left;
-    offset_y = parent.offset().top;
+  var get_offset = function(parent,popup,event) {
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
 
-    pop_width = popup.outerWidth();
-    pop_height = popup.outerHeight();
+    var rects = parent[0].getClientRects();
+    var mouseX = event.clientX;
+    var mouseY = event.clientY;
+    var rect;
+    for (var i in rects) {
+      rect = rects[i];
+      if ((mouseX >= rect.left) && (mouseX <= rect.right) && (mouseY >= rect.top) && (mouseY <= rect.bottom)) {
+        break;
+      }
+    }
 
-    shift_x = 0.5*(elem_width-pop_width);
-    shift_y = -2 - pop_height;
+    var elem_width = rect.width;
+    var elem_height = rect.height;
+    var offset_x = scrollLeft + rect.left;
+    var offset_y = scrollTop + rect.top;
 
-    pos_x = offset_x + shift_x;
-    pos_y = offset_y + shift_y;
+    var pop_width = popup.outerWidth();
+    var pop_height = popup.outerHeight();
+
+    var shift_x = 0.5*(elem_width-pop_width);
+    var shift_y = -2 - pop_height;
+
+    var pos_x = offset_x + shift_x;
+    var pos_y = offset_y + shift_y;
 
     return {x:pos_x,y:pos_y,width:pop_width,height:pop_height};
   };
@@ -83,17 +97,13 @@ function EllsworthBoot() {
   var attach_popup = function(parent,popup) {
     var pop_out = $("<div>",{class:"popup_outer"});
     pop_out.append(popup);
-    var arrow = $("<div>",{class:"popup_arrow"});
-    pop_out.append(arrow);
     parent.append(pop_out);
     pop_out.attr("shown","false");
     parent.hover(function(event) {
       if (pop_out.attr("shown")=="false") {
         pop_out.attr("shown","true");
-        var offset = get_offset(parent,pop_out);
-        console.log(offset);
+        var offset = get_offset(parent,pop_out,event);
         pop_out.css("left",offset.x).css("top",offset.y);
-        arrow.css("left",0.5*offset.width-5);
         pop_out.fadeIn(150);
       }
     }, function() {
