@@ -91,6 +91,7 @@ function EllsworthBoot() {
       if (pop_out.attr("shown")=="false") {
         pop_out.attr("shown","true");
         var offset = get_offset(parent,pop_out);
+        console.log(offset);
         pop_out.css("left",offset.x).css("top",offset.y);
         arrow.css("left",0.5*offset.width-5);
         pop_out.fadeIn(150);
@@ -283,6 +284,10 @@ function EllsworthBoot() {
       } else if ((sec=$("section[id="+target+"]")).length) {
         var link = $("<a>",{class:"ref_link sec_link",href:"#"+target,html:"Section "+sec.attr("sec-num")});
         span.append(link);
+        if (title=sec.find(".title")) {
+          var popup = $("<div>",{class:"popup sec_popup",html:title.html()});
+          attach_popup(span,popup);
+        }
       } else {
         // look for matches in the custom environments
         found = false;

@@ -68,6 +68,8 @@
 }
 
 .elltwo ul {
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding-left: 20px;
   padding-right: 10px;
 }
@@ -78,9 +80,8 @@
 }
 
 .elltwo li {
-  line-height: 160%;
   padding-left: 5px;
-  padding-top: 10px;
+  padding-top: 5px;
   padding-bottom: 5px;
 }
 
@@ -181,28 +182,25 @@
   border-radius: 4px;
   border: 0px;
   background-color: black;
+  /*opacity: 0.95;*/
   color: white;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   max-width: 300px;
 }
 
-.elltwo div.popup_arrow {
-  border-bottom-color: transparent;
-  border-bottom-style: solid;
-  border-bottom-width: 0px;
-  border-left-color: transparent;
-  border-left-style: solid;
-  border-left-width: 5px;
-  border-right-color: transparent;
-  border-right-style: solid;
-  border-right-width: 5px;
-  border-top-color: black;
-  border-top-style: solid;
-  border-top-width: 5px;
-  bottom: 0px;
-  height: 5px;
-  width: 10px;
+.elltwo div.popup:after {
   position: absolute;
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  margin-top: -10px;
+  border-color: transparent;
+  border-top-color: black;
+  border-width: 6px;
+  margin-left: -6px;
 }
 
 .elltwo div.footnote_popup {

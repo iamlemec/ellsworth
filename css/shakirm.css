@@ -22,29 +22,6 @@
     line-height: 150%;
   }
 
-  .elltwo header {
-    border-bottom: 1px solid #BBB;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
-  }
-
-  /*
-  div.content > section {
-    border-bottom: 1px solid #BBB;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-  }
-  */
-
-  .elltwo p {
-    text-align: justify;
-  }
-
-  .elltwo section > .title {
-    text-align: left;
-    font-weight: bold;
-  }
-
   .elltwo div.content {
     width: 600px !important;
     margin: 0px auto;
@@ -55,5 +32,20 @@
   .elltwo div.marquee {
     color: #333;
     position: fixed;
+  }
+
+  .elltwo header {
+    border-bottom: 1px solid #BBB;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+
+  .elltwo p {
+    text-align: justify;
+  }
+
+  .elltwo section > .title {
+    text-align: left;
+    font-weight: bold;
   }
 }
