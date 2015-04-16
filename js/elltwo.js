@@ -132,8 +132,13 @@ function EllsworthBoot() {
     var n_sections = 0;
     parent.children("section:not(.nonumber)").each(function () {
       var sec = $(this);
-      var sec_num = ++n_sections;
-      var sec_text = prefix + sec_num;
+      var sec_text;
+      if (pr=sec.attr("prefix")) {
+        sec_text = pr; // overload prefix
+      } else {
+        var sec_num = ++n_sections;
+        sec_text = prefix + sec_num;
+      }
       sec.attr("sec-num",sec_text);
       sec.children(".title").attr("sec-num",sec_text);
       handle_section(sec,sec_text+".");
