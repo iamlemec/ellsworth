@@ -93,6 +93,10 @@
   content: attr(sec-num) " ";
 }
 
+.elltwo section.noprefix > .title:before {
+  content: '';
+}
+
 .elltwo figure > .title:before {
   content: "Figure " attr(image-num) ": ";
 }
