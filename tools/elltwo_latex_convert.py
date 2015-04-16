@@ -9,11 +9,10 @@ from bs4 import BeautifulSoup, element
 
 preamble_inserts = ['\\linespread{1.4}',
                    '\\setlength{\parindent}{0pt}',
-                   '\\setlength{\parskip}{10pt}',
-                   '\\newtheorem{theorem}{Theorem}']
+                   '\\setlength{\parskip}{10pt}']
 
 document_inserts = ['\\setlength{\\abovedisplayskip}{20pt}',
-                   '\\setlength{\\belowdisplayskip}{20pt}']
+                    '\\setlength{\\belowdisplayskip}{20pt}']
 
 base_packages = ['amsmath','amsthm','amssymb','cleveref',
                  ('geometry','top=1.5in,bottom=1.5in,left=1.5in,right=1.5in'),
@@ -51,6 +50,7 @@ class EllsworthParser:
     # latex environments
     environs = ''
     if 'environs' in conf:
+      preamble_inserts.append('\\newtheorem{theorem}{Theorem}')
       for env in conf['environs']:
         if env != 'proof':
           environs += '\\newtheorem{' + env + '}[theorem]{' + env.capitalize() + '}\n'
@@ -112,12 +112,12 @@ class EllsworthParser:
         return self.parse_children(soup)
       elif name == 'bibliography':
         if len(self.biblio):
-          return '\n\\bibliographystyle{abbrvnat}\n\\bibliography{' + self.biblio + '}\n'
+          return '\n\\renewcommand\\refname{\\vskip -1cm}\n\\bibliographystyle{abbrvnat}\n\\bibliography{' + self.biblio + '}\n'
         else:
           return ''
       elif name == 'section':
-        if 'label' in soup:
-          label = ' \\label{' + soup['label'] + '}\n'
+        if 'id' in soup.attrs:
+          label = '\\label{' + soup['id'] + '}\n'
         else:
           label = ''
         title = soup.select('.title')
@@ -125,12 +125,17 @@ class EllsworthParser:
           title = title[0].extract().text
         else:
           title = ''
-        ast = '*' if ('class' in soup and 'nonumber' in soup['class']) else ''
+        if 'prefix' in soup.attrs:
+          prefix = '\\renewcommand*{\\thesection}{' + soup['prefix'] + '}'
+        else:
+          prefix = ''
+        sclass = soup['class'] if 'class' in soup.attrs else ''
+        ast = '*' if ('nonumber' in sclass or prefix) else ''
         subcmd = self.sub_level*'sub'
         self.sub_level += 1
         subtext = self.parse_children(soup)
         self.sub_level -= 1
-        return '\n\\' + subcmd + 'section' + ast + '{' + title + '}\n' + label + subtext
+        return '\n\\' + subcmd + 'section' + ast + '{' + title + '}\n' + label + prefix + subtext
       elif name == 'figure':
         title = soup.select('.title')
         if len(title):
@@ -157,7 +162,7 @@ class EllsworthParser:
           img_dir = '\\includegraphics[scale=' + img_scale + ']' + '{' + img_prefix + source + '}'
         return img_dir
       elif name == 'table':
-        label = ' \\label{' + soup['label'] + '}' if ('label' in soup) else ''
+        label = ' \\label{' + soup['id'] + '}' if ('id' in soup) else ''
         n_cols = len(list(soup.tr.children)) # a little hacky
         thead = self.parse_inner(soup.thead.findChild('tr')) + ' \\\\ \\hline\n' if soup.thead else ''
         body = soup.tbody if soup.tbody else soup
@@ -170,9 +175,9 @@ class EllsworthParser:
       elif name == 'p':
         return self.parse_children(soup)
       elif name == 'equation':
-        if 'label' in soup:
+        if 'id' in soup.attrs:
           env = 'align'
-          label = ' \\label{' + soup['label'] + '}'
+          label = ' \\label{' + soup['id'] + '}'
         else:
           env = 'align*'
           label = ''
@@ -185,6 +190,8 @@ class EllsworthParser:
         return '\\citet{' + soup['target'] + '}'
       elif name == 'ol':
         return '\\begin{enumerate}\n' + self.parse_children(soup) + '\\end{enumerate}'
+      elif name == 'ul':
+        return '\\begin{itemize}\n' + self.parse_children(soup) + '\\end{itemize}'
       elif name == 'li':
         return '\\item ' + self.parse_children(soup)
       elif name == 'b':
@@ -208,9 +215,9 @@ class EllsworthParser:
       elif name == 'code':
         return self.parse_children(soup)
       else:
-        if 'label' in soup:
+        if 'id' in soup.attrs:
           env = name
-          label = ' \\label{' + soup['label'] + '}'
+          label = ' \\label{' + soup['id'] + '}'
         else:
           env = name
           label = ''
@@ -237,6 +244,7 @@ text_in = fid_in.read()
 # preprocess text
 text_in = re.subn('\\&ldquo;','``',text_in)[0]
 text_in = re.subn('\\&rdquo;','\'\'',text_in)[0]
+text_in = re.subn('\\&','&amp;',text_in)[0]
 
 # parse html
 soup_in = BeautifulSoup(text_in)
@@ -248,7 +256,8 @@ latex_out = re.subn('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)[0]
 latex_out = re.subn('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)[0]
 
 # postprocess text
-latex_out = re.subn('&','\\&',latex_out)[0]
+latex_out = re.subn('(?<!\\\\)\\&','\\&',latex_out)[0]
+latex_out = re.subn('(?<!\\\\)%','\\%',latex_out)[0]
 latex_out = re.subn('\\\\align','&',latex_out)[0]
 
 if fname_out:
