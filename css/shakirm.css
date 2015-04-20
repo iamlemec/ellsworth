@@ -26,6 +26,7 @@
 .elltwo figure.table > table td {
   border: none;
   padding: 0px 15px 0px 15px;
+  font-size: 15px;
 }
 
 .elltwo figure.table > table > thead {
@@ -37,12 +38,14 @@
 }
 
 .elltwo figure {
-  /*border-top: 1px solid #BBB;*/
-  /*border-bottom: 1px solid #BBB;*/
+  width: 90%;
+  margin-left: 5%;
 }
 
 .elltwo figure > figcaption {
+  font-size: 15px;
   font-style: italic;
+  text-align: center;
 }
 
 @media only screen and (max-device-width: 799px) {
