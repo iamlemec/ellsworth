@@ -196,8 +196,9 @@ fid_in = open(fname_in)
 text_in = fid_in.read()
 
 # preprocess text
-text_in = re.subn('%','\\%',text_in)[0]
-text_in = re.subn('&','\\&',text_in)[0]
+text_in = re.subn('\\&ldquo;','``',text_in)[0]
+text_in = re.subn('\\&rdquo;','\'\'',text_in)[0]
+text_in = re.subn('\\&','&amp;',text_in)[0]
 
 # parse html
 soup_in = BeautifulSoup(text_in)
@@ -205,6 +206,8 @@ parser = EllsworthParser()
 latex_out = parser.parse_soup(soup_in)
 
 # convert \lt to <, \gt to >, and % to \%
+latex_out = re.subn('(?<!\\\\)\\&','\\&',latex_out)[0]
+latex_out = re.subn('(?<!\\\\)%','\\%',latex_out)[0]
 latex_out = re.subn('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)[0]
 latex_out = re.subn('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)[0]
 
