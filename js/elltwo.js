@@ -212,8 +212,9 @@ function EllsworthBoot() {
       var row = $("<div>",{class:"equation_row"});
       try {
         katex.render("\\displaystyle{" + txt + "}",row[0]);
-      } catch(e) {
+      } catch(err) {
         row.html(txt);
+        console.log(err);
         row.css({'color': 'red'});
       }
       div_inner.append(row);
