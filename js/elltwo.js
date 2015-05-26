@@ -7,19 +7,13 @@ extend = function(obj1,obj2) {
 
 // Library configuration
 var ec = {
-  macros: {},
-  replacements: {},
   environs: {},
 };
 
 var config = false;
 function ElltwoConfig(c) {
   for (v in c) {
-    if (v=="macros") {
-      extend(ec["macros"],c["macros"]);
-    } else if (v=="replacements") {
-      extend(ec["replacements"],c["replacements"]);
-    } else if (v=="environs") {
+    if (v=="environs") {
       extend(ec["environs"],c["environs"]);
     } else {
       ec[v] = c[v];
@@ -194,16 +188,6 @@ function EllsworthBoot() {
     div.attr("tab-num",tab.attr("tab-num"));
     return div;
   });
-
-  // simple replacements - these go first so table environments will work
-  for (rep in ec["replacements"]) {
-    $(rep).replaceWith(function () {
-      elem = $(this);
-      tag = ec["replacements"][rep];
-      div = $("<"+tag+">",{html:elem.html()});
-      return div;
-    })
-  }
 
   // implement custom environments
   var n_environs;
