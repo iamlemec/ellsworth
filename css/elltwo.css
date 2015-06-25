@@ -50,6 +50,9 @@
 }
 
 .elltwo div.equation_number {
+  position: absolute;
+  margin-left: -60px;
+  margin-top: -17px;
   vertical-align: middle;
   width: 20px;
   color: #888;
@@ -255,6 +258,10 @@
 
 .elltwo div.bibliography_item {
   margin-top: 20px;
+}
+
+ul > lh {
+  margin-left: -20px;
 }
 
 /* media query stuff */

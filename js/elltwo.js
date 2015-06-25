@@ -223,14 +223,14 @@ function EllsworthBoot() {
       div_box.attr("id",id);
       var eqn_num = ++n_equations;
       div_box.attr("eqn-num",eqn_num);
+      var eqn_txt = eqn_num + "&nbsp;&#x279c;";
     } else {
       var eqn_num = "";
+      var eqn_txt = "";
     }
-    var opp_div = $("<div>",{class:"equation_number"});
-    var num_div = $("<div>",{class:"equation_number",html:eqn_num});
-    div_box.append(opp_div);
-    div_box.append(div_inner);
+    var num_div = $("<div>",{class:"equation_number",html:eqn_txt});
     div_box.append(num_div);
+    div_box.append(div_inner);
     return div_box;
   });
 
