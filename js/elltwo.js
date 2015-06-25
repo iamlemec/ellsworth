@@ -7,19 +7,13 @@ extend = function(obj1,obj2) {
 
 // Library configuration
 var ec = {
-  macros: {},
-  replacements: {},
   environs: {},
 };
 
 var config = false;
 function ElltwoConfig(c) {
   for (v in c) {
-    if (v=="macros") {
-      extend(ec["macros"],c["macros"]);
-    } else if (v=="replacements") {
-      extend(ec["replacements"],c["replacements"]);
-    } else if (v=="environs") {
+    if (v=="environs") {
       extend(ec["environs"],c["environs"]);
     } else {
       ec[v] = c[v];
@@ -32,6 +26,20 @@ function ElltwoConfig(c) {
       EllsworthBoot();
     });
   }
+}
+
+function ElltwoSearch(term) {
+  var len = term.length;
+  $(".latex").each(function () {
+    var eqn = $(this);
+    if (latex=eqn.attr("latex")) {
+      var idx = latex.search(term);
+      if (idx != -1) {
+        console.log(latex);
+        eqn.css("border","1px solid red");
+      }
+    }
+  });
 }
 
 // perform substitutions once document is ready
@@ -76,12 +84,12 @@ function EllsworthBoot() {
     var pop_height = popup.outerHeight();
 
     var shift_x = 0.5*(elem_width-pop_width);
-    var shift_y = -2 - pop_height;
+    var shift_y = -pop_height;
 
     var pos_x = offset_x + shift_x;
     var pos_y = offset_y + shift_y;
 
-    return {x:pos_x,y:pos_y,width:pop_width,height:pop_height};
+    return {x:pos_x,y:pos_y};
   };
 
   // get a dictionary of attributes for an element, this doesn't exist already?
@@ -144,8 +152,15 @@ function EllsworthBoot() {
       handle_section(sec,sec_text+".");
     });
   }
-  handle_section(outer_box,"");
 
+  // top section prefix
+  var top_prefix = "";
+  if (pr=outer_box.attr("prefix")) {
+    top_prefix = pr;
+  }
+  handle_section(outer_box,top_prefix);
+
+  // number figures
   handle_numbers = function(fclass) {
     var n = 0;
     outer_box.find("figure."+fclass).each(function () {
@@ -174,16 +189,6 @@ function EllsworthBoot() {
     return div;
   });
 
-  // simple replacements - these go first so table environments will work
-  for (rep in ec["replacements"]) {
-    $(rep).replaceWith(function () {
-      elem = $(this);
-      tag = ec["replacements"][rep];
-      div = $("<"+tag+">",{html:elem.html()});
-      return div;
-    })
-  }
-
   // implement custom environments
   var n_environs;
   for (env in ec["environs"]) {
@@ -209,7 +214,7 @@ function EllsworthBoot() {
     var div_inner = $("<div>",{class:"equation_inner"});
     var eqn_list = eqn.html().split('\\\\');
     $.each(eqn_list, function (i,txt) {
-      var row = $("<div>",{class:"equation_row"});
+      var row = $("<div>",{class:"equation_row latex",latex:txt});
       try {
         katex.render("\\displaystyle{" + txt + "}",row[0]);
       } catch(err) {
@@ -234,6 +239,7 @@ function EllsworthBoot() {
     return div_box;
   });
 
+  // auto align equations
   $("div.equation_box").each(function () {
     var div_inner = $(this).children(".equation_inner");
     var eqn_boxes = div_inner.children(".equation_row");
@@ -347,13 +353,15 @@ function EllsworthBoot() {
     return span;
   });
 
+  // render with KaTeX
   $("span.tex").replaceWith(function() {
       var elem = $(this);
-      var span = $("<span>");
+      var latex = elem.html();
+      var span = $("<span>",{class:"latex",latex:latex});
       try {
-        katex.render(elem.html(),span[0]);
+        katex.render(latex,span[0]);
       } catch(e) {
-        span.html(elem.html());
+        span.html(latex);
         span.css({'color': 'red'});
       }
       return span;
