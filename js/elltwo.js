@@ -125,6 +125,12 @@ function EllsworthBoot() {
     });
   }
 
+  // typeset inline - goes very last due to math in popups
+  function inline_marker(match, p, offset, string) {
+      return '<span class=\"tex\">' + p + '</span>';
+  }
+  var inline_re = /\$([^\$]*)\$/g;
+
   // find outer box
   elltwo_box = $(".elltwo");
   outer_box = $(".elltwo div.content");
@@ -173,11 +179,7 @@ function EllsworthBoot() {
   handle_numbers("image");
   handle_numbers("table");
 
-  // typeset inline - goes very last due to math in popups
-  function inline_marker(match, p, offset, string) {
-      return '<span class=\"tex\">' + p + '</span>';
-  }
-  var inline_re = /\$([^\$]*)\$/g;
+  // replace dollars with tex spans
   outer_box.html(outer_box.html().replace(inline_re,inline_marker));
 
   // tabulars are really figure-tables
