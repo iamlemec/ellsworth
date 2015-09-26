@@ -1,45 +1,63 @@
-(function () {
-  prefix = "";
-  //prefix = "/testing";
+// prefix = "";
+prefix = "/testing";
 
-  function headAppend(elem) {
-    document.getElementsByTagName("head")[0].appendChild(elem);
+function headAppend(elem) {
+  document.getElementsByTagName("head")[0].appendChild(elem);
+}
+
+function loadCSS(url) {
+  var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = url;
+  headAppend(link);
+}
+
+function loadScript(url, callback) {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  if (callback) {
+    script.onload = function() {
+      callback();
+    };
+  }
+  script.src = url;
+  headAppend(script);
+}
+
+// insert CSS defs - KaTeX and elltwo
+loadCSS("/js/katex/katex.min.css");
+loadCSS(prefix+"/ellsworth/css/elltwo.css");
+
+// insert meta info
+var meta1 = document.createElement("meta");
+meta1.name = "viewport";
+meta1.content = "width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1";
+headAppend(meta1);
+
+var meta2 = document.createElement("meta");
+meta2.setAttribute("charset","utf-8");
+headAppend(meta2);
+
+// load jQuery then KaTex then elltwo + theme
+function ElltwoAutoload(opts) {
+  if (!opts) {
+    opts = {};
   }
 
-  function loadCSS(url) {
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.type = "text/css";
-    link.href = url;
-    headAppend(link);
+  var theme;
+  if ("theme" in opts) {
+    theme = opts["theme"];
+  } else {
+    theme = "plain";
   }
+  loadCSS(prefix+"/ellsworth/css/"+theme+".css");
 
-  function loadScript(url, callback) {
-    var script = document.createElement("script")
-    script.type = "text/javascript";
-    if (callback) {
-      script.onload = function() {
-        callback();
-      };
-    }
-    script.src = url;
-    headAppend(script);
-  }
-
-  // insert CSS defs - bootstrap, ellsworth
-  loadCSS("/css/bootstrap.min.css");
-  loadCSS(prefix+"/ellsworth/css/ellsworth.css");
-
-  // insert meta info - this is dumb
-  var meta = document.createElement("meta");
-  meta.name = "viewport";
-  meta.content = "initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, width=device-width";
-  headAppend(meta);
-
-  // load jQuery and subsequently the rest - bootstrap, MathJax, ellsworth
   loadScript("/js/jquery.min.js", function () {
-    loadScript("/js/bootstrap.min.js");
-    loadScript(prefix+"/ellsworth/js/ellsworth.js");
-    loadScript("/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
+    loadScript("/js/katex/katex.min.js", function () {
+      loadScript(prefix+"/ellsworth/js/elltwo.js", function () {
+        ElltwoConfig(opts);
+      });
+    });
   });
-})();
+}
