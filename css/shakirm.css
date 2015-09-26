@@ -80,5 +80,6 @@
   .elltwo div.marquee {
     color: #333;
     position: fixed;
+    margin: 5px;
   }
 }
