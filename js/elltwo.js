@@ -217,13 +217,7 @@ function EllsworthBoot() {
     var eqn_list = eqn.html().split('\\\\');
     $.each(eqn_list, function (i,txt) {
       var row = $("<div>",{class:"equation_row latex",latex:txt});
-      try {
-        katex.render(txt,row[0],{displayMode: true, throwOnError: false});
-      } catch(err) {
-        row.html(txt);
-        console.log(err);
-        row.css({'color': 'red'});
-      }
+      katex.render(txt,row[0],{displayMode: true, throwOnError: false});
       div_inner.append(row);
     });
     if (id=eqn.attr("id")) {
@@ -363,12 +357,7 @@ function EllsworthBoot() {
       var elem = $(this);
       var latex = elem.html();
       var span = $("<span>",{class:"latex",latex:latex});
-      try {
-        katex.render(latex,span[0],{throwOnError: false});
-      } catch(e) {
-        span.html(latex);
-        span.css({'color': 'red'});
-      }
+      katex.render(latex,span[0],{throwOnError: false});
       return span;
   });
 
