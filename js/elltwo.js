@@ -141,6 +141,8 @@ function EllsworthBoot() {
     marquee.append(span);
   }
 
+  console.log('numbering sections');
+
   // recursively number sections
   handle_section = function(parent,prefix) {
     var n_sections = 0;
@@ -179,8 +181,12 @@ function EllsworthBoot() {
   handle_numbers("image");
   handle_numbers("table");
 
+  console.log('marking latex spans');
+
   // replace dollars with tex spans
   outer_box.html(outer_box.html().replace(inline_re,inline_marker));
+
+  console.log('marking figures');
 
   // tabulars are really figure-tables
   outer_box.find("figure").addClass("figure");
@@ -190,6 +196,8 @@ function EllsworthBoot() {
     div.attr("tab-num",tab.attr("tab-num"));
     return div;
   });
+
+  console.log('handling environments');
 
   // implement custom environments
   var n_environs;
@@ -208,6 +216,8 @@ function EllsworthBoot() {
     })
   }
 
+  console.log('marking display equations');
+
   // generate equations
   var n_equations = 0;
   $("equation").replaceWith(function () {
@@ -224,16 +234,16 @@ function EllsworthBoot() {
       div_box.attr("id",id);
       var eqn_num = ++n_equations;
       div_box.attr("eqn-num",eqn_num);
-      var eqn_txt = eqn_num + "&nbsp;&#x279c;";
     } else {
       var eqn_num = "";
-      var eqn_txt = "";
     }
-    var num_div = $("<div>",{class:"equation_number",html:eqn_txt});
-    div_box.append(num_div);
+    var num_div = $("<div>",{class:"equation_number",html:eqn_num});
     div_box.append(div_inner);
+    div_box.append(num_div);
     return div_box;
   });
+
+  console.log('aligning multiline equations');
 
   // auto align equations
   $("div.equation_box").each(function () {
@@ -243,7 +253,7 @@ function EllsworthBoot() {
       var leftlist = [];
       var rightlist = [];
       var offlist = [];
-      console.log('Row offsets:')
+      // console.log('Row offsets:')
       eqn_boxes.each(function () {
         var eqn = $(this);
         var ktx = eqn.find(".katex");
@@ -251,7 +261,7 @@ function EllsworthBoot() {
         var anchor = ktx.find(".align");
         var leftpos;
         var rightpos;
-        console.log(ktx);
+        // console.log(ktx);
         if (anchor.length) {
           leftpos = (anchor.offset().left+anchor.width()/2) - ktx.offset().left;
           rightpos = kwidth - leftpos;
@@ -266,11 +276,13 @@ function EllsworthBoot() {
       });
       var bigoff = max(leftlist) - max(rightlist);
       eqn_boxes.each(function (i) {
-        console.log(bigoff+offlist[i]);
+        // console.log(bigoff+offlist[i]);
         $(this).find(".katex").css({"margin-left":bigoff+offlist[i]});
       });
     }
   });
+
+  console.log('marking footnotes');
 
   // create footnotes and attach hover popups
   var n_footnotes = 0;
@@ -285,6 +297,8 @@ function EllsworthBoot() {
     span.append(sup);
     return span;
   });
+
+  console.log('addressing references and popups');
 
   // dereference refs - attach appropriate hover popups
   $("ref").replaceWith(function () {
@@ -352,6 +366,8 @@ function EllsworthBoot() {
     return span;
   });
 
+  console.log('rendering latex spans');
+
   // render with KaTeX
   $("span.tex").replaceWith(function() {
       var elem = $(this);
@@ -360,6 +376,8 @@ function EllsworthBoot() {
       katex.render(latex,span[0],{throwOnError: false});
       return span;
   });
+
+  console.log('renering bibliography');
 
   // on biblio load - parse, in text cites, end list
   if ("biblio" in ec) {
