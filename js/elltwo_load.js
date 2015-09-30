@@ -1,15 +1,19 @@
-// prefix = "";
-prefix = "/testing";
+// get script location
+var scripts = document.getElementsByTagName('script');
+var path = scripts[scripts.length-1].src.split('?')[0]; // remove any ?query
+var prefix = path.split('/').slice(0, -1).join('/') + '/';  // remove filename
 
+// insert utilities
+var head = document.getElementsByTagName("head")[0];
 function headAppend(elem) {
-  document.getElementsByTagName("head")[0].appendChild(elem);
+  head.appendChild(elem);
 }
 
 function loadCSS(url) {
   var link = document.createElement("link");
   link.rel = "stylesheet";
   link.type = "text/css";
-  link.href = url;
+  link.href = prefix + url;
   headAppend(link);
 }
 
@@ -21,23 +25,13 @@ function loadScript(url, callback) {
       callback();
     };
   }
-  script.src = url;
+  script.src = prefix + url;
   headAppend(script);
 }
 
 // insert CSS defs - KaTeX and elltwo
-loadCSS("/js/katex/katex.min.css");
-loadCSS(prefix+"/ellsworth/css/elltwo.css");
-
-// insert meta info
-var meta1 = document.createElement("meta");
-meta1.name = "viewport";
-meta1.content = "width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1";
-headAppend(meta1);
-
-var meta2 = document.createElement("meta");
-meta2.setAttribute("charset","utf-8");
-headAppend(meta2);
+loadCSS("../katex/katex.min.css");
+loadCSS("../css/elltwo.css");
 
 // load jQuery then KaTex then elltwo + theme
 function ElltwoAutoload(opts) {
@@ -51,11 +45,11 @@ function ElltwoAutoload(opts) {
   } else {
     theme = "plain";
   }
-  loadCSS(prefix+"/ellsworth/css/"+theme+".css");
+  loadCSS("../css/"+theme+".css");
 
-  loadScript("/js/jquery.min.js", function () {
-    loadScript("/js/katex/katex.min.js", function () {
-      loadScript(prefix+"/ellsworth/js/elltwo.js", function () {
+  loadScript("jquery.min.js", function () {
+    loadScript("../katex/katex.min.js", function () {
+      loadScript("elltwo.js", function () {
         ElltwoConfig(opts);
       });
     });

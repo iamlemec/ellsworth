@@ -84,11 +84,6 @@
   margin-left: 5%;
 }
 
-.elltwo figure.wide {
-  width: 130%;
-  margin-left: -15%;
-}
-
 .elltwo ul {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -308,5 +303,10 @@ ul > lh {
 
   .elltwo div.equation_inner div.equation_row:not(:first-child) {
     margin-top: 20px;
+  }
+
+  .elltwo figure.wide {
+    width: 130%;
+    margin-left: -15%;
   }
 }
