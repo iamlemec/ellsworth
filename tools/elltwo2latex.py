@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # ellsworth to latex converter
 
@@ -6,6 +6,7 @@ import sys
 import argparse
 import re
 from bs4 import BeautifulSoup, element
+from html.parser import HTMLParser
 
 preamble_inserts = ['\\linespread{1.4}',
                    '\\setlength{\parindent}{0pt}',
@@ -33,18 +34,18 @@ class EllsworthParser:
     # init
     self.clear()
     html = soup.html
+    head = html.head
     body = html.body
     for pkg in base_packages:
       self.packages.add(pkg)
 
     # parse config
     conf = {}
-    script = body.findAll('script')
+    script = head.findAll('script')
     if script:
-      config = unicode(script[-1].text)
-      config = soup.text
+      config = str(script[-1].text)
       config = re.sub('([^\s]*):','"\\1":',config) # keys should be in quotes
-      config = re.search('ElltwoConfig\((?P<config>(.|\n)*)\)',config).groupdict()['config'] # extract dict
+      config = re.search('ElltwoAutoload\((?P<config>(.|\n)*)\)',config).groupdict()['config'] # extract dict
       conf = eval(config) # i know, i know, no time now
 
     # latex environments
@@ -96,9 +97,9 @@ class EllsworthParser:
   def parse_inner(self,soup):
     typ = type(soup)
     if typ is element.NavigableString:
-      return unicode(soup)
+      return str(soup)
     elif typ is element.Comment:
-      return '%' + unicode(soup.replace('\n','\n%'))
+      return '%' + str(soup.replace('\n','\n%'))
     elif typ is element.Tag:
       name = soup.name
       if name == 'script':
@@ -242,27 +243,32 @@ fid_in = open(fname_in)
 text_in = fid_in.read()
 
 # preprocess text
-text_in = re.subn('\\&ldquo;','``',text_in)[0]
-text_in = re.subn('\\&rdquo;','\'\'',text_in)[0]
-text_in = re.subn('\\&','&amp;',text_in)[0]
+#text_in = re.sub('\\&ldquo;','``',text_in)
+#text_in = re.sub('\\&rdquo;','\'\'',text_in)
+#text_in = re.sub('\\&','&amp;',text_in)
+text_in = re.sub('&','&amp;',text_in)
 
 # parse html
-soup_in = BeautifulSoup(text_in)
+soup_in = BeautifulSoup(text_in,"html.parser")
 parser = EllsworthParser()
 latex_out = parser.parse_soup(soup_in)
 
+# unescape html entities
+h = HTMLParser()
+latex_out = h.unescape(latex_out)
+
 # convert \lt to <, \gt to >, and % to \%
-latex_out = re.subn('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)[0]
-latex_out = re.subn('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)[0]
+latex_out = re.sub('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)
+latex_out = re.sub('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)
 
 # postprocess text
-latex_out = re.subn('(?<!\\\\)\\&','\\&',latex_out)[0]
-latex_out = re.subn('(?<!\\\\)%','\\%',latex_out)[0]
-latex_out = re.subn('\\\\align','&',latex_out)[0]
+latex_out = re.sub('(?<!\\\\)\\&','\\&',latex_out)
+latex_out = re.sub('(?<!\\\\)%','\\%',latex_out)
+latex_out = re.sub('\\\\align','&',latex_out)
 
 if fname_out:
   fid_out = open(fname_out,'w+')
-  fid_out.write(latex_out.encode('ascii','replace'))
+  fid_out.write(latex_out)
   fid_out.close()
 else:
-  print latex_out
+  print(latex_out)
