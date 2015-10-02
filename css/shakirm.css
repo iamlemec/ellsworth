@@ -73,6 +73,7 @@
   .elltwo div.content {
     width: 600px !important;
     margin: 0px auto;
+    margin-bottom: 50px;
     background-color: white;
     color: #333;
   }
