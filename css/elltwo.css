@@ -253,7 +253,7 @@
   margin-top: 20px;
 }
 
-ul > lh {
+.elltwo ul > lh {
   margin-left: -20px;
 }
 
@@ -278,14 +278,28 @@ ul > lh {
     -webkit-overflow-scrolling: touch;
     max-width: 100% !important;
   }
+
+  /* hide search */
+
+  .elltwo #search-box {
+    display: none;
+  }
 }
 
 @media only screen and (min-device-width: 800px) {
-  .elltwo div.content {
+  .elltwo * {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
+  }
+
+  .elltwo div.marquee {
+    width: 100%;
+  }
+
+  .elltwo div.content {
     padding: 50px;
+    margin-bottom: 50px;
   }
 
   .elltwo div.equation_box {
@@ -301,12 +315,39 @@ ul > lh {
     display: table-cell;
   }
 
-  .elltwo div.equation_inner div.equation_row:not(:first-child) {
-    margin-top: 20px;
-  }
-
   .elltwo figure.wide {
     width: 130%;
     margin-left: -15%;
+  }
+
+  /* search related */
+
+  .elltwo #search-box {
+    min-width: 100px;
+    margin-right: 10px;
+    padding-left: 3px;
+    float: right;
+  }
+
+  .elltwo #clear-search {
+    position: absolute;
+    color: white;
+    background-color: rgba(255,0,0,0.6);
+    border-radius: 6px;
+    right: 16px;
+    height: 15px;
+    width: 15px;
+    margin-top: 5px;
+    font-size: 12px;
+    cursor: default;
+  }
+
+  .elltwo .katex {
+    border: 1px solid rgba(255,255,255,0.0);
+  }
+
+  .elltwo .highlighted .katex {
+    border: 1px solid rgba(255,0,0,0.3);
+    border-radius: 5px;
   }
 }
