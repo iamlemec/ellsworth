@@ -29,17 +29,24 @@ function ElltwoConfig(c) {
 }
 
 function ElltwoSearch(term) {
-  var len = term.length;
-  $(".latex").each(function () {
-    var eqn = $(this);
-    if (latex=eqn.attr("latex")) {
-      var idx = latex.search(term);
-      if (idx != -1) {
-        console.log(latex);
-        eqn.css("border","1px solid red");
+  $(".highlighted").removeClass("highlighted");
+  if (term.length > 0) {
+    var first = true;
+    $(".latex").each(function () {
+      var eqn = $(this);
+      if (latex=eqn.attr("latex")) {
+        var idx = latex.search(term);
+        if (idx != -1) {
+          if (first) {
+            var target = eqn.offset().top - 75;
+            $('html').animate({scrollTop: target},500);
+            first = false;
+          }
+          eqn.addClass("highlighted");
+        }
       }
-    }
-  });
+    });
+  }
 }
 
 // perform substitutions once document is ready
@@ -138,7 +145,21 @@ function EllsworthBoot() {
   // optional marquee box
   if (marquee=$(".elltwo div.marquee")) {
     var span = $("<span>",{class:"tex",html:"\\ell^2"});
+    var input = $("<input>",{id:"search-box"});
+    var ex = $("<span>",{id:"clear-search",html:""})
+    input.keydown(function(event) {
+      if (event.keyCode == 13) {
+        var text = input.val();
+        ElltwoSearch(text);
+      }
+    });
+    ex.click(function() {
+      input.val("");
+      ElltwoSearch("");
+    })
     marquee.append(span);
+    marquee.append(input);
+    marquee.append(ex);
   }
 
   console.log('numbering sections');
