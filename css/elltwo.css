@@ -69,13 +69,13 @@
 
 .elltwo figure.laside {
   float: left;
-  margin: 0px 20px 20px -200px;
+  margin: 20px 20px 20px -200px;
   width: 400px;
 }
 
 .elltwo figure.raside {
   float: right;
-  margin: 0px -200px 20px 20px;
+  margin: 20px -200px 20px 20px;
   width: 400px;
 }
 
