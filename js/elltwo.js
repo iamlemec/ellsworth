@@ -207,17 +207,6 @@ function EllsworthBoot() {
   // replace dollars with tex spans
   outer_box.html(outer_box.html().replace(inline_re,inline_marker));
 
-  console.log('marking figures');
-
-  // tabulars are really figure-tables
-  outer_box.find("figure").addClass("figure");
-  outer_box.find("tabular").replaceWith(function () {
-    var tab = $(this);
-    var div = $("<figure>",{class:"table",id:tab.attr("id"),html:tab.html()});
-    div.attr("tab-num",tab.attr("tab-num"));
-    return div;
-  });
-
   console.log('handling environments');
 
   // implement custom environments
@@ -248,7 +237,13 @@ function EllsworthBoot() {
     var eqn_list = eqn.html().split('\\\\');
     $.each(eqn_list, function (i,txt) {
       var row = $("<div>",{class:"equation_row latex",latex:txt});
-      katex.render(txt,row[0],{displayMode: true, throwOnError: false});
+      try {
+        katex.render(txt,row[0],{displayMode: true, throwOnError: false});
+      } catch(err) {
+        row.html(txt);
+        console.log(err);
+        row.css({'color': 'red'});
+      }
       div_inner.append(row);
     });
     if (id=eqn.attr("id")) {
@@ -394,7 +389,13 @@ function EllsworthBoot() {
       var elem = $(this);
       var latex = elem.html();
       var span = $("<span>",{class:"latex",latex:latex});
-      katex.render(latex,span[0],{throwOnError: false});
+      try {
+        katex.render(latex,span[0],{throwOnError: false});
+      } catch(err) {
+        span.html(latex);
+        console.log(err);
+        span.css({'color': 'red'});
+      }
       return span;
   });
 

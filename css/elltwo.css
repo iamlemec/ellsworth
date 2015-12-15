@@ -231,8 +231,8 @@
 .elltwo div.eqn_popup {
   font-size: 17px;
   max-width: none;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  /*padding-top: 15px;*/
+  /*padding-bottom: 15px;*/
 }
 
 .elltwo div.fig_popup {
