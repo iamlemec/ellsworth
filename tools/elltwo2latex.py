@@ -19,6 +19,15 @@ base_packages = ['amsmath','amsthm','amssymb','cleveref',
                  ('geometry','top=1.5in,bottom=1.5in,left=1.5in,right=1.5in'),
                  ('inputenc','utf8')]
 
+def text_escape(text):
+  text = re.sub('(?<!\\\\)\\&','\\&',text)
+  text = re.sub('(?<!\\\\)%','\\%',text)
+  return text
+
+def math_escape(math):
+  math = re.sub('\\\\align','&',math)
+  return math
+
 class EllsworthParser:
   def __init__(self):
     self.clear()
@@ -97,7 +106,7 @@ class EllsworthParser:
   def parse_inner(self,soup):
     typ = type(soup)
     if typ is element.NavigableString:
-      return str(soup)
+      return text_escape(str(soup))
     elif typ is element.Comment:
       return '%' + str(soup.replace('\n','\n%'))
     elif typ is element.Tag:
@@ -108,6 +117,9 @@ class EllsworthParser:
         title = soup.select('.title')
         if len(title):
           self.title = title[0].extract().text
+        author = soup.select('.author')
+        if len(author):
+          self.author = author[0].extract().text
         return ''
       elif name == 'div':
         return self.parse_children(soup)
@@ -182,7 +194,7 @@ class EllsworthParser:
         else:
           env = 'align*'
           label = ''
-        return '\\begin{' + env + '}' + label + soup.text + '\\end{' + env + '}'
+        return '\\begin{' + env + '}' + label + math_escape(soup.text) + '\\end{' + env + '}'
       elif name == 'footnote':
         return '\\footnote{' + soup.text + '}'
       elif name == 'ref':
@@ -223,13 +235,13 @@ class EllsworthParser:
           env = name
           label = ''
         return '\\begin{' + env + '}' + label + self.parse_children(soup) + '\\end{' + env + '}'
-        # return '% UNRECOGNIZED: ' + unicode(soup)
+        # return '% UNRECOGNIZED: ' + str(soup)
 
 # main
 
 parser = argparse.ArgumentParser(description='Convert from EllTwo to LaTeX')
 parser.add_argument('infile', help='Input EllTwo filename')
-parser.add_argument('outfile', default=None, help='Output LaTeX filename')
+parser.add_argument('outfile', nargs='?', default=None, help='Output LaTeX filename')
 parser.add_argument('--image-prefix', dest='image_prefix', default='', help='Image prefix (optional)')
 parser.add_argument('--image-scale', dest='image_scale', default='1.0', help='Image scale (optional)')
 args = parser.parse_args()
@@ -262,9 +274,6 @@ latex_out = re.sub('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)
 latex_out = re.sub('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)
 
 # postprocess text
-latex_out = re.sub('(?<!\\\\)\\&','\\&',latex_out)
-latex_out = re.sub('(?<!\\\\)%','\\%',latex_out)
-latex_out = re.sub('\\\\align','&',latex_out)
 
 if fname_out:
   fid_out = open(fname_out,'w+')
