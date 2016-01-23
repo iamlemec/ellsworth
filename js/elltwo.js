@@ -145,6 +145,7 @@ function EllsworthBoot() {
   // optional marquee box
   if (marquee=$(".elltwo div.marquee")) {
     var span = $("<span>",{class:"tex",html:"\\ell^2"});
+    /*
     var input = $("<input>",{id:"search-box"});
     var ex = $("<span>",{id:"clear-search",html:""})
     input.keydown(function(event) {
@@ -160,6 +161,7 @@ function EllsworthBoot() {
     marquee.append(span);
     marquee.append(input);
     marquee.append(ex);
+    */
   }
 
   console.log('numbering sections');
