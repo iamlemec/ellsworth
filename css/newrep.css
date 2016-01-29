@@ -1,0 +1,94 @@
+.elltwo {
+  font-family: Georgia;
+  font-size: 20px;
+}
+
+.elltwo header {
+  border-bottom: 1px solid #BBB;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.elltwo p {
+  text-align: justify;
+}
+
+.elltwo li {
+  text-align: justify;
+}
+
+.elltwo div.content > section {
+  border-bottom: 1px solid #BBB;
+}
+
+.elltwo section > .title {
+  text-align: left;
+  font-weight: bold;
+}
+
+.elltwo figure.table > table td {
+  border: none;
+  padding: 0px 15px 0px 15px;
+  font-size: 15px;
+}
+
+.elltwo figure.table > table > thead {
+  border-bottom: 1px solid #777;
+}
+
+.elltwo figure.table > table td:first-child {
+  text-align: left;
+}
+
+.elltwo figure {
+  width: 90%;
+  margin-left: 5%;
+}
+
+.elltwo figure > figcaption {
+  font-size: 15px;
+  font-style: italic;
+  text-align: center;
+}
+
+.elltwo figure.raside {
+  margin-right: -200px;
+}
+
+.elltwo figure.laside {
+  margin-left: -100px;
+  width: 400px;
+}
+
+@media only screen and (max-device-width: 799px) {
+  .elltwo div.content {
+    overflow-x: hidden;
+    max-width: 100% !important;
+    margin: 0px;
+    border: none;
+  }
+
+  .elltwo div.marquee {
+    visibility: hidden;
+  }
+}
+
+@media only screen and (min-device-width: 800px) {
+  .elltwo * {
+    line-height: 150%;
+  }
+
+  .elltwo div.content {
+    width: 750px !important;
+    margin: 0px auto;
+    margin-bottom: 100px;
+    background-color: white;
+    color: #333;
+  }
+
+  .elltwo div.marquee {
+    color: #333;
+    position: fixed;
+    margin: 5px;
+  }
+}
