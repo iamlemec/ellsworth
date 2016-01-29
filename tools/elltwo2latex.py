@@ -87,15 +87,17 @@ class EllsworthParser:
     preamble += '\n\n'
     preamble += '\n'.join(preamble_inserts) + '\n\n'
     preamble += environs + '\n'
-    if len(self.title): preamble += '\\title{' + self.title + '}\n'
-    if len(self.author): preamble += '\\author{' + self.author + '}\n'
-    preamble += '\\date{}\n'
 
     # generate whole document
     document = ''
     document += '\\documentclass{article}\n\n' + preamble + '\n\n' + '\\begin{document}\n\n'
     document += '\n'.join(document_inserts) + '\n\n'
-    if len(self.title): document += '\\maketitle'
+    if len(self.title) or len(self.author):
+      title_text = '\\begin{center}\n'
+      if len(self.title): title_text += '{\\LARGE \\bf %s}\n' % self.title
+      if len(self.author): title_text += '\n{\\large \\bf %s}\n' % self.author
+      title_text += '\\vspace{0.8cm}\n\\end{center}\n\n'
+      document += title_text
     document += body + '\n\\end{document}\n'
     document = re.sub('\n[\n]+','\n\n',document)
     return document
