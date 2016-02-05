@@ -132,12 +132,6 @@ function EllsworthBoot() {
     });
   }
 
-  // typeset inline - goes very last due to math in popups
-  function inline_marker(match, p1, p2, offset, string) {
-      return p1 + '<span class=\"tex\">' + p2 + '</span>';
-  }
-  var inline_re = /([^\\])\$([^\$]*)\$/g;
-
   // find outer box
   elltwo_box = $(".elltwo");
   outer_box = $(".elltwo div.content");
@@ -206,8 +200,20 @@ function EllsworthBoot() {
 
   console.log('marking latex spans');
 
-  // replace dollars with tex spans
-  outer_box.html(outer_box.html().replace(inline_re,inline_marker));
+  // replace dollars with tex spans and unescape remaining
+  // goes very last due to math in popups
+  function inline_marker(match, p1, p2, offset, string) {
+    return p1 + '<span class=\"tex\">' + p2 + '</span>';
+  }
+  var inline_re = /([^\\])\$([^\$]*)\$/g;
+
+  function dollar_signs(match, p1, p2, offset, string) {
+    return p1 + p2;
+  }
+  var dollar_re = /([^\\]?)\\(\$)/g;
+
+  outer_box.html(outer_box.html().replace(inline_re,inline_marker)
+                                 .replace(dollar_re,dollar_signs));
 
   console.log('handling environments');
 
