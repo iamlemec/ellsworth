@@ -136,7 +136,7 @@ function EllsworthBoot() {
   function inline_marker(match, p, offset, string) {
       return '<span class=\"tex\">' + p + '</span>';
   }
-  var inline_re = /\$([^\$]*)\$/g;
+  var inline_re = /(?<!\\)\$([^\$]*)\$/g;
 
   // find outer box
   elltwo_box = $(".elltwo");
