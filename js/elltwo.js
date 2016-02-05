@@ -133,8 +133,8 @@ function EllsworthBoot() {
   }
 
   // typeset inline - goes very last due to math in popups
-  function inline_marker(match, p, offset, string) {
-      return '<span class=\"tex\">' + p + '</span>';
+  function inline_marker(match, p1, p2, offset, string) {
+      return p1 + '<span class=\"tex\">' + p2 + '</span>';
   }
   var inline_re = /([^\\])\$([^\$]*)\$/g;
 
