@@ -4,11 +4,10 @@
 }
 
 .elltwo * {
-  line-height: 160%;
+  line-height: 150%;
 }
 
 .elltwo p {
-  margin-top: 20px;
 }
 
 .elltwo a {
@@ -20,7 +19,8 @@
 }
 
 .elltwo header {
-  margin-bottom: 80px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .elltwo header h1,h2,h3,h4,h5,h6
@@ -41,8 +41,6 @@
 }
 
 .elltwo div.equation_box {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 .elltwo div.equation_inner {

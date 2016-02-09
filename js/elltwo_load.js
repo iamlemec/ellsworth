@@ -43,7 +43,7 @@ function ElltwoAutoload(opts) {
   if ("theme" in opts) {
     theme = opts["theme"];
   } else {
-    theme = "shakirm";
+    theme = "plain";
   }
   loadCSS("../css/"+theme+".css");
 

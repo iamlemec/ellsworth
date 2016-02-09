@@ -19,12 +19,11 @@
 
 @media only screen and (min-device-width: 800px) {
   .elltwo div.content {
-    width: 600px !important;
+    width: 660px !important;
     margin: 0px auto;
-    border-left: 1px solid #BBB;
-    border-right: 1px solid #BBB;
     background-color: white;
     color: #333;
+    text-align: justify;
   }
 
   .elltwo div.marquee {
