@@ -272,8 +272,8 @@ h = HTMLParser()
 latex_out = h.unescape(latex_out)
 
 # convert \lt to <, \gt to >, and % to \%
-latex_out = re.sub('\\\\lt([^a-zA-Z0-9]|$)','< ',latex_out)
-latex_out = re.sub('\\\\gt([^a-zA-Z0-9]|$)','> ',latex_out)
+latex_out = re.sub(r'([^\\]|^)\\lt([^a-zA-Z]|$)',r'\1<\2',latex_out)
+latex_out = re.sub(r'([^\\]|^)\\gt([^a-zA-Z]|$)',r'\1>\2',latex_out)
 
 # postprocess text
 
