@@ -25,7 +25,11 @@ function loadScript(url, callback) {
       callback();
     };
   }
-  script.src = prefix + url;
+  if (url.startsWith('http')) {
+    script.src = url;
+  } else {
+    script.src = prefix + url;
+  }
   headAppend(script);
 }
 
@@ -47,8 +51,15 @@ function ElltwoAutoload(opts) {
   }
   loadCSS("../css/"+theme+".css");
 
+  var katex;
+  if ("katex" in opts) {
+    katex = opts["katex"];
+  } else {
+    katex = "../katex/katex.min.js";
+  }
+
   loadScript("jquery.min.js", function () {
-    loadScript("../katex/katex.min.js", function () {
+    loadScript(katex, function () {
       loadScript("elltwo.js", function () {
         ElltwoConfig(opts);
       });
