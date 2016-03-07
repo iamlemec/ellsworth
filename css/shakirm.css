@@ -23,13 +23,13 @@
 }
 
 .elltwo p {
-  text-align: left;
   font-size: 18px;
   line-height: 30px;
 }
 
 .elltwo li {
-  text-align: justify;
+  font-size: 18px;
+  line-height: 30px;
 }
 
 .elltwo div.content > section {
