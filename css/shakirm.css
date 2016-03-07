@@ -5,13 +5,27 @@
 }
 
 .elltwo header {
-  border-bottom: 1px solid #BBB;
+  /*border-bottom: 1px solid #BBB;*/
   padding-bottom: 20px;
   margin-bottom: 30px;
 }
 
+.elltwo h1 {
+  font-size: 40px;
+}
+
+.elltwo h2 {
+  font-size: 30px;
+}
+
+.elltwo h3 {
+  font-size: 22px;
+}
+
 .elltwo p {
-  text-align: justify;
+  text-align: left;
+  font-size: 18px;
+  line-height: 30px;
 }
 
 .elltwo li {
@@ -19,7 +33,7 @@
 }
 
 .elltwo div.content > section {
-  border-bottom: 1px solid #BBB;
+  /*border-bottom: 1px solid #BBB;*/
 }
 
 .elltwo section > .title {
