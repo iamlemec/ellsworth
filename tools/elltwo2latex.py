@@ -9,8 +9,8 @@ from bs4 import BeautifulSoup, element
 from html.parser import HTMLParser
 
 preamble_inserts = ['\\linespread{1.4}',
-                   '\\setlength{\parindent}{0pt}',
-                   '\\setlength{\parskip}{10pt}']
+                    '\\setlength{\parindent}{0pt}',
+                    '\\setlength{\parskip}{10pt}']
 
 document_inserts = ['\\setlength{\\abovedisplayskip}{20pt}',
                     '\\setlength{\\belowdisplayskip}{20pt}']
@@ -28,6 +28,16 @@ def math_escape(math):
   math = re.sub('\\\\align','&',math)
   return math
 
+class Packages:
+  def __init__(self):
+    self.packages = set()
+
+  def __iter__(self):
+    return iter(sorted(self.packages,key=lambda x: x[0]))
+
+  def add(self,name,opts=''):
+    self.packages.add((name,opts))
+
 class EllsworthParser:
   def __init__(self):
     self.clear()
@@ -37,7 +47,7 @@ class EllsworthParser:
     self.author = ''
     self.abstract = ''
     self.biblio = ''
-    self.packages = set()
+    self.packages = Packages()
 
   def parse_soup(self,soup):
     # init
@@ -46,7 +56,10 @@ class EllsworthParser:
     head = html.head
     body = html.body
     for pkg in base_packages:
-      self.packages.add(pkg)
+      if type(pkg) is str:
+        self.packages.add(pkg)
+      else:
+        self.packages.add(pkg[0],opts=pkg[1])
 
     # parse config
     conf = {}
@@ -71,7 +84,7 @@ class EllsworthParser:
     # bibliography
     if 'biblio' in conf:
       self.biblio = conf['biblio'].split('.')[0]
-      self.packages.add(('natbib','round'))
+      self.packages.add('natbib',opts='round')
 
     # parse body
     self.sub_level = 0
@@ -79,11 +92,11 @@ class EllsworthParser:
 
     # make preamble info
     preamble = ''
-    for pkg in self.packages:
-      if type(pkg) == str:
-        preamble += '\\usepackage{' + pkg +'}\n'
-      elif type(pkg) in [list,tuple] and len(pkg) == 2:
-        preamble += '\\usepackage[' + pkg[1] + ']{' + pkg[0] + '}\n'
+    for (pkg,opts) in self.packages:
+      preamble += '\\usepackage'
+      if len(opts) > 0:
+        preamble += '[' + opts + ']'
+      preamble += '{' + pkg + '}\n'
     preamble += '\n\n'
     preamble += '\n'.join(preamble_inserts) + '\n\n'
     preamble += environs + '\n'
